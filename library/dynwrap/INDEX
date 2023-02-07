@@ -1,0 +1,120 @@
+.method_process_definition
+                        Method process definition
+add_attraction          Add attraction of cells using RNA velocity
+add_branch_trajectory   Construct a trajectory given its branch network
+                        and the pseudotime of the cells on one of the
+                        branches.
+add_cell_graph          Constructs a trajectory using a graph between
+                        cells, by mapping cells onto a set of backbone
+                        cells.
+add_cell_waypoints      Add or select waypoint cells of a trajectory
+add_cluster_graph       Constructs a trajectory using a cell grouping
+                        and a network between groups. Will use an
+                        existing grouping if it is present in the
+                        dataset.
+add_cyclic_trajectory   Constructs a circular trajectory using the
+                        pseudotime values of each cell.
+add_dimred              Add or create a dimensionality reduction
+add_dimred_projection   Constructs a trajectory by projecting cells
+                        within a dimensionality reduction
+add_end_state_probabilities
+                        Constructs a multifurcating trajectory using
+                        end state probabilities
+add_expression          Add count and normalised expression values to a
+                        dataset
+add_feature_importance
+                        Add a feature importance to a dataset
+add_grouping            Add a cell grouping to a dataset
+add_linear_trajectory   Constructs a linear trajectory using pseudotime
+                        values
+add_prior_information   Add or compute prior information for a
+                        trajectory
+add_regulatory_network
+                        Add a GRN to a dynwrap object
+add_root                Root the trajectory
+add_tde_overall         Add information on overall differentially
+                        expressed features
+add_timings             Add timings to a trajectory
+add_trajectory          Construct a trajectory given its milestone
+                        network and milestone percentages or
+                        progressions
+allowed_inputs          All allowed inputs for a TI method
+allowed_outputs         All allowed outputs for a TI method
+calculate_attraction    Calculate the attraction of cells to other
+                        cells using velocity
+calculate_average_by_group
+                        Calculate average values of a matrix
+calculate_geodesic_distances
+                        Calculate geodesic distances between cells in a
+                        trajectory
+calculate_pseudotime    Add or calculate pseudotime as distance from
+                        the root
+calculate_trajectory_dimred
+                        Layout the trajectory and its cells in 2
+                        dimensions using a graph layout
+classify_milestone_network
+                        Classify a milestone network
+convert_definition      Convert a definition loaded in from a yaml
+convert_milestone_percentages_to_progressions
+                        Conversion between milestone percentages and
+                        progressions
+convert_progressions_to_milestone_percentages
+                        Conversion between milestone percentages and
+                        progressions
+create_ti_method_container
+                        Create a TI method from a docker / singularity
+                        container
+create_ti_method_definition
+                        Create a TI method from a local method
+                        definition file
+create_ti_method_r      Create a TI method from an R function wrapper
+def_author              Meta information on an author
+def_container           Meta information on the container in which the
+                        wrapper resides
+def_manuscript          Meta information on the manuscript
+def_method              Define meta information on the TI method.
+def_package             Meta information on the package in which the TI
+                        function resides
+def_parameters          Meta information on the parameters of the TI
+                        method
+def_wrapper             Meta information on the wrapper
+definition              Create a definition
+dynwrap                 Inferring and adapting single-cell trajectories
+example_dataset         Example dataset
+example_trajectory      Example trajectory
+flip_edges              Flip a set of edges of the milestone network
+gather_cells_at_milestones
+                        Gather cells to their closest milestones
+generate_parameter_documentation
+                        Generate the parameter documentation of a
+                        method, use with @eval
+get_default_parameters
+                        Get the default parameters of a method
+get_ti_methods          Return all TI that are installed in one or more
+                        packages
+group_from_trajectory   Create a grouping from a trajectory
+infer_trajectories      Infer one or more trajectories from a
+                        single-cell dataset
+label_milestones        Label milestones either manually
+                        ('label_milestones') or using marker genes
+                        ('label_milestones_markers')
+prior_usages            Metadata on prior usages
+priors                  Metadata on priors
+project_trajectory      Project a trajectory onto a dimensionality
+                        reduction
+project_waypoints       Project waypoints of a trajectory (e.g.
+                        milestones) into a space defined by cells (e.g.
+                        expression or a dimensionality reduction)
+random_seed             Generate a random seed
+select_waypoints        Add or create waypoints to a trajectory
+simplify_igraph_network
+                        Simplify an igraph network such that
+                        consecutive linear edges are removed
+simplify_trajectory     Simplify a trajectory by removing transient
+                        milestones
+trajectory_type_dag     A DAG connecting different trajectory types
+trajectory_types        Metadata on the trajectory types
+wrap_data               A data wrapper for datasets and trajectories
+wrap_expression         Create a wrapper object with expression and
+                        counts
+wrapper_types           Metadata on wrapper types

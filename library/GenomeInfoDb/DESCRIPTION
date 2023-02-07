@@ -1,0 +1,38 @@
+Package: GenomeInfoDb
+Title: Utilities for manipulating chromosome names, including modifying
+        them to follow a particular naming style
+Description: Contains data and functions that
+	define and allow translation between different chromosome
+	sequence naming conventions (e.g., "chr1" versus "1"),
+	including a function that attempts to place sequence names in
+	their natural, rather than lexicographic, order.
+biocViews: Genetics, DataRepresentation, Annotation, GenomeAnnotation
+URL: https://bioconductor.org/packages/GenomeInfoDb
+Video: http://youtu.be/wdEjCYSXa7w
+BugReports: https://github.com/Bioconductor/GenomeInfoDb/issues
+Version: 1.32.4
+License: Artistic-2.0
+Encoding: UTF-8
+Author: Sonali Arora, Martin Morgan, Marc Carlson, H. Pagès
+Maintainer: Bioconductor Package Maintainer <maintainer@bioconductor.org>
+Depends: R (>= 4.0.0), methods, BiocGenerics (>= 0.37.0), S4Vectors (>=
+        0.25.12), IRanges (>= 2.13.12)
+Imports: stats, stats4, utils, RCurl, GenomeInfoDbData
+Suggests: GenomicRanges, Rsamtools, GenomicAlignments, GenomicFeatures,
+        TxDb.Dmelanogaster.UCSC.dm3.ensGene, BSgenome,
+        BSgenome.Scerevisiae.UCSC.sacCer2, BSgenome.Celegans.UCSC.ce2,
+        BSgenome.Hsapiens.NCBI.GRCh38, RUnit, BiocStyle, knitr
+VignetteBuilder: knitr
+Collate: utils.R rankSeqlevels.R NCBI-utils.R UCSC-utils.R
+        Ensembl-utils.R getChromInfoFromNCBI.R getChromInfoFromUCSC.R
+        getChromInfoFromEnsembl.R loadTaxonomyDb.R mapGenomeBuilds.R
+        seqinfo.R Seqinfo-class.R seqlevelsStyle.R seqlevels-wrappers.R
+        GenomeDescription-class.R zzz.R
+git_url: https://git.bioconductor.org/packages/GenomeInfoDb
+git_branch: RELEASE_3_15
+git_last_commit: 69df6a5
+git_last_commit_date: 2022-09-06
+Date/Publication: 2022-09-06
+NeedsCompilation: no
+Packaged: 2022-09-06 20:30:52 UTC; biocbuild
+Built: R 4.2.1; ; 2022-10-27 01:26:28 UTC; unix

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head><title>R: Immunoglobulin Somatic Hypermutation Analysis</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+<h1> Immunoglobulin Somatic Hypermutation Analysis
+<img class="toplogo" src="../../../doc/html/Rlogo.svg" alt="[R logo]" />
+</h1>
+<hr/>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
+</div><h2>Documentation for package &lsquo;shazam&rsquo; version 1.1.2</h2>
+
+<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+<li><a href="../doc/index.html">User guides, package vignettes and other documentation.</a></li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="MutabilityModel-class.html">as.data.frame-method</a></td>
+<td>S4 class defining a mutability model</td></tr>
+<tr><td style="width: 25%;"><a href="Baseline-class.html">Baseline</a></td>
+<td>S4 class defining a BASELINe (selection) object</td></tr>
+<tr><td style="width: 25%;"><a href="Baseline-class.html">Baseline-class</a></td>
+<td>S4 class defining a BASELINe (selection) object</td></tr>
+<tr><td style="width: 25%;"><a href="Baseline-class.html">Baseline-method</a></td>
+<td>S4 class defining a BASELINe (selection) object</td></tr>
+<tr><td style="width: 25%;"><a href="calcBaseline.html">calcBaseline</a></td>
+<td>Calculate the BASELINe PDFs (including for regions that include CDR3 and FWR4)</td></tr>
+<tr><td style="width: 25%;"><a href="calcExpectedMutations.html">calcExpectedMutations</a></td>
+<td>Calculate expected mutation frequencies of a sequence</td></tr>
+<tr><td style="width: 25%;"><a href="calcObservedMutations.html">calcObservedMutations</a></td>
+<td>Count the number of observed mutations in a sequence.</td></tr>
+<tr><td style="width: 25%;"><a href="calcTargetingDistance.html">calcTargetingDistance</a></td>
+<td>Calculates a 5-mer distance matrix from a TargetingModel object</td></tr>
+<tr><td style="width: 25%;"><a href="calculateMutability.html">calculateMutability</a></td>
+<td>Calculate total mutability</td></tr>
+<tr><td style="width: 25%;"><a href="MUTATION_SCHEMES.html">CHARGE_MUTATIONS</a></td>
+<td>Amino acid mutation definitions</td></tr>
+<tr><td style="width: 25%;"><a href="collapseClones.html">collapseClones</a></td>
+<td>Constructs effective clonal sequences for all clones</td></tr>
+<tr><td style="width: 25%;"><a href="consensusSequence.html">consensusSequence</a></td>
+<td>Construct a consensus sequence</td></tr>
+<tr><td style="width: 25%;"><a href="convertNumbering.html">convertNumbering</a></td>
+<td>convertNumbering: IMGT-Kabat number conversion</td></tr>
+<tr><td style="width: 25%;"><a href="createBaseline.html">createBaseline</a></td>
+<td>Creates a Baseline object</td></tr>
+<tr><td style="width: 25%;"><a href="createMutabilityMatrix.html">createMutabilityMatrix</a></td>
+<td>Builds a mutability model</td></tr>
+<tr><td style="width: 25%;"><a href="createMutationDefinition.html">createMutationDefinition</a></td>
+<td>Creates a MutationDefinition</td></tr>
+<tr><td style="width: 25%;"><a href="createRegionDefinition.html">createRegionDefinition</a></td>
+<td>Creates a RegionDefinition</td></tr>
+<tr><td style="width: 25%;"><a href="createSubstitutionMatrix.html">createSubstitutionMatrix</a></td>
+<td>Builds a substitution model</td></tr>
+<tr><td style="width: 25%;"><a href="createTargetingMatrix.html">createTargetingMatrix</a></td>
+<td>Calculates a targeting rate matrix</td></tr>
+<tr><td style="width: 25%;"><a href="createTargetingModel.html">createTargetingModel</a></td>
+<td>Creates a TargetingModel</td></tr>
+<tr><td style="width: 25%;"><a href="DensityThreshold-class.html">DensityThreshold</a></td>
+<td>Output of the 'dens' method of findThreshold</td></tr>
+<tr><td style="width: 25%;"><a href="DensityThreshold-class.html">DensityThreshold-class</a></td>
+<td>Output of the 'dens' method of findThreshold</td></tr>
+<tr><td style="width: 25%;"><a href="DensityThreshold-class.html">DensityThreshold-method</a></td>
+<td>Output of the 'dens' method of findThreshold</td></tr>
+<tr><td style="width: 25%;"><a href="distToNearest.html">distToNearest</a></td>
+<td>Distance to nearest neighbor</td></tr>
+<tr><td style="width: 25%;"><a href="editBaseline.html">editBaseline</a></td>
+<td>Edit the Baseline object</td></tr>
+<tr><td style="width: 25%;"><a href="expectedMutations.html">expectedMutations</a></td>
+<td>Calculate expected mutation frequencies</td></tr>
+<tr><td style="width: 25%;"><a href="extendMutabilityMatrix.html">extendMutabilityMatrix</a></td>
+<td>Extends a mutability model to include Ns.</td></tr>
+<tr><td style="width: 25%;"><a href="extendSubstitutionMatrix.html">extendSubstitutionMatrix</a></td>
+<td>Extends a substitution model to include Ns.</td></tr>
+<tr><td style="width: 25%;"><a href="findThreshold.html">findThreshold</a></td>
+<td>Find distance threshold</td></tr>
+<tr><td style="width: 25%;"><a href="GmmThreshold-class.html">GmmThreshold</a></td>
+<td>Output of the 'gmm' method of findThreshold</td></tr>
+<tr><td style="width: 25%;"><a href="GmmThreshold-class.html">GmmThreshold-class</a></td>
+<td>Output of the 'gmm' method of findThreshold</td></tr>
+<tr><td style="width: 25%;"><a href="GmmThreshold-class.html">GmmThreshold-method</a></td>
+<td>Output of the 'gmm' method of findThreshold</td></tr>
+<tr><td style="width: 25%;"><a href="groupBaseline.html">groupBaseline</a></td>
+<td>Group BASELINe PDFs</td></tr>
+<tr><td style="width: 25%;"><a href="HH_S1F.html">HH_S1F</a></td>
+<td>Human heavy chain, silent, 1-mer, functional substitution model.</td></tr>
+<tr><td style="width: 25%;"><a href="HH_S5F.html">HH_S5F</a></td>
+<td>Human heavy chain, silent, 5-mer, functional targeting model.</td></tr>
+<tr><td style="width: 25%;"><a href="HKL_S1F.html">HKL_S1F</a></td>
+<td>Human kappa and lambda chain, silent, 1-mer, functional substitution model.</td></tr>
+<tr><td style="width: 25%;"><a href="HKL_S5F.html">HKL_S5F</a></td>
+<td>Human kappa and lambda light chain, silent, 5-mer, functional targeting model.</td></tr>
+<tr><td style="width: 25%;"><a href="MUTATION_SCHEMES.html">HYDROPATHY_MUTATIONS</a></td>
+<td>Amino acid mutation definitions</td></tr>
+<tr><td style="width: 25%;"><a href="IMGT_SCHEMES.html">IMGT_SCHEMES</a></td>
+<td>IMGT unique numbering schemes</td></tr>
+<tr><td style="width: 25%;"><a href="IMGT_SCHEMES.html">IMGT_V</a></td>
+<td>IMGT unique numbering schemes</td></tr>
+<tr><td style="width: 25%;"><a href="IMGT_SCHEMES.html">IMGT_VDJ</a></td>
+<td>IMGT unique numbering schemes</td></tr>
+<tr><td style="width: 25%;"><a href="IMGT_SCHEMES.html">IMGT_VDJ_BY_REGIONS</a></td>
+<td>IMGT unique numbering schemes</td></tr>
+<tr><td style="width: 25%;"><a href="IMGT_SCHEMES.html">IMGT_V_BY_CODONS</a></td>
+<td>IMGT unique numbering schemes</td></tr>
+<tr><td style="width: 25%;"><a href="IMGT_SCHEMES.html">IMGT_V_BY_REGIONS</a></td>
+<td>IMGT unique numbering schemes</td></tr>
+<tr><td style="width: 25%;"><a href="IMGT_SCHEMES.html">IMGT_V_BY_SEGMENTS</a></td>
+<td>IMGT unique numbering schemes</td></tr>
+<tr><td style="width: 25%;"><a href="makeAverage1merMut.html">makeAverage1merMut</a></td>
+<td>Make a 1-mer mutability model by averaging over a 5-mer mutability model</td></tr>
+<tr><td style="width: 25%;"><a href="makeAverage1merSub.html">makeAverage1merSub</a></td>
+<td>Make a 1-mer substitution model by averaging over a 5-mer substitution model</td></tr>
+<tr><td style="width: 25%;"><a href="makeDegenerate5merMut.html">makeDegenerate5merMut</a></td>
+<td>Make a degenerate 5-mer mutability model based on a 1-mer mutability model</td></tr>
+<tr><td style="width: 25%;"><a href="makeDegenerate5merSub.html">makeDegenerate5merSub</a></td>
+<td>Make a degenerate 5-mer substitution model based on a 1-mer substitution model</td></tr>
+<tr><td style="width: 25%;"><a href="makeGraphDf.html">makeGraphDf</a></td>
+<td>Build a data.frame from a ChangeoClone and an igraph object containing a clonal lineage</td></tr>
+<tr><td style="width: 25%;"><a href="minNumMutationsTune.html">minNumMutationsTune</a></td>
+<td>Parameter tuning for minNumMutations</td></tr>
+<tr><td style="width: 25%;"><a href="minNumSeqMutationsTune.html">minNumSeqMutationsTune</a></td>
+<td>Parameter tuning for minNumSeqMutations</td></tr>
+<tr><td style="width: 25%;"><a href="MK_RS1NF.html">MK_RS1NF</a></td>
+<td>Mouse kappa chain, replacement and silent, 1-mer, non-functional substitution model.</td></tr>
+<tr><td style="width: 25%;"><a href="MK_RS5NF.html">MK_RS5NF</a></td>
+<td>Mouse kappa light chain, replacement and silent, 5-mer, non-functional targeting model.</td></tr>
+<tr><td style="width: 25%;"><a href="MutabilityModel-class.html">MutabilityModel</a></td>
+<td>S4 class defining a mutability model</td></tr>
+<tr><td style="width: 25%;"><a href="MutabilityModel-class.html">MutabilityModel-class</a></td>
+<td>S4 class defining a mutability model</td></tr>
+<tr><td style="width: 25%;"><a href="MutabilityModel-class.html">MutabilityModel-method</a></td>
+<td>S4 class defining a mutability model</td></tr>
+<tr><td style="width: 25%;"><a href="MutationDefinition-class.html">MutationDefinition</a></td>
+<td>S4 class defining replacement and silent mutation definitions</td></tr>
+<tr><td style="width: 25%;"><a href="MutationDefinition-class.html">MutationDefinition-class</a></td>
+<td>S4 class defining replacement and silent mutation definitions</td></tr>
+<tr><td style="width: 25%;"><a href="MUTATION_SCHEMES.html">MUTATION_SCHEMES</a></td>
+<td>Amino acid mutation definitions</td></tr>
+<tr><td style="width: 25%;"><a href="observedMutations.html">observedMutations</a></td>
+<td>Calculate observed numbers of mutations</td></tr>
+<tr><td style="width: 25%;"><a href="Baseline-class.html">plot-method</a></td>
+<td>S4 class defining a BASELINe (selection) object</td></tr>
+<tr><td style="width: 25%;"><a href="DensityThreshold-class.html">plot-method</a></td>
+<td>Output of the 'dens' method of findThreshold</td></tr>
+<tr><td style="width: 25%;"><a href="GmmThreshold-class.html">plot-method</a></td>
+<td>Output of the 'gmm' method of findThreshold</td></tr>
+<tr><td style="width: 25%;"><a href="TargetingModel-class.html">plot-method</a></td>
+<td>S4 class defining a targeting model</td></tr>
+<tr><td style="width: 25%;"><a href="plotBaselineDensity.html">plotBaselineDensity</a></td>
+<td>Plots BASELINe probability density functions</td></tr>
+<tr><td style="width: 25%;"><a href="plotBaselineSummary.html">plotBaselineSummary</a></td>
+<td>Plots BASELINe summary statistics</td></tr>
+<tr><td style="width: 25%;"><a href="plotDensityThreshold.html">plotDensityThreshold</a></td>
+<td>Plot findThreshold results for the density method</td></tr>
+<tr><td style="width: 25%;"><a href="plotGmmThreshold.html">plotGmmThreshold</a></td>
+<td>Plot findThreshold results for the gmm method</td></tr>
+<tr><td style="width: 25%;"><a href="plotMutability.html">plotMutability</a></td>
+<td>Plot mutability probabilities</td></tr>
+<tr><td style="width: 25%;"><a href="plotSlideWindowTune.html">plotSlideWindowTune</a></td>
+<td>Visualize parameter tuning for sliding window approach</td></tr>
+<tr><td style="width: 25%;"><a href="plotTune.html">plotTune</a></td>
+<td>Visualize parameter tuning for minNumMutations and minNumSeqMutations</td></tr>
+<tr><td style="width: 25%;"><a href="MUTATION_SCHEMES.html">POLARITY_MUTATIONS</a></td>
+<td>Amino acid mutation definitions</td></tr>
+<tr><td style="width: 25%;"><a href="DensityThreshold-class.html">print-method</a></td>
+<td>Output of the 'dens' method of findThreshold</td></tr>
+<tr><td style="width: 25%;"><a href="GmmThreshold-class.html">print-method</a></td>
+<td>Output of the 'gmm' method of findThreshold</td></tr>
+<tr><td style="width: 25%;"><a href="MutabilityModel-class.html">print-method</a></td>
+<td>S4 class defining a mutability model</td></tr>
+<tr><td style="width: 25%;"><a href="RegionDefinition-class.html">RegionDefinition</a></td>
+<td>S4 class defining a region definition</td></tr>
+<tr><td style="width: 25%;"><a href="RegionDefinition-class.html">RegionDefinition-class</a></td>
+<td>S4 class defining a region definition</td></tr>
+<tr><td style="width: 25%;"><a href="setRegionBoundaries.html">setRegionBoundaries</a></td>
+<td>Build a RegionDefinition object that includes CDR3 and FWR4.</td></tr>
+<tr><td style="width: 25%;"><a href="shazam.html">shazam</a></td>
+<td>The shazam package</td></tr>
+<tr><td style="width: 25%;"><a href="shmulateSeq.html">shmulateSeq</a></td>
+<td>Simulate mutations in a single sequence</td></tr>
+<tr><td style="width: 25%;"><a href="shmulateTree.html">shmulateTree</a></td>
+<td>Simulate mutations in a lineage tree</td></tr>
+<tr><td style="width: 25%;"><a href="slideWindowDb.html">slideWindowDb</a></td>
+<td>Sliding window approach towards filtering sequences in a 'data.frame'</td></tr>
+<tr><td style="width: 25%;"><a href="slideWindowSeq.html">slideWindowSeq</a></td>
+<td>Sliding window approach towards filtering a single sequence</td></tr>
+<tr><td style="width: 25%;"><a href="slideWindowTune.html">slideWindowTune</a></td>
+<td>Parameter tuning for sliding window approach</td></tr>
+<tr><td style="width: 25%;"><a href="slideWindowTunePlot.html">slideWindowTunePlot</a></td>
+<td>slideWindowTunePlot - plotSlideWindowTune backward compatability</td></tr>
+<tr><td style="width: 25%;"><a href="summarizeBaseline.html">summarizeBaseline</a></td>
+<td>Calculate BASELINe summary statistics</td></tr>
+<tr><td style="width: 25%;"><a href="Baseline-class.html">summary-method</a></td>
+<td>S4 class defining a BASELINe (selection) object</td></tr>
+<tr><td style="width: 25%;"><a href="TargetingMatrix-class.html">TargetingMatrix</a></td>
+<td>S4 class defining a targeting matrix</td></tr>
+<tr><td style="width: 25%;"><a href="TargetingMatrix-class.html">TargetingMatrix-class</a></td>
+<td>S4 class defining a targeting matrix</td></tr>
+<tr><td style="width: 25%;"><a href="TargetingModel-class.html">TargetingModel</a></td>
+<td>S4 class defining a targeting model</td></tr>
+<tr><td style="width: 25%;"><a href="TargetingModel-class.html">TargetingModel-class</a></td>
+<td>S4 class defining a targeting model</td></tr>
+<tr><td style="width: 25%;"><a href="TargetingModel-class.html">TargetingModel-method</a></td>
+<td>S4 class defining a targeting model</td></tr>
+<tr><td style="width: 25%;"><a href="testBaseline.html">testBaseline</a></td>
+<td>Two-sided test of BASELINe PDFs</td></tr>
+<tr><td style="width: 25%;"><a href="U5N.html">U5N</a></td>
+<td>Uniform 5-mer null targeting model.</td></tr>
+<tr><td style="width: 25%;"><a href="MUTATION_SCHEMES.html">VOLUME_MUTATIONS</a></td>
+<td>Amino acid mutation definitions</td></tr>
+<tr><td style="width: 25%;"><a href="writeTargetingDistance.html">writeTargetingDistance</a></td>
+<td>Write targeting model distances to a file</td></tr>
+</table>
+</div></body></html>

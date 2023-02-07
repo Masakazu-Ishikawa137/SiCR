@@ -1,0 +1,14 @@
+importFrom(graphics, plot)
+importFrom("grDevices", "dev.interactive")
+importFrom("graphics", "axis", "legend", "lines", "matplot", "par")
+importFrom("stats", "as.dist", "cor", "cutree", "dist", "ftable", "hclust", "kmeans", "xtabs")
+import("class", "cluster", "methods")
+exportClasses(clValid)
+exportMethods(clusters, clusterMethods, nClusters, measNames, measures, optimalScores, plot, print, show, summary)
+S3method(print,sota)
+S3method(plot,sota)
+export(clValid, sota, dunn, connectivity, BHI, BSI, stability, matchGO, getRanksWeights, annotationListToMatrix, readAnnotationFile)
+
+
+
+

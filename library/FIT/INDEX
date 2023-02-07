@@ -1,0 +1,27 @@
+FIT                     FIT: a statistical modeling tool for
+                        transcriptome dynamics under fluctuating field
+                        conditions
+convert.attribute       Converts attribute data from a dataframe into
+                        an object.
+convert.expression      converts expression data from a dataframe into
+                        an object.
+convert.weather         Converts weather data from a dataframe into an
+                        object.
+convert.weight          Converts regression weight data from a
+                        dataframe into an object.
+fit.models              A raw API for fixing linear regression
+                        coefficients.
+init                    A raw API for initializing model parameters.
+load.attribute          Loads attribute data.
+load.expression         Loads expression data.
+load.weather            Loads weather data.
+load.weight             Loads regression weight data.
+make.recipe             Creates a recipe for training models.
+make.trivial.weights    Makes trivial weight data
+optim                   A raw API for optimizing model parameters.
+predict                 Predicts gene expressions using pretrained
+                        models.
+prediction.errors       Computes the prediction errors using the
+                        trained models.
+train                   Constructs models following a recipe.
+weather.entries         Supported weather factors.

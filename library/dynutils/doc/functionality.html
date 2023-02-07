@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Robrecht Cannoodt &amp; Wouter Saelens" />
+
+
+<title>Overview of the functionality provided by the dynutils package</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Overview of the functionality provided by the dynutils package</h1>
+<h4 class="author">Robrecht Cannoodt &amp; Wouter Saelens</h4>
+
+
+
+<!-- github markdown using
+rmarkdown::render("vignettes/functionality.Rmd", output_format = "github_document")
+-->
+<div id="table-of-contents" class="section level2">
+<h2>Table of contents</h2>
+<ul>
+<li>Manipulation of lists: <a href="#add_class-add-a-class-to-an-object"><code>add_class</code></a>, <a href="#extend_with-extend-list-with-more-data"><code>extend_with</code></a></li>
+<li>Calculations: <a href="#calculate_distance-compute-pairwise-distances-between-two-matrices"><code>calculate_distance</code></a>, <a href="#project_to_segments-project-a-set-of-points-to-to-set-of-segments"><code>project_to_segments</code></a>, <a href="#calculate_mean-calculate-a-weighted-mean-between-vectors-or-a-list-of-vectors-supports-the-arithmetic-geometric-and-harmonic-mean"><code>calculate_mean</code></a></li>
+<li>Manipulation of matrices: <a href="#expand_matrix-add-rows-and-columns-to-a-matrix"><code>expand_matrix</code></a></li>
+<li>Scaling of matrices and vectors: <a href="#scale_uniform-rescale-data-to-have-a-certain-center-and-max-range"><code>scale_uniform</code></a>, <a href="#scale_minmax-rescale-data-to-a---range"><code>scale_minmax</code></a>, <a href="#scale_quantile-cut-off-outer-quantiles-and-rescale-to-a---range"><code>scale_quantile</code></a></li>
+<li>Manipulation of functions: <a href="#inherit_default_params-have-one-function-inherit-the-default-parameters-from-other-functions"><code>inherit_default_params</code></a></li>
+<li>Manipulation of packages: <a href="#check_packages-easily-checking-whether-certain-packages-are-installed"><code>check_packages</code></a>, <a href="#install_packages-install-packages-taking-into-account-the-remotes-of-another"><code>install_packages</code></a></li>
+<li>Manipulation of vectors: <a href="#random_time_string-generates-a-string-very-likely-to-be-unique"><code>random_time_string</code></a></li>
+<li>Tibble helpers: <a href="#list_as_tibble-convert-a-list-of-lists-to-a-tibble-whilst-retaining-class-information"><code>list_as_tibble</code></a>, <a href="#tibble_as_list-convert-a-tibble-back-to-a-list-of-lists-whilst-retaining-class-information"><code>tibble_as_list</code></a>, <a href="#extract_row_to_list-extracts-one-row-from-a-tibble-and-converts-it-to-a-list"><code>extract_row_to_list</code></a>, <a href="#mapdf-apply-a-function-to-each-row-of-a-data-frame"><code>mapdf</code></a></li>
+<li>File helpers: <a href="#safe_tempdir-create-an-empty-temporary-directory-and-return-its-path"><code>safe_tempdir</code></a></li>
+<li>Assertion helpers: <a href="#all_in-check-whether-a-vector-are-all-elements-of-another-vector"><code>%all_in%</code></a>, <a href="#has_names-check-whether-an-object-has-certain-names"><code>%has_names%</code></a>, <a href="#is_single_numeric-check-whether-a-value-is-a-single-numeric"><code>is_single_numeric</code></a>, <a href="#is_bounded-check-whether-a-value-within-a-certain-interval"><code>is_bounded</code></a></li>
+</ul>
+</div>
+<div id="manipulation-of-lists" class="section level2">
+<h2>Manipulation of lists</h2>
+<div id="add_class-add-a-class-to-an-object" class="section level3">
+<h3><code>add_class</code>: Add a class to an object</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">important_number =</span> <span class="dv">42</span>) <span class="sc">%&gt;%</span> <span class="fu">add_class</span>(<span class="st">&quot;my_list&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>l</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $important_number</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 42</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;class&quot;)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;my_list&quot; &quot;list&quot;</span></span></code></pre></div>
+</div>
+<div id="extend_with-extend-list-with-more-data" class="section level3">
+<h3><code>extend_with</code>: Extend list with more data</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>l <span class="sc">%&gt;%</span> <span class="fu">extend_with</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">.class_name =</span> <span class="st">&quot;improved_list&quot;</span>, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">&quot;https://github.com/dynverse/dynverse&quot;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $important_number</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 42</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $url</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;https://github.com/dynverse/dynverse&quot;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;class&quot;)</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;improved_list&quot; &quot;my_list&quot;       &quot;list&quot;</span></span></code></pre></div>
+</div>
+</div>
+<div id="calculations" class="section level2">
+<h2>Calculations</h2>
+<div id="calculate_distance-compute-pairwise-distances-between-two-matrices" class="section level3">
+<h3><code>calculate_distance</code>: Compute pairwise distances between two matrices</h3>
+<p>See <code>?calculate_distance</code> for the list of currently supported distances.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="dv">30</span>), <span class="at">ncol =</span> <span class="dv">10</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="dv">50</span>), <span class="at">ncol =</span> <span class="dv">10</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate_distance</span>(x, y, <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          [,1]      [,2]      [,3]     [,4]      [,5]</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 1.184305 0.9571034 1.1284052 1.022205 1.5531565</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 1.078353 1.1378581 0.7076092 1.072164 0.8846294</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 1.335627 1.4116406 1.3526085 1.239853 1.6282805</span></span></code></pre></div>
+<p>For euclidean distances, this is similar to calculating:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.matrix</span>(<span class="fu">dist</span>(<span class="fu">rbind</span>(x, y)))[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="sc">-</span><span class="dv">1</span><span class="sc">:-</span><span class="dv">3</span>]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          4         5         6        7         8</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 1.184305 0.9571034 1.1284052 1.022205 1.5531565</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 1.078353 1.1378581 0.7076092 1.072164 0.8846294</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 1.335627 1.4116406 1.3526085 1.239853 1.6282805</span></span></code></pre></div>
+</div>
+<div id="project_to_segments-project-a-set-of-points-to-to-set-of-segments" class="section level3">
+<h3><code>project_to_segments</code>: Project a set of points to to set of segments</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="dv">0</span>, .<span class="dv">5</span>), <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>segfrom <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>segto <span class="ot">&lt;-</span> segfrom <span class="sc">/</span> <span class="dv">10</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">project_to_segments</span>(x, segfrom, segto)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> x[,<span class="dv">1</span>], <span class="at">xend =</span> fit<span class="sc">$</span>x_proj[,<span class="dv">1</span>], <span class="at">y =</span> x[,<span class="dv">2</span>], <span class="at">yend =</span> fit<span class="sc">$</span>x_proj[,<span class="dv">2</span>], <span class="at">colour =</span> <span class="st">&quot;projection&quot;</span>), <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(x[,<span class="dv">1</span>], x[,<span class="dv">2</span>], <span class="at">colour =</span> <span class="st">&quot;point&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> segfrom[,<span class="dv">1</span>], <span class="at">xend =</span> segto[,<span class="dv">1</span>], <span class="at">y =</span> segfrom[,<span class="dv">2</span>], <span class="at">yend =</span> segto[,<span class="dv">2</span>], <span class="at">colour =</span> <span class="st">&quot;segment&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="cn">NULL</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="cn">NULL</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">colour =</span> <span class="st">&quot;Object type&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(fit)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; List of 4</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ x_proj     : num [1:25, 1:2] 0 0 0 0.278 0 ...</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ distance   : num [1:25] 0.0068 0.01605 0.12144 0.00587 0.12604 ...</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ segment    : int [1:25] 1 2 1 3 1 4 2 3 2 2 ...</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ progression: num [1:25] 1 0.108 0.297 0.802 0 ...</span></span></code></pre></div>
+</div>
+<div id="calculate_mean-calculate-a-weighted-mean-between-vectors-or-a-list-of-vectors-supports-the-arithmetic-geometric-and-harmonic-mean" class="section level3">
+<h3><code>calculate_mean</code>: Calculate a (weighted) mean between vectors or a list of vectors; supports the arithmetic, geometric and harmonic mean</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate_arithmetic_mean</span>(<span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="fl">0.9</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.5</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate_geometric_mean</span>(<span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="fl">0.9</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.3556893</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate_harmonic_mean</span>(<span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="fl">0.9</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.2288136</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate_mean</span>(.<span class="dv">1</span>, .<span class="dv">5</span>, .<span class="dv">9</span>, <span class="at">method =</span> <span class="st">&quot;harmonic&quot;</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.2288136</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># example with multiple vectors</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate_arithmetic_mean</span>(<span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>), <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="dv">1</span>))</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.15 0.95</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># example with a list of vectors</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>vectors <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>), <span class="fu">c</span>(<span class="fl">0.4</span>, <span class="fl">0.5</span>))</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate_geometric_mean</span>(vectors)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.2000000 0.3162278</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># example of weighted means</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="fu">calculate_geometric_mean</span>(<span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">10</span>), <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="dv">20</span>), <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">2</span>), <span class="at">weights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>))</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.4736057 4.3491186</span></span></code></pre></div>
+</div>
+</div>
+<div id="manipulation-of-matrices" class="section level2">
+<h2>Manipulation of matrices</h2>
+<div id="expand_matrix-add-rows-and-columns-to-a-matrix" class="section level3">
+<h3><code>expand_matrix</code>: Add rows and columns to a matrix</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="dv">12</span>), <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;D&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;H&quot;</span>, <span class="st">&quot;I&quot;</span>)))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">expand_matrix</span>(x, letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="at">fill =</span> <span class="dv">0</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   A B C         D E         F G         H         I J</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; a 0 0 0 0.2937302 0 0.5033395 0 0.7581031 0.5476466 0</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; b 0 0 0 0.0000000 0 0.0000000 0 0.0000000 0.0000000 0</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; c 0 0 0 0.1912601 0 0.8770575 0 0.7244989 0.7117439 0</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; d 0 0 0 0.8864509 0 0.1891936 0 0.9437248 0.3889051 0</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; e 0 0 0 0.0000000 0 0.0000000 0 0.0000000 0.0000000 0</span></span></code></pre></div>
+</div>
+</div>
+<div id="scaling-of-matrices-and-vectors" class="section level2">
+<h2>Scaling of matrices and vectors</h2>
+<div id="scale_uniform-rescale-data-to-have-a-certain-center-and-max-range" class="section level3">
+<h3><code>scale_uniform</code>: Rescale data to have a certain center and max range</h3>
+<p>Generate a matrix from a normal distribution with a large standard deviation, centered at c(5, 5).</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">200</span><span class="sc">*</span><span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">5</span>), <span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p>Center the dataset at c(0, 0) with a minimum of c(-.5, -.5) and a maximum of c(.5, .5).</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x_scaled <span class="ot">&lt;-</span> <span class="fu">scale_uniform</span>(x, <span class="at">center =</span> <span class="dv">0</span>, <span class="at">max_range =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Check the ranges and verify that the scaling is correct.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ranges <span class="ot">&lt;-</span> <span class="fu">apply</span>(x_scaled, <span class="dv">2</span>, range)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ranges                   <span class="co"># should all lie between -.5 and .5</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            [,1] [,2]</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] -0.4061179 -0.5</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]  0.4061179  0.5</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colMeans</span>(ranges)         <span class="co"># should all be equal to 0</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0 0</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(ranges, <span class="dv">2</span>, diff)   <span class="co"># max should be 1</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.8122358 1.0000000</span></span></code></pre></div>
+</div>
+<div id="scale_minmax-rescale-data-to-a-0-1-range" class="section level3">
+<h3><code>scale_minmax</code>: Rescale data to a [0, 1] range</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x_scaled2 <span class="ot">&lt;-</span> <span class="fu">scale_minmax</span>(x)</span></code></pre></div>
+<p>Check the ranges and verify that the scaling is correct.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(x_scaled2, <span class="dv">2</span>, range)  <span class="co"># each column should be [0, 1]</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2]</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]    0    0</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]    1    1</span></span></code></pre></div>
+</div>
+<div id="scale_quantile-cut-off-outer-quantiles-and-rescale-to-a-0-1-range" class="section level3">
+<h3><code>scale_quantile</code>: Cut off outer quantiles and rescale to a [0, 1] range</h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x_scaled3 <span class="ot">&lt;-</span> <span class="fu">scale_quantile</span>(x, .<span class="dv">05</span>)</span></code></pre></div>
+<p>Check the ranges and verify that the scaling is correct.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(x_scaled3, <span class="dv">2</span>, range)   <span class="co"># each column should be [0, 1]</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2]</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]    0    0</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]    1    1</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(x_scaled2[,<span class="dv">1</span>], x_scaled3[,<span class="dv">1</span>]) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAC/VBMVEUAAAABAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw8QEBARERESEhITExMUFBQVFRUWFhYXFxcYGBgZGRkaGhobGxscHBwdHR0eHh4fHx8gICAhISEiIiIjIyMkJCQlJSUmJiYnJycoKCgpKSkqKiorKyssLCwtLS0uLi4vLy8wMDAxMTEyMjIzMzM0NDQ1NTU2NjY3Nzc4ODg5OTk6Ojo7Ozs8PDw9PT0+Pj4/Pz9AQEBBQUFCQkJDQ0NERERFRUVGRkZHR0dISEhJSUlKSkpLS0tMTExNTU1OTk5PT09QUFBSUlJTU1NUVFRVVVVWVlZXV1dYWFhZWVlaWlpbW1tcXFxdXV1eXl5fX19gYGBhYWFiYmJjY2NkZGRlZWVmZmZnZ2doaGhpaWlqampra2tsbGxtbW1ubm5vb29wcHBxcXFycnJzc3N0dHR1dXV2dnZ3d3d4eHh5eXl6enp7e3t8fHx9fX1+fn5/f3+AgICBgYGCgoKDg4OEhISFhYWGhoaHh4eIiIiJiYmKioqLi4uMjIyNjY2Ojo6Pj4+QkJCRkZGSkpKTk5OUlJSVlZWWlpaXl5eYmJiZmZmampqbm5ucnJydnZ2enp6fn5+goKChoaGioqKjo6OkpKSlpaWmpqanp6eoqKipqamqqqqrq6usrKytra2urq6vr6+wsLCxsbGysrKzs7O0tLS1tbW2tra3t7e4uLi5ubm6urq7u7u8vLy9vb2+vr6/v7/AwMDBwcHCwsLDw8PExMTFxcXGxsbHx8fIyMjJycnKysrLy8vMzMzNzc3Ozs7Pz8/Q0NDR0dHS0tLT09PU1NTV1dXW1tbX19fY2NjZ2dna2trb29vc3Nzd3d3e3t7f39/g4ODh4eHi4uLj4+Pk5OTl5eXm5ubn5+fo6Ojp6enq6urr6+vs7Ozt7e3u7u7v7+/w8PDx8fHy8vLz8/P09PT19fX29vb39/f4+Pj5+fn6+vr7+/v8/Pz9/f3+/v7///9IXiOcAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAYDUlEQVR4nO2dCXgURRbHm8uDQ40HIAisroi3IK6ru1lvXRVRYBHUIRgDSMIhGuVQlCOKEWQRiMh9KLKgIqdROSRICAgEFQiHAuEIZ0MyRyZDJpN533bXq57pnunKTIZMTyfU/9Ppqnr9+lV+VJ/VXSUAV4USYl0Bs4sDCiEOKIQ4oBDigEKIAwqhiAFlDVGU+tYQfQ1mGSJyGVxZl8Hn5TLvfAHNzVVSYgljFU8xw+AVXQxLmZNhKBfPMSxuZnjRzbCcY4YXyxTn12mCA9KE54CIOCAMzwERmQKQd+PKU/4FEQckawit7/jh8xKO+xZE1RNQuRe8FFA5qQn5j6ak8KcrBWjb+I5Y3xMJblgwXVmgqh+g7x5oUEsQLhWavFvignGXCnV7DG8iPPzMlVe/Wgynno+7OqVkRRuhzQrqHA6g1d90wvquSwfY/YayQFU7QGsFn9JdqwS1XoUn5cVLJLMDncPbxbpgfZdMBTieqCwAiuRLzQ12KrHIri9bIcNQgQvTwHSxsl1s6mx7P5C/FT2vAdTkOFlcRn7fI2sXDawMoMUymZ7KAuBscnJy6s9WKrHQqq+iswxDBC5FbBemQSxS5fqrgLQr7KQB1PgQWTQkv8PI6mcrBWjtWIA9g5QFqrrtYhergIxwLdUASoAH5AVS24bOldrFTiZ64OvpygJVzQAdU2DUFYQUhwsG1xOEJ/sKwl3/EIT/FMGRRwWhm21+c6H559S5EoBGHYYJ6UuTpPM7XRBVM0BuQqfevrNgdZPTfHm+ZHVbARxYF7u8KNtXyeugRXKIhSKU4xVieTW+UBwkAxqMaX6rgeFVgDwnvZ8//u+lNMcBYXg/oPGC0GqZ38IBYXgfoO/IAeiAz8IBYXgfoBQCaIbPwgFheB+g1wiguT4LB4ThKSDvwkdlPi2P+SwcEIangEaS9nNPtt/CAWF4BOQhfFqrLRwQhkdAIt5ieFUWDgjDE0BHHid84tUWDgjDE0D3ED4tf1VbOCAMLwP6lPC5skhj4YAwvATIhY+BWmgtHBCGlwBtwCN0H62FA8LwEqAfCZ86AVvlgDC8BKjwGhlQtwALB4ThJUD2Nc0FoZMnwMIBYXhxWjPh+m8PWIMsHBCG/5IcgPYFWzggotJrCaBJwRYOiGg7nuIzgi2GAJqdU0Il2kr0VWxlGJyRuNgZFgdrW/igVcgLttiZ4cViZauvnS+gOVvKqMTiMn2V2hkGt+hkWM45WNtiurhY4U8SPt11LE5mePGcklJ6kGvwLuaZI53in9DbID8GYXhRXJ+na+GAJDny7PwlTiJ9QOnS4ecjDkiWLiB8nSyH4cIBef9OAKUxXDigwXgJ9AnD5YIH5KhL+Fx1QGd1WRc8oA7YgN7nB2lZwYCOIp+L8jkgWcGAhiGgfvw6iCgIUC7yaVjKAREFAUpGQPP551CoQECbGtB3nzkgVCCg5tiA9nJAVAGAXkA+n/EvDhVpAR1BPs2AA1KkBdQCAY0ADkiRBhD9KKy2/LoUB4TSALoBAT1HwnNARGpAm2phA8LwUQdUNPXDTSSx/m1ZDpgq/S6nRjMC8l6ODegtDB91QIPmb0/cJSdO5ubmfpfigcSNublHqNGMgOYjnxto+GgD2psMkDlWyaXtgrLuKqsJAbkuwh2Mcok6oNUTAPYrn25u+wjg2CvT0paW0wITAhqADehvSvhoA5K/vjyZQDOp+dJt8gvrd6bOljIn2rdvn/STaDLtbYSvk+2vio2dHBAa0PIpAEd7YXoH/VYPtsrEnIsXL/5wk4tKtLn05bQyDCWineXC2laJ6GBYipVt4ScrQjfftsRihouDGV50KlsNo28+ezTAb3hCgAkLpR+bA+B4V2o13S62F/k08q0X9V3MYbHBlK+xet3+lH5XvAmweAS1mg7QkwjoK3/4qJ/mV/ZNS5Uq3HUP/PmSfO3uGtVreN8CajQboBzk86AqfPSvpG2HZS67nFBEO1BO5fvehzQbIPogerMqPL/VIEJAy5FPV5WBA0IhoNaET8t8dXgOiIgAsmED0nzTwwGhZEBnbiF8WmnDc0BEMqBnsQF9qQ1fpYAyBqm1k7EBlcwEaBbyGRcQvkoBPRTf3a/GS3WcA2QmQPV0jkBVDkjN5KHqBSgL+fzFqzVULaB8u2o9TYYh8wCy34iAVgaG5wdpIvfH9C41KDwHhOGvJHzq5geFr1JAW/r79CfDWyvTAFqCDej94PBVCuhw31qNn0GFcY4HEwHCJ/VxwY5VvYv1fYbhpS+zALKNJoBm6oSvYkDfVEtAq/CF1je9waYqP0iXB65eocwByEt6euo5dMPzsxjAJ3iE3qMbngMCVx0EpOvFAQE8inya6IfngER8maNWQbAJOCBJlqCeDE346AA6vfRH3XNCoGbGfjzp01djAzrKcinSN1gLQw9BzR5Peo0w1LItDEAmaEF3YgMaoLM6CR+dFmTNthWfZPirFXtAM5DPTawoVQvoiHq/OhLGThZzQB48QtcrCD0SZ6AujCeKLbEB3WbQxCPV7pn0CeQjZBsEqNr1ajRGPleZY24fHcUYkJU2oB2GATr4/ju5nnfb3fkO68FUgGIM6Gvk08CwyY/2Nbz8viuSm6WNaJag46ijGAPah4CKDQPU714XTBM2AOyuVcjw1iq2gDIfIQ+CksEwQE99CJAvyLHiwrmOjjGgdaQfo9UUOW0QoN5dpFBrvADHaleDFtSZ7F/rSdogQNvrdlwkLYrn3vkEwzlAsQSEI9gKS0jGqLPYry8Pk353XW5h/VUBiiEgO32OiLPo8OsgIjUgi+ZtIIMADYj36Vcdz2DFDtBBvEutT7MGAVr08cfjmjfrP7p7vdEiw1ur2AHCx2SCcr1m3C42o51cuxXXhdc/FjNAK+k1tNJVaBygLulk0cjkffMPCNq+ZuMA9SJvYe8RjkM4ihWgddjXfJGvr9k4QBvrJv6UO7NVB4ZzgGIEqLSe5hQGhp7mv7+rlnDZgODhl3UVI0BPI5++fouh10GuM+rcrv4JM/CIndqxY8ep6oKYAapN+FyqshgIaNPtF2Vl+Af+8iT+7hq8jiQtdrfboy6IFaB3g7sKjQO07bK378haEfeCks99C2DDCDnlsgQUQIwAlSGfWuqIxgFK6gOPZcGvgjIP1/eTAA6lyKl8y4AX0wr9Ba7Vq1eP23yOSrSf01eJjWFwiQ6GxVmxy08IaIjGhRledDIsDmZ4sURJ6Xyz2mGSDAgaKc+DvpoBcIq0nb1jznrGf+gviNVXz+uQzy0GhNL76vmt/8iAfqij7BiZk6UG4ztd7OvmLyi32WwztnmpRKdXX2XFDEO5WMKwuFnb8ogur7cV4dN0i8ZSytpWmVjKsLhcrPCiW3HW2cUK4rq3efP1+qOUfO5QgJwRBM4+gAMWVQHE5Bi0EBvQN1qLgWexg5Y2Nz3t7zP09DxQ/t5aCU9JduKp8okZvgIi4wE56dAlJ7SWGD4P2jPw1VnSFX2n3bC4V88JTl8BkfGA6E3YvwMsBgEa/KRPOxjeWhkOaAfyuTTwaYxBgGYN9ymf4a2V4YCuQkBvBloM38VWh/EtFBgPaDK9RiwNtBgIaNuUjIyM8ZdvZ3hrZTQgvAkTgvtcjAO0qvb1tVvfWcdSFuimK4MB9aENKPhxp3GALN0gdTx8bs6+edqA3g62GAfoyfGwKBGgsRkf2tPBperomIwDlNwNtt8G3mu2Mry1MhbQXxHQZzom4wDl1unjuc6S0NDG8NbKUECZ+CD6Oj2bgWexjQtg08PtVzCcA2QkoDy6g+l+LGogoJJl0lXQ7wzfQBkJCB/U1/tKz2YgIOvNDQAG1mbN1hEgAwHR774f13cxDtB7d8k9YjMvDq9bw0BA9C5+ur6LcYA6jiGWRmZ7w2wSvUZkuBgHaMCL8u/BWma7DroMAb0QbCEyDtCehi8tWffZ9S8xnANkGKBOyKd5hPPN6ynSs9ivHeJqt3qPFS9ARgGi40cKW0wASF5jzymGb6CMAvQX5PNsZHM96ytCQM5X0mCIUHsqwzlABgHaShuQ3QSAPmiaabvoy8mNwnuL0yBAccinVYSzhesrQkDPjIRl14GnoZneUUyip3i3GQB1HQK9e4L7kvBuNuZs9VCJxR59lToYhjLRGZ4L7YsXxnjcYgnD5RwzvHiOYSlhhhdLlZTOTL3zLk+uv+J44tXhncZmZTuoxCKHvuwsg0O0hufSF/nUkwxMFxszvGhjWKzMbYl2ZRWdvnlvevwwWNbmh7D4GLOL3YSAPo5wpt6odRyG8zWCEYBepHsYmA3QYwx/tQwARIeIFr4FDkiRBhAO4o/z7XJAKDWgZeq7eA4IpQbUFAG1JhkOCKUCtJoegbDKHBDKD8hL3xinr8JxQCg/IPrNylU0awZA9M0t6ynoxfBXK8qA3DjGuO+FXzMAenSYXIelzbMY3lpFGdA72ICaKQYzANp+961bTnatP84Mb3ccu5jwueioYjADIPCMvfjyJ/IZvoGKLqCnsAF94TOYAtDhp6+5/8a1EJ6iCqgQ++Kv8m/ZDIBmNnxR9E5q8IoJXsGj14hz/AYzAHqJvLaw/4HYH6SnIJ+WKoMZAFVO0QR0BZ7i96oMHBCKAGqLDehatYEDQsmAjtGbsO/VBg4IJQOij4G0HxdzQCgJ0GHagLRfp5sSkHfjStoRXZqzZI+0WLNgwQLl5ZioAaIDkF6tNZgS0Pjh8xLIv6NnyKjPE1YC9J0+b94v1BgtQHtoAwpYw4yATiS4YQF5rWv7AC/80gu8z6uG1o8WoA7I5/kAgxkBrUsH2P2GnMpbBXCoF4h9cpb4XjSNEiD62W5coMGMgJZMBTieqLi+Pwd2PZuxoMdPUqZoiKQNdiqxyK4vWyHDwHaxXoOA1gRti+3CDC/aIncpYo4n7ddiGVBPTO/rP7EcbAcB1vaRcmcsFstr64uoxLNF+ipkGdguA5HPi5VwYUYpFAsjdzkTBqC1YwH2YB/+Dwk5tPBUZ5qIyi7mboCAgvcNM+5iJxM9ZMZwgKMWMgT38gzpwKR06kcFEP3ssmewxYyAYEL60iTpND/q8Ff9pQugxXA66ZNFSQqXqAAqwOeIOm9qmxJQOV4oLhS3LiCAwL52uW+GhuicxciTxHE6BlMCqlBRAOSZkzKs913xn+vZOCCp9Dmp9bQ4rO/CAQF8Rw5AA3UswAFJOtdS5ymHTxwQfIun+KH6LhzQmYaET4MzOusDBwRwPTagUTqry7rgAW1HPjexvua74AH1REBfRTadun74mgTIil09ddwckKwgQOV3YAMaHdl06ozwNQjQKOTTL8L55hnhaw4g5yWET9swhioN1oUA6AtsQAkcEFUAoNP4ILr2aQ6IKgBQP2xA8qujHBCRFtBu5HOzXDcOiEgLaCQCyiQ15IBkaQDl4fh/7bGGHJAsDaB7sAHhuFccEJEa0GnkM4nWsOYAmp1TQiXaSvRVbGUYnH6XM/i2y7WhXewMi4MZXnQwLHa2S7GyVZ2PeisJ6Bc3lehw6+ucnWEoFYuV5BhsQMNo1sVyOSc6GZYSZnixhGFxFjMMLtGlpHQ+C6+cqmYX24vjIz6utOwatItVDaAbsAEt8tWQA5LlA7QW+TTzfT/DARH5ANHBpeb5a8gByVIA/Q/5NPK/2ccBESmAmiCgzaoackCyKKAhyKeVuoYckCwEZMXvmmsfVNeQA5KFgD7ABqQZpJ4DIiKADiGfeh5NDTkgWQTQTAT0usbCARERQK8pPRmaGnJAsmRA9JODgG+IOSAiCdB4gueywBF+OSAiCRDOhNUjqIYckCyvSAdPSg2qIQcky7sZBw6oEzRwLAdE5E3ABhQ8OjwHRHS6MeHzV50ackCyHsEG9IZODTkgSRuRz516NaxWgIqmfrhJk/IXnBegxxGQ3l9cvQANmr89cZc65S9QATo2/2ev1u/Ast/hz7RJTgpox7ID+5fJ8wKW56z4ffaoyXQ64n/q1rA6AdqbDJA5VpXyF4Af0Azpb31Q01RGSSW3S/9fslkuLn8BebxQbrtPUGu3bg2rE6DVEwD2D1Sl/AXgA3Sc/LHDVW5bfQiukwHNVXKzUzV83tOvYXUCJH+OeTJBlfIVqKYyXkD+2n+pJgFO9zGoI2dfVnI97tUAOmbAfMTnIb2pjAO1fArA0V6qlK+geO7cuWnYN59N/truqv7tL30M6ssd7e8oubefU/Ppx+gcZ/WaV23fPGtbleubzx4N8NtbqpS/AHy7mCde/nM3qtwctygQXpV3sYNK7uBPKj53B012iapWu5jDYoMpX6tS/gLwH6Stw+7rnK3xOzEgvsemp+KaDCsjx+68HvGJifEJeQDruvzzvuYNr7y/91uTWeOkVStAsLJvWqpU4a57lBRdEMVgMmx9xfJK2nZYvsLZ5VRSykIWBxRCHFAIcUAhxAGFEAcUQnPn/0K16udf9LVpPcOwedUGhiWHta3Nq7IZlo3M8Ks2MizZzPCrcpTUeQPaOVdR7w/m6mvOLIZhVlJ6ZV2mJ33MsMyezTBMSfpvZV0ykiYrSaXDLmJAfv1tQWU9Stovq6yL2D7cYYp9OtR+c+iVtMprvzOwiANSiwMKoegAKnBU1sNbwDpZMVVewDpZMVVWwDrxMVVaEHQTXQWAarY4oBCKGNDKpKQ1mpS/ILTLgt6WjDIo7ShpY0UeZZ9aXsOhLbfJ69pVBaFdusguUxTPClX0m8ZZHSVSQIcSz5ywnFal/AWhXdalWMU3FsORQW6321uRy8qRpZtfJWt8N0NaV10Q2kX+amboPsWzIpVPnaFxVkeJFNDcz4E+PKMpf0Fol8nLATLHwJaPQkVJ/RUghYzcPiszoCC0i6SsqT7PCrSrZ6cZGmf1NiIFNHYdwIopqpS/ILSLXTq9ZHwFy1OSesz0VOSSIAKM2SCnxqRaeq1RF4R2kdpQX6vPs0J9M0PjrN5GpIDela4x1nykSvkLQrtIVZ/X3wqZ00ut/VZW5NJJuhyYQFrApz94D3Q5qCoI7SLtlzP9nhVKAUSd1duIFNBH66Tm8Kkq5S8I7QL5Ken04umbtIpcLGekf8qfldyIJQEFoVz6HvB7VigFEHVWbyPiY9CXANO+VqX8BaFdjiWQ6Jullry0wkaXugOgv3ww8KySdsW0TH9BaBeAfRav37NCKYCoszpKpIAO9HZaXz4BJfuUFF2E5ZKBNyefpTmLB66vyGVZundXby+cOQIpCz1Hup9UCsJygS/+KxdQzwpFAEku1FkdJeLroMzk5HUAuzspKWURjsvr8qVJOrgm9kyqsM1B+ad9XpcOH4uGw4nhln5bfQVhucBgUh/qWaEIIMmFOquj8CvpEOKAQogDCiEOKIQ4oBDigEKIAwqhagBo+JPa/MfxAKPrNRQeOwuDrmibr7LMHwmwv+0Vg6AKVT0BfVl3sfeP61+BQd3VhoI2/eVF9xoEKOsUQGlWoS/v2Z1LHuef3U46h0//It9tEkCOrTjl6rFd5RKg5+XZPSY30QAqv6OuUOMAvfygF0bd6ut82NO6ziVxP0Jp71r1L54GxZ2FRsIDDhmQd2iduFrdysDaQbi0VWI8TJHnq/zgam0L2rYtvsYBKmw6c3f9Lb5sp0ftrq7tYGyLfWVTauVNbrgb8uovkAFNb7YTjrbrB/1b7vL+r1Y8WTm/VXLALgbP1DhAsDjunmH+3GMPFkCpDVpPBPCO21nwB4C1WYYMKD4pOzv77ThoJD8Be4oA+qbp/Y4LABA8dqWqd++3drXvHnrEUxc7Ub3Tnr31ygYEUIubH5L08GlBfufmXQnQmc7108rgAgB0oFGjher8wRn3XmNrJB9hCgpTWyw6VH4PAXSv/OldmbO0toxuSDxYb4sn82/UeEDeBwdMb3zWl/3XUoDfhZ0PJwGI9Rfd9h6AsykB9Prf3QBPd4Z2iQDuNvEw9EZ8BarGA5rYwu6NT/BlezR9/6N2t5flXPryuLtbO19uOfnTe5p1OSEBOtH0gfHPXbwFMut2H3//HfHQ5h8jJY0lgHbE+55R1zxAT38PkPfQH0rWObbTsyPPSH9zSofBp8H+7tMpeWufzZk1GODE4A695d7Pjb07T8saAE/Ih6SHniOAdt66VPEfNlH+rUmAzldkF5uYpy2seYC2ZqEqfH6vq0GPZJXs76MpcmY9UuMATXsf9UGlPce11dysytrftq3e/GQRywyATC0OKIQ4oBDigEKIAwohDiiEOKAQ4oBC6P8SvFt0CYupWwAAAABJRU5ErkJggg==" /><!-- --></p>
+</div>
+</div>
+<div id="manipulation-of-functions" class="section level2">
+<h2>Manipulation of functions</h2>
+<div id="inherit_default_params-have-one-function-inherit-the-default-parameters-from-other-functions" class="section level3">
+<h3><code>inherit_default_params</code>: Have one function inherit the default parameters from other functions</h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fun1 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">a =</span> <span class="dv">10</span>, <span class="at">b =</span> <span class="dv">7</span>) <span class="fu">runif</span>(a, <span class="sc">-</span>b, b)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>fun2 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">c =</span> <span class="dv">9</span>) <span class="dv">2</span><span class="sc">^</span>c</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>fun3 <span class="ot">&lt;-</span> <span class="fu">inherit_default_params</span>(</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">super =</span> <span class="fu">list</span>(fun1, fun2),</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">fun =</span> <span class="cf">function</span>(a, b, c) {</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">x =</span> <span class="fu">fun1</span>(a, b), <span class="at">y =</span> <span class="fu">fun2</span>(c))</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>fun3</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; function (a = 10, b = 7, c = 9) </span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; {</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     list(x = fun1(a, b), y = fun2(c))</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; }</span></span></code></pre></div>
+</div>
+</div>
+<div id="manipulation-of-packages" class="section level2">
+<h2>Manipulation of packages</h2>
+<div id="check_packages-easily-checking-whether-certain-packages-are-installed" class="section level3">
+<h3><code>check_packages</code>: Easily checking whether certain packages are installed</h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_packages</span>(<span class="st">&quot;SCORPIUS&quot;</span>, <span class="st">&quot;dynutils&quot;</span>, <span class="st">&quot;wubbalubbadubdub&quot;</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         SCORPIUS         dynutils wubbalubbadubdub </span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            FALSE             TRUE            FALSE</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">check_packages</span>(<span class="fu">c</span>(<span class="st">&quot;princurve&quot;</span>, <span class="st">&quot;mlr&quot;</span>, <span class="st">&quot;tidyverse&quot;</span>))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; princurve       mlr tidyverse </span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     FALSE     FALSE      TRUE</span></span></code></pre></div>
+</div>
+<div id="install_packages-install-packages-taking-into-account-the-remotes-of-another" class="section level3">
+<h3><code>install_packages</code>: Install packages taking into account the remotes of another</h3>
+<p>This is useful for installing suggested packages with GitHub remotes.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install_packages</span>(<span class="st">&quot;SCORPIUS&quot;</span>, <span class="at">package =</span> <span class="st">&quot;dynmethods&quot;</span>, <span class="at">prompt =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>&gt; install_packages(&quot;SCORPIUS&quot;, package = &quot;dynmethods&quot;, prompt = TRUE)
+Following packages have to be installed: SCORPIUS
+Do you want to install these packages? (y/yes/1 or n/no/2): 1
+Installing SCORPIUS
+...
+** testing if installed package can be loaded
+* DONE (SCORPIUS)
+Installed SCORPIUS
+[1] &quot;SCORPIUS&quot;</code></pre>
+</div>
+</div>
+<div id="manipulation-of-vectors" class="section level2">
+<h2>Manipulation of vectors</h2>
+<div id="random_time_string-generates-a-string-very-likely-to-be-unique" class="section level3">
+<h3><code>random_time_string</code>: Generates a string very likely to be unique</h3>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">random_time_string</span>(<span class="st">&quot;test&quot;</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;20221011_123239__test__syYeN626jT&quot;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">random_time_string</span>(<span class="st">&quot;test&quot;</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;20221011_123239__test__e6MCnXcJM7&quot;</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">random_time_string</span>(<span class="st">&quot;test&quot;</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;20221011_123239__test__9pFJ5mxS3R&quot;</span></span></code></pre></div>
+</div>
+</div>
+<div id="tibble-helpers" class="section level2">
+<h2>Tibble helpers</h2>
+<div id="list_as_tibble-convert-a-list-of-lists-to-a-tibble-whilst-retaining-class-information" class="section level3">
+<h3><code>list_as_tibble</code>: Convert a list of lists to a tibble whilst retaining class information</h3>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>li <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">a =</span> <span class="dv">1</span>, <span class="at">b =</span> log10, <span class="at">c =</span> <span class="st">&quot;parrot&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">add_class</span>(<span class="st">&quot;myobject&quot;</span>), </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">a =</span> <span class="dv">2</span>, <span class="at">b =</span> sqrt, <span class="at">c =</span> <span class="st">&quot;quest&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">add_class</span>(<span class="st">&quot;yourobject&quot;</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>tib <span class="ot">&lt;-</span> <span class="fu">list_as_tibble</span>(li)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>tib</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 4</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       a b      c      .object_class</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;list&gt; &lt;chr&gt;  &lt;list&gt;       </span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1 &lt;fn&gt;   parrot &lt;chr [2]&gt;    </span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2 &lt;fn&gt;   quest  &lt;chr [2]&gt;</span></span></code></pre></div>
+</div>
+<div id="tibble_as_list-convert-a-tibble-back-to-a-list-of-lists-whilst-retaining-class-information" class="section level3">
+<h3><code>tibble_as_list</code>: Convert a tibble back to a list of lists whilst retaining class information</h3>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>li <span class="ot">&lt;-</span> <span class="fu">tibble_as_list</span>(tib)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>li</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $a</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $b</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; function (x)  .Primitive(&quot;log10&quot;)</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $c</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;parrot&quot;</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;class&quot;)</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;myobject&quot; &quot;list&quot;    </span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $a</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $b</span></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; function (x)  .Primitive(&quot;sqrt&quot;)</span></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $c</span></span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;quest&quot;</span></span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;class&quot;)</span></span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;yourobject&quot; &quot;list&quot;</span></span></code></pre></div>
+</div>
+<div id="extract_row_to_list-extracts-one-row-from-a-tibble-and-converts-it-to-a-list" class="section level3">
+<h3><code>extract_row_to_list</code>: Extracts one row from a tibble and converts it to a list</h3>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_row_to_list</span>(tib, <span class="dv">2</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $a</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $b</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; function (x)  .Primitive(&quot;sqrt&quot;)</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $c</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;quest&quot;</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;class&quot;)</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;yourobject&quot; &quot;list&quot;</span></span></code></pre></div>
+</div>
+<div id="mapdf-apply-a-function-to-each-row-of-a-data-frame" class="section level3">
+<h3><code>mapdf</code>: Apply a function to each row of a data frame</h3>
+<p>The <code>mapdf</code> functions apply a function on each row of a data frame. They are based heavily on purrr’s <code>map</code> functions.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>tib <span class="sc">%&gt;%</span> <span class="fu">mapdf</span>(class)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;myobject&quot; &quot;list&quot;    </span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;yourobject&quot; &quot;list&quot;</span></span></code></pre></div>
+<p>Or use an anonymous function.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>tib <span class="sc">%&gt;%</span> <span class="fu">mapdf</span>(<span class="cf">function</span>(row) <span class="fu">paste0</span>(row<span class="sc">$</span><span class="fu">b</span>(row<span class="sc">$</span>a), <span class="st">&quot;_&quot;</span>, row<span class="sc">$</span>c))</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;0_parrot&quot;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;1.4142135623731_quest&quot;</span></span></code></pre></div>
+<p>Or even a formula.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>tib <span class="sc">%&gt;%</span> <span class="fu">mapdf</span>(<span class="sc">~</span> .<span class="sc">$</span>b)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; function (x)  .Primitive(&quot;log10&quot;)</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; function (x)  .Primitive(&quot;sqrt&quot;)</span></span></code></pre></div>
+<p>There are many more variations available. See <code>?mapdf</code> for more info.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>tib <span class="sc">%&gt;%</span> <span class="fu">mapdf_lgl</span>(<span class="sc">~</span> .<span class="sc">$</span>a <span class="sc">&gt;</span> <span class="dv">1</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE  TRUE</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>tib <span class="sc">%&gt;%</span> <span class="fu">mapdf_chr</span>(<span class="sc">~</span> <span class="fu">paste0</span>(<span class="st">&quot;~&quot;</span>, .<span class="sc">$</span>c, <span class="st">&quot;~&quot;</span>))</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;~parrot~&quot; &quot;~quest~&quot;</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>tib <span class="sc">%&gt;%</span> <span class="fu">mapdf_int</span>(<span class="sc">~</span> <span class="fu">nchar</span>(.<span class="sc">$</span>c))</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 6 5</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>tib <span class="sc">%&gt;%</span> <span class="fu">mapdf_dbl</span>(<span class="sc">~</span> .<span class="sc">$</span>a <span class="sc">*</span> <span class="fl">1.234</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1.234 2.468</span></span></code></pre></div>
+</div>
+</div>
+<div id="file-helpers" class="section level2">
+<h2>File helpers</h2>
+<div id="safe_tempdir-create-an-empty-temporary-directory-and-return-its-path" class="section level3">
+<h3><code>safe_tempdir</code>: Create an empty temporary directory and return its path</h3>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">safe_tempdir</span>(<span class="st">&quot;samson&quot;</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;/tmp/Rtmp2aL2UF/filef21d031cfe904/samson&quot;</span></span></code></pre></div>
+</div>
+</div>
+<div id="assertion-helpers" class="section level2">
+<h2>Assertion helpers</h2>
+<div id="all_in-check-whether-a-vector-are-all-elements-of-another-vector" class="section level3">
+<h3><code>%all_in%</code>: Check whether a vector are all elements of another vector</h3>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(assertthat)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_that</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">%all_in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_that</span>(<span class="st">&quot;a&quot;</span> <span class="sc">%all_in%</span> letters)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_that</span>(<span class="st">&quot;A&quot;</span> <span class="sc">%all_in%</span> letters)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error: &quot;A&quot; is missing 1 element from letters: &quot;A&quot;</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_that</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">%all_in%</span> letters)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error: 1:10 is missing 10 elements from letters: 1L, 2L, 3L, ...</span></span></code></pre></div>
+</div>
+<div id="has_names-check-whether-an-object-has-certain-names" class="section level3">
+<h3><code>%has_names%</code>: Check whether an object has certain names</h3>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_that</span>(li <span class="sc">%has_names%</span> <span class="st">&quot;a&quot;</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error: li is missing 1 name from &quot;a&quot;: &quot;a&quot;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_that</span>(li <span class="sc">%has_names%</span> <span class="st">&quot;c&quot;</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error: li is missing 1 name from &quot;c&quot;: &quot;c&quot;</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_that</span>(li <span class="sc">%has_names%</span> letters)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error: li is missing 26 names from letters: &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, ...</span></span></code></pre></div>
+</div>
+<div id="is_single_numeric-check-whether-a-value-is-a-single-numeric" class="section level3">
+<h3><code>is_single_numeric</code>: Check whether a value is a single numeric</h3>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_that</span>(<span class="fu">is_single_numeric</span>(<span class="dv">1</span>))</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_that</span>(<span class="fu">is_single_numeric</span>(<span class="cn">Inf</span>))</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_that</span>(<span class="fu">is_single_numeric</span>(<span class="fl">1.6</span>))</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_that</span>(<span class="fu">is_single_numeric</span>(<span class="cn">NA</span>))</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error: NA is not a single numeric value</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_that</span>(<span class="fu">is_single_numeric</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>))</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error: 1:6 is not a single numeric value</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_that</span>(<span class="fu">is_single_numeric</span>(<span class="st">&quot;pie&quot;</span>))</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error: &quot;pie&quot; is not a single numeric value</span></span></code></pre></div>
+</div>
+<div id="is_bounded-check-whether-a-value-within-a-certain-interval" class="section level3">
+<h3><code>is_bounded</code>: Check whether a value within a certain interval</h3>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_that</span>(<span class="fu">is_bounded</span>(<span class="dv">10</span>))</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_that</span>(<span class="fu">is_bounded</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">30</span>))</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_that</span>(<span class="fu">is_bounded</span>(<span class="cn">Inf</span>))</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error: Inf is not bounded by (-Inf,Inf)</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_that</span>(<span class="fu">is_bounded</span>(<span class="dv">10</span>, <span class="at">lower_bound =</span> <span class="dv">20</span>))</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error: 10 is not bounded by (20,Inf)</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="fu">assert_that</span>(<span class="fu">is_bounded</span>(</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="dv">10</span>,</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower_bound =</span> <span class="dv">20</span>,</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower_closed =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">upper_bound =</span> <span class="dv">30</span>,</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">upper_closed =</span> <span class="cn">FALSE</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error: 10 is not bounded by [20,30)</span></span></code></pre></div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

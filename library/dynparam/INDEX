@@ -1,0 +1,21 @@
+character_parameter     Define a character / string parameter
+collapse_set            A helper function for collapsing a set
+distribution            Defining, serialising and printing
+                        distributions
+dynparam                Creating meta-information for parameters
+expuniform_distribution
+                        Exponentially scaled uniform distribution.
+get_description         Get a description of the parameter
+integer_parameter       Define a integer parameter
+integer_range_parameter
+                        Define a integer range parameter
+logical_parameter       Define a logical parameter
+normal_distribution     Normal distribution
+numeric_parameter       Define a numeric parameter
+numeric_range_parameter
+                        Define a numeric range parameter
+parameter               Defining, serialising and printing parameters
+parameter_set           Parameter set helper functions
+range_parameter         Define a range parameter
+subset_parameter        Define a subset parameter
+uniform_distribution    Uniform distribution

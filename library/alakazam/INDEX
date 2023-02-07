@@ -1,0 +1,109 @@
+ABBREV_AA               Amino acid abbreviation translations
+AbundanceCurve-class    S4 class defining a clonal abundance curve
+ChangeoClone-class      S4 class defining a clone
+DEFAULT_COLORS          Default colors
+DiversityCurve-class    S4 class defining a diversity curve
+EdgeTest-class          S4 class defining edge significance
+Example10x              Small example 10x Genomics Ig V(D)J sequences
+                        from CD19+ B cells isolated from PBMCs of a
+                        healthy human donor. Down-sampled from data
+                        provided by 10x Genomics under a Creative
+                        Commons Attribute license, and processed with
+                        their Cell Ranger pipeline.
+ExampleDb               Example AIRR database
+ExampleDbChangeo        Example Change-O database
+ExampleTrees            Example Ig lineage trees
+IMGT_REGIONS            IMGT V-segment regions
+IUPAC_CODES             IUPAC ambiguous characters
+MRCATest-class          S4 class defining edge significance
+SingleDb                Single sequence AIRR database
+alakazam                The alakazam package
+aliphatic               Calculates the aliphatic index of amino acid
+                        sequences
+alphaDiversity          Calculate clonal alpha diversity
+aminoAcidProperties     Calculates amino acid chemical properties for
+                        sequence data
+baseTheme               Standard ggplot settings
+buildPhylipLineage      Infer an Ig lineage using PHYLIP
+bulk                    Calculates the average bulkiness of amino acid
+                        sequences
+calcCoverage            Calculate sample coverage
+calcDiversity           Calculate the diversity index
+charge                  Calculates the net charge of amino acid
+                        sequences.
+checkColumns            Check data.frame for valid columns and issue
+                        message if invalid
+collapseDuplicates      Remove duplicate DNA sequences and combine
+                        annotations
+combineIgphyml          Combine IgPhyML object parameters into a
+                        dataframe
+countClones             Tabulates clones sizes
+countGenes              Tabulates V(D)J allele, gene or family usage.
+countPatterns           Count sequence patterns
+cpuCount                Available CPU cores
+estimateAbundance       Estimates the complete clonal relative
+                        abundance distribution
+extractVRegion          Extracts FWRs and CDRs from IMGT-gapped
+                        sequences
+getAAMatrix             Build an AA distance matrix
+getDNAMatrix            Build a DNA distance matrix
+getMRCA                 Retrieve the first non-root node of a lineage
+                        tree
+getPathLengths          Calculate path lengths from the tree root
+getPositionQuality      Get a data.frame with sequencing qualities per
+                        position
+getSegment              Get Ig segment allele, gene and family names
+graphToPhylo            Convert a tree in igraph 'graph' format to ape
+                        'phylo' format.
+gravy                   Calculates the hydrophobicity of amino acid
+                        sequences
+gridPlot                Plot multiple ggplot objects
+groupGenes              Group sequences by gene assignment
+isValidAASeq            Validate amino acid sequences
+junctionAlignment       Calculate junction region alignment properties
+makeChangeoClone        Generate a ChangeoClone object for lineage
+                        construction
+makeTempDir             Create a temporary folder
+maskPositionsByQuality
+                        Mask sequence positions with low quality
+maskSeqEnds             Masks ragged leading and trailing edges of
+                        aligned DNA sequences
+maskSeqGaps             Masks gap characters in DNA sequences
+nonsquareDist           Calculate pairwise distances between sequences
+padSeqEnds              Pads ragged ends of aligned DNA sequences
+pairwiseDist            Calculate pairwise distances between sequences
+pairwiseEqual           Calculate pairwise equivalence between
+                        sequences
+permuteLabels           Permute the node labels of a tree
+phyloToGraph            Convert a tree in ape 'phylo' format to igraph
+                        'graph' format.
+plotAbundanceCurve      Plots a clonal abundance distribution
+plotDiversityCurve      Plot the results of alphaDiversity
+plotDiversityTest       Plot the results of diversity testing
+plotEdgeTest            Plot the results of an edge permutation test
+plotMRCATest            Plot the results of a founder permutation test
+plotSubtrees            Plots subtree statistics for multiple trees
+polar                   Calculates the average polarity of amino acid
+                        sequences
+progressBar             Standard progress bar
+rarefyDiversity         Generate a clonal diversity index curve
+readChangeoDb           Read a Change-O tab-delimited database file
+readFastqDb             Load sequencing quality scores from a FASTQ
+                        file
+readIgphyml             Read in output from IgPhyML
+seqDist                 Calculate distance between two sequences
+seqEqual                Test DNA sequences for equality.
+sortGenes               Sort V(D)J genes
+stoufferMeta            Weighted meta-analysis of p-values via
+                        Stouffer's method
+summarizeSubtrees       Generate subtree summary statistics for a tree
+tableEdges              Tabulate the number of edges between
+                        annotations within a lineage tree
+testDiversity           Pairwise test of the diversity index
+testEdges               Tests for parent-child annotation enchrichment
+                        in lineage trees
+testMRCA                Tests for MRCA annotation enrichment in lineage
+                        trees
+translateDNA            Translate nucleotide sequences to amino acids
+translateStrings        Translate a vector of strings
+writeChangeoDb          Write a Change-O tab-delimited database file

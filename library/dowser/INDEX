@@ -1,0 +1,87 @@
+BiopsyTrees             Example Ig lineage trees with biopsy
+                        reconstructions.
+ExampleAirr             Example AIRR database
+ExampleClones           Example Ig lineage trees
+ExampleDbChangeo        Example Change-O database
+IsotypeTrees            Example Ig lineage trees with isotype
+                        reconstructions.
+TimeTrees               Example Ig lineage trees sampled over time.
+airrClone-class         S4 class defining a clone in Dowser
+bootstrapTrees          Deprecated! Please use findSwitches instead.
+buildClonalGermline     'buildClonalGermline' Determine consensus clone
+                        sequence and create germline for clone
+buildGermline           'buildGermline' reconstruct germline segments
+                        from alignment data
+buildIgphyml            Wrapper to build IgPhyML trees and infer
+                        intermediate nodes
+buildPML                Wrapper for phangorn::optim.pml
+buildPhylo              Wrapper for alakazam::buildPhylipLineage
+buildPratchet           Wrapper for phangorn::pratchet
+collapseNodes           Collapse internal nodes with the same predicted
+                        sequence
+colorTrees              Get a color palette for a predefined set of
+                        trait values
+condenseTrees           Condense a set of equally parsimonious node
+                        labels into a single tree
+correlationTest         Run date randomization test for temporal signal
+                        on a set of trees.
+createGermlines         createGermlines Determine consensus clone
+                        sequence and create germline for clone
+downsampleClone         'downsampleClone' Down-sample clone to maximum
+                        tip/switch ratio
+dowser                  The dowser package
+findSwitches            Create a bootstrap distribution for clone
+                        sequence alignments, and estimate trees for
+                        each bootstrap replicate.
+formatClones            Generate an ordered list of airrClone objects
+                        for lineage construction
+getDivergence           Get divergence from root of tree for each tip
+getGermline             getGermline get germline segment from specified
+                        receptor and segment
+getNodeSeq              Return IMGT gapped sequence of specified tree
+                        node
+getPalette              Get a color palette for a predefined set of
+                        trait values
+getSeq                  Deprecated! Use getNodeSeq
+getSubclones            Define subclones based on light chain
+                        rearrangements
+getTrees                Estimate lineage tree topologies, branch
+                        lengths, and internal node states if desired
+makeAirrClone           Generate a airrClone object for lineage
+                        construction
+makeModelFile           Make a parsimony model file
+maskCodons              'maskCodons' Masks codons split by insertions
+maskSequences           'maskSequences' Mask codons split by insertions
+                        in V gene
+plotTrees               Plot a tree with colored internal node labels
+                        using ggtree
+readFasta               Read a fasta file into a list of sequences
+                        'readFasta' reads a fasta file
+readIMGT                'readIMGT' read in IMGT database
+readLineages            Read in all trees from a lineages file
+readModelFile           Read in a parsimony model file
+reconIgPhyML            Do IgPhyML maximum parsimony reconstruction
+rerootTree              Reroot phylogenetic tree to have its germline
+                        sequence at a zero-length branch to a node
+                        which is the direct ancestor of the tree's UCA.
+                        Assigns 'uca' to be the ancestral node to the
+                        tree's germline sequence, as 'germid' as the
+                        tree's germline sequence ID.
+resolvePolytomies       Resolve polytomies to have the minimum number
+                        of single timepoint clades
+runCorrelationTest      Run correlationTest, based on
+                        https://doi.org/10.1111/2041-210X.12466
+scaleBranches           Scale branch lengths to represent either
+                        mutations or mutations per site.
+stitchRegions           stitchRegions Similar to stitchVDJ but with
+                        segment IDs instead of nulecotides
+stitchVDJ               stitchVDJ combines germline gene segments to a
+                        single string
+testPS                  Performs PS (parsimony score) test on switch
+                        data
+testSC                  Performs SC (switch count) test on switch data
+testSP                  Performs SP (switch proportion) test on switch
+                        data
+treesToPDF              Simple function for plotting a lot of trees
+                        into a pdf
+writeLineageFile        Write lineage file for IgPhyML use

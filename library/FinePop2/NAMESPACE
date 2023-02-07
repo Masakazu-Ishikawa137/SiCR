@@ -1,0 +1,5 @@
+export(globalFST, pop_specificFST, pop_pairwiseFST, locus_specificFST)
+export(GLS)
+export(read.GENEPOP, clip.GENEPOP)
+importFrom("stats", "optim", "cov", "pnorm", "terms", "var")
+importFrom("utils", "flush.console")

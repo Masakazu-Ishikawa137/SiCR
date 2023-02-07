@@ -1,0 +1,45 @@
+add_class               Add class to object whilst keeping the old
+                        classes
+all_in                  Check whether a vector are all elements of
+                        another vector
+apply_minmax_scale      Apply a nubnax scale.
+apply_quantile_scale    Apply a quantile scale.
+apply_uniform_scale     Apply a uniform scale
+calculate_distance      Calculate (column-wise) distances/similarity
+                        between two matrices
+calculate_mean          Calculate a (weighted) mean between vectors or
+                        a list of vectors
+check_packages          Check which packages are installed
+dynutils                Common functionality for the dynverse packages
+euclidean_distance      These functions will be removed soon
+expand_matrix           Expand a matrix with given rownames and
+                        colnames
+extend_with             Extend an object
+extract_row_to_list     Extracts one row from a tibble and converts it
+                        to a list
+has_names               Check whether an object has certain names
+inherit_default_params
+                        Inherit default parameters from a list of super
+                        functions
+install_packages        Check package availability
+is_bounded              Check whether a value within a certain interval
+is_single_numeric       Check whether a value is a single numeric
+is_sparse               Check if an object is a sparse matrix
+list_as_tibble          Convert a list of lists to a tibble
+mapdf                   Apply a function to each row of a data frame
+project_to_segments     Project a set of points to to set of segments
+random_time_string      Generate random string
+read_h5                 Read/write R objects to a H5 file.
+recent_news             Print the most recent news
+safe_tempdir            Create an empty temporary directory and return
+                        its path
+scale_minmax            Rescale data to a [0, 1] range
+scale_quantile          Cut off outer quantiles and rescale to a [0, 1]
+                        range
+scale_uniform           Rescale data to have a certain center and max
+                        range.
+switch_devel            Switching of development stage within the
+                        dynverse
+test_h5_installation    Tests whether hdf5 is correctly installed and
+                        can load/write data
+tibble_as_list          Convert a tibble to a list of lists

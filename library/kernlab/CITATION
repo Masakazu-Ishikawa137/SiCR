@@ -1,0 +1,19 @@
+citHeader(sprintf("To cite package %s in publications use:",
+                  sQuote(meta$Package)))
+
+bibentry("Manual",
+         other = unlist(citation(auto = meta), recursive = FALSE))
+
+bibentry("Article",
+         title = "kernlab -- An {S4} Package for Kernel Methods in {R}",
+         author = c(person("Alexandros", "Karatzoglou"),
+	            person("Alex", "Smola"),
+		    person("Kurt", "Hornik"),
+		    person("Achim", "Zeileis")),
+         journal      = "Journal of Statistical Software",
+         year         = "2004",
+	 volume       = "11",
+	 number       = "9",
+	 pages        = "1--20",
+         doi = "10.18637/jss.v011.i09"
+         )

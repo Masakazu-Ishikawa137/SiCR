@@ -1,0 +1,100 @@
+Baseline-class          S4 class defining a BASELINe (selection) object
+DensityThreshold-class
+                        Output of the 'dens' method of findThreshold
+GmmThreshold-class      Output of the 'gmm' method of findThreshold
+HH_S1F                  Human heavy chain, silent, 1-mer, functional
+                        substitution model.
+HH_S5F                  Human heavy chain, silent, 5-mer, functional
+                        targeting model.
+HKL_S1F                 Human kappa and lambda chain, silent, 1-mer,
+                        functional substitution model.
+HKL_S5F                 Human kappa and lambda light chain, silent,
+                        5-mer, functional targeting model.
+IMGT_SCHEMES            IMGT unique numbering schemes
+MK_RS1NF                Mouse kappa chain, replacement and silent,
+                        1-mer, non-functional substitution model.
+MK_RS5NF                Mouse kappa light chain, replacement and
+                        silent, 5-mer, non-functional targeting model.
+MUTATION_SCHEMES        Amino acid mutation definitions
+MutabilityModel-class   S4 class defining a mutability model
+MutationDefinition-class
+                        S4 class defining replacement and silent
+                        mutation definitions
+RegionDefinition-class
+                        S4 class defining a region definition
+TargetingMatrix-class   S4 class defining a targeting matrix
+TargetingModel-class    S4 class defining a targeting model
+U5N                     Uniform 5-mer null targeting model.
+calcBaseline            Calculate the BASELINe PDFs (including for
+                        regions that include CDR3 and FWR4)
+calcExpectedMutations   Calculate expected mutation frequencies of a
+                        sequence
+calcObservedMutations   Count the number of observed mutations in a
+                        sequence.
+calcTargetingDistance   Calculates a 5-mer distance matrix from a
+                        TargetingModel object
+calculateMutability     Calculate total mutability
+collapseClones          Constructs effective clonal sequences for all
+                        clones
+consensusSequence       Construct a consensus sequence
+convertNumbering        convertNumbering: IMGT-Kabat number conversion
+createBaseline          Creates a Baseline object
+createMutabilityMatrix
+                        Builds a mutability model
+createMutationDefinition
+                        Creates a MutationDefinition
+createRegionDefinition
+                        Creates a RegionDefinition
+createSubstitutionMatrix
+                        Builds a substitution model
+createTargetingMatrix   Calculates a targeting rate matrix
+createTargetingModel    Creates a TargetingModel
+distToNearest           Distance to nearest neighbor
+editBaseline            Edit the Baseline object
+expectedMutations       Calculate expected mutation frequencies
+extendMutabilityMatrix
+                        Extends a mutability model to include Ns.
+extendSubstitutionMatrix
+                        Extends a substitution model to include Ns.
+findThreshold           Find distance threshold
+groupBaseline           Group BASELINe PDFs
+makeAverage1merMut      Make a 1-mer mutability model by averaging over
+                        a 5-mer mutability model
+makeAverage1merSub      Make a 1-mer substitution model by averaging
+                        over a 5-mer substitution model
+makeDegenerate5merMut   Make a degenerate 5-mer mutability model based
+                        on a 1-mer mutability model
+makeDegenerate5merSub   Make a degenerate 5-mer substitution model
+                        based on a 1-mer substitution model
+makeGraphDf             Build a data.frame from a ChangeoClone and an
+                        igraph object containing a clonal lineage
+minNumMutationsTune     Parameter tuning for minNumMutations
+minNumSeqMutationsTune
+                        Parameter tuning for minNumSeqMutations
+observedMutations       Calculate observed numbers of mutations
+plotBaselineDensity     Plots BASELINe probability density functions
+plotBaselineSummary     Plots BASELINe summary statistics
+plotDensityThreshold    Plot findThreshold results for the density
+                        method
+plotGmmThreshold        Plot findThreshold results for the gmm method
+plotMutability          Plot mutability probabilities
+plotSlideWindowTune     Visualize parameter tuning for sliding window
+                        approach
+plotTune                Visualize parameter tuning for minNumMutations
+                        and minNumSeqMutations
+setRegionBoundaries     Build a RegionDefinition object that includes
+                        CDR3 and FWR4.
+shazam                  The shazam package
+shmulateSeq             Simulate mutations in a single sequence
+shmulateTree            Simulate mutations in a lineage tree
+slideWindowDb           Sliding window approach towards filtering
+                        sequences in a 'data.frame'
+slideWindowSeq          Sliding window approach towards filtering a
+                        single sequence
+slideWindowTune         Parameter tuning for sliding window approach
+slideWindowTunePlot     slideWindowTunePlot - plotSlideWindowTune
+                        backward compatability
+summarizeBaseline       Calculate BASELINe summary statistics
+testBaseline            Two-sided test of BASELINe PDFs
+writeTargetingDistance
+                        Write targeting model distances to a file

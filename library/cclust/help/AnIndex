@@ -1,0 +1,7 @@
+cclust	cclust
+clustIndex	Rindexes
+hardcl	cclust
+kmeans	cclust
+neuralgas	cclust
+predict.cclust	predict.cclust
+print.cclust	cclust

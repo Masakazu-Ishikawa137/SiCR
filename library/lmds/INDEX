@@ -1,0 +1,4 @@
+cmdscale_landmarks      Perform MDS on landmarks and project other
+                        samples to the same space
+lmds                    Landmark MDS
+select_landmarks        Select landmarks from dataset

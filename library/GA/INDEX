@@ -1,0 +1,32 @@
+GA-package              Genetic Algorithms
+binary2decimal          Binary encoding of decimal numbers and vice
+                        versa.
+binary2gray             Gray encoding for binary strings
+de                      Differential Evolution via Genetic Algorithms
+de-class                Class "de"
+ga                      Genetic Algorithms
+ga-class                Class "ga"
+gaControl               A function for setting or retrieving defaults
+                        genetic operators
+gaMonitor               Monitor genetic algorithm evolution
+gaSummary               Summarize genetic algorithm evolution
+ga_Crossover            Crossover operators in genetic algorithms
+ga_Mutation             Mutation operators in genetic algorithms
+ga_Population           Population initialization in genetic algorithms
+ga_Selection            Selection operators in genetic algorithms
+ga_pmutation            Variable mutation probability in genetic
+                        algorithms
+gaisl                   Islands Genetic Algorithms
+gaisl-class             Class "gaisl"
+jet.colors              Colours palettes
+numericOrNA-class       Virtual Class "numericOrNA" - Simple Class for
+                        sub-assignment Values
+parNames                Parameters or decision variables names from an
+                        object of class 'ga-class'.
+persp3D                 Perspective plot with colour levels
+plot,de-method          Plot of Differential Evolution search path
+plot,ga-method          Plot of Genetic Algorithm search path
+plot,gaisl-method       Plot of Islands Genetic Algorithm search path
+summary,de-method       Summary for Differential Evolution
+summary,ga-method       Summary for Genetic Algorithms
+summary,gaisl-method    Summary for Islands Genetic Algorithms

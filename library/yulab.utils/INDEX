@@ -1,0 +1,13 @@
+CRANpkg                 print md text of package with link to homepage
+                        (CRAN or Bioconductor)
+Githubpkg               Githubpkg
+get_fun_from_pkg        get_fun_from_pkg
+install_zip             install_zip
+install_zip_gh          install_zip_gh
+is.installed            is.installed
+mypkg                   mypkg
+o                       o
+read.cb                 read.cb
+scihub_dl               download publication via scihub
+show_in_excel           show_in_excel
+str_wrap                str_wrap

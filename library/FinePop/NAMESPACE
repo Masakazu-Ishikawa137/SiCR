@@ -1,0 +1,8 @@
+export(EBFST, EBGstH, EBDJ)
+export(GstN, GstNC, GstH, DJ, thetaWC.pair)
+export(FstBoot, FstEnv)
+export(read.genepop, read.frequency, clip.genepop)
+S3method(summary, FstEnv)
+S3method(print, summary.FstEnv)
+importFrom("stats", "optim", "rgamma", "sd", "as.dist", "cov", "lm", "logLik", "pnorm", "vcov")
+importFrom("utils", "flush.console", "combn")

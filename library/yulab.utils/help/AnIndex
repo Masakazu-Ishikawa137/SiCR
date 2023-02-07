@@ -1,0 +1,13 @@
+Biocpkg	cran-bioc-pkg
+CRANpkg	cran-bioc-pkg
+get_fun_from_pkg	get_fun_from_pkg
+Githubpkg	Githubpkg
+install_zip	install_zip
+install_zip_gh	install_zip_gh
+is.installed	is.installed
+mypkg	mypkg
+o	o
+read.cb	read.cb
+scihub_dl	scihub-dl
+show_in_excel	show_in_excel
+str_wrap	str_wrap

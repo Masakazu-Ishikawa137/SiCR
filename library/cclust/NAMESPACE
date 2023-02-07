@@ -1,0 +1,7 @@
+useDynLib("cclust", .registration = TRUE, .fixes = "R_")
+
+importFrom("stats", "cov", "dist", "predict", "runif")
+
+export("cclust", "clustIndex")
+S3method("predict", "cclust")
+S3method("print", "cclust")

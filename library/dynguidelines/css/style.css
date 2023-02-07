@@ -1,0 +1,255 @@
+/*****************/
+/*** Title bar ***/
+/*****************/
+
+/* title */
+.navbar img {
+  max-height: 70px;
+}
+
+.navbar-header {
+  margin-right: 20px !important;
+}
+
+/* navbar elements */
+.navbar-nav>li>a {
+  padding-bottom: 25px;
+  padding-top: 25px;
+}
+
+.nav-highlight {
+  background-color:#9362e0;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+}
+
+.nav-highlight>a {
+  color: white!important;
+  font-weight: bold;
+}
+
+
+/*** collapse panels ***/
+.panel-heading {
+  transition: all 0.5s;
+}
+
+.panel-collapse > div {
+  padding: 10px 15px;
+  width:100%;
+}
+
+span.computed {
+  font-size: 0.8em;
+  font-variant: small-caps;
+  float:right;
+}
+
+div.computed {
+  opacity:0.5;
+}
+
+/* heading arrow */
+
+.panel-heading i {
+  transition: all 0.5s;
+  transform: rotate(0deg);
+}
+
+.panel-heading.collapsed i {
+	transform: rotate(-90deg);
+}
+
+/**********************/
+/***** Questions ******/
+/**********************/
+
+.shiny-input-container:not(.shiny-input-container-inline) {
+  width: auto !important;
+  max-width: 100%;
+}
+
+/* Header of panels */
+div.panel-heading {
+  cursor: pointer;
+}
+
+/* Category completion */
+.completed-category div.panel-heading {
+  background-color: #d0e0b6;
+}
+.completed-category div.panel-heading span:after {
+  float: right;
+  font-size: 0.8em;
+  font-variant: small-caps;
+  content: "adapted";
+}
+
+.default-category div.panel-heading {
+  background-color: #f1d4a5;
+}
+.default-category div.panel-heading span:after {
+  float: right;
+  font-size: 0.8em;
+  font-variant: small-caps;
+  content: "default";
+}
+
+.computed-category div.panel-heading {
+  background-color: #a5ccf1;
+}
+.computed-category div.panel-heading span:after {
+  float: right;
+  font-size: 0.8em;
+  font-variant: small-caps;
+  content: "computed";
+}
+
+/** Modifications to components **/
+
+/* Hiding ugly minor tick marks */
+.irs-grid-pol.small {
+    height: 0 !important;
+}
+
+/* Hide mispositioned spinners: the spinners are incorrectly displayed in the rstudio viewer and are thus hidden here */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/**************************/
+/***** Methods table ******/
+/**************************/
+
+tr.selected > td:first-of-type {
+  background-color: #333333;
+  color: white;
+}
+
+tr.selected {
+  background-color: #EEEEEE;
+}
+
+/* Headers */
+th.method-column-header {
+  vertical-align:bottom!important;
+  width: 10px;
+}
+
+th.method-column-header-category {
+  color: white;
+  text-align: center;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+}
+
+/* Cells */
+
+.table>tbody>tr>td, .table>tbody>tr>th {
+  padding: 8px 5px 8px 5px;
+  width: 1px;
+}
+
+/* Score */
+td > span.score {
+  padding-right: 3px;
+  padding-left: 3px;
+  display: block;
+  border: 1px solid #444444;
+}
+
+td > span.bar {
+  border-radius: 3px;
+}
+
+td > span.circle {
+  border-radius: 50%;
+}
+
+td > span.box {
+  text-align:center;
+}
+
+
+/***** Tooltips ******/
+
+.tooltippable {
+  text-decoration: dotted underline;
+}
+
+.tooltip-inner {
+  background-color: #EEE;
+  border: 1px solid black;
+  color: black;
+  max-width: 400px;
+  font-size: 14px;
+}
+
+.tooltip-inner img{
+  max-width: 380px;
+}
+
+
+/* Footer */
+.footer {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer img {
+  max-height: 75px;
+}
+
+
+
+/*** Arrow animation ***/
+
+.arrow4 {
+  animation: slide4 4s linear infinite;
+  animation-play-state: paused;
+}
+
+a:hover .arrow4, a.introjs-showElement .arrow4 {
+  animation-play-state: running;
+}
+
+@keyframes slide4 {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+/* Trajectory types */
+img.trajectory_type {
+  width:50px;
+  margin: -4px;
+}
+
+img.trajectory_type.inactive {
+  opacity:0.1;
+}
+
+
+
+/*** Tutorial ***/
+.introjs-helperNumberLayer {
+  background:#9362e0;
+}
+
+
+
+
+
+/*** Badges ***/
+
+.__dimensions_badge_embed__ {
+  display: inline !important;
+}

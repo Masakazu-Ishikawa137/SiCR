@@ -1,0 +1,3 @@
+rclipButton             Action button or action link to send
+                        information to clipboard
+rclipboardSetup         Include clipboard.js

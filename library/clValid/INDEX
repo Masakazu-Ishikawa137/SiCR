@@ -1,0 +1,16 @@
+BHI                     Biological Homogeneity Index
+BSI                     Biological Stability Index
+annotationListToMatrix
+                        Change annotation list to matrix
+clValid                 Validate Cluster Results
+clValid-class           Class "clValid"
+connectivity            Connectivity Measure
+dunn                    Dunn Index
+getRanksWeights         Extract ranks and weights from clValid object
+mouse                   Mouse Mesenchymal Cells
+plot.sota               Plot Function for a SOTA Object
+print.sota              Print Function for a SOTA Object
+readAnnotationFile      Read in biological annotation files from
+                        external file
+sota                    Self-organizing Tree Algorithm (SOTA)
+stability               Stability Measures

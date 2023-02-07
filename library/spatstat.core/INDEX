@@ -1,0 +1,636 @@
+AreaInter               The Area Interaction Point Process Model
+BadGey                  Hybrid Geyer Point Process Model
+CDF                     Cumulative Distribution Function From Kernel
+                        Density Estimate
+Concom                  The Connected Component Process Model
+DiggleGatesStibbard     Diggle-Gates-Stibbard Point Process Model
+DiggleGratton           Diggle-Gratton model
+Emark                   Diagnostics for random marking
+F3est                   Empty Space Function of a Three-Dimensional
+                        Point Pattern
+Fest                    Estimate the Empty Space Function or its Hazard
+                        Rate
+Fiksel                  The Fiksel Interaction
+Finhom                  Inhomogeneous Empty Space Function
+FmultiInhom             Inhomogeneous Marked F-Function
+G3est                   Nearest Neighbour Distance Distribution
+                        Function of a Three-Dimensional Point Pattern
+Gcom                    Model Compensator of Nearest Neighbour Function
+Gcross                  Multitype Nearest Neighbour Distance Function
+                        (i-to-j)
+Gdot                    Multitype Nearest Neighbour Distance Function
+                        (i-to-any)
+Gest                    Nearest Neighbour Distance Function G
+Geyer                   Geyer's Saturation Point Process Model
+Gfox                    Foxall's Distance Functions
+Ginhom                  Inhomogeneous Nearest Neighbour Function
+Gmulti                  Marked Nearest Neighbour Distance Function
+GmultiInhom             Inhomogeneous Marked G-Function
+Gres                    Residual G Function
+Hardcore                The Hard Core Point Process Model
+Hest                    Spherical Contact Distribution Function
+HierHard                The Hierarchical Hard Core Point Process Model
+HierStrauss             The Hierarchical Strauss Point Process Model
+HierStraussHard         The Hierarchical Strauss Hard Core Point
+                        Process Model
+Hybrid                  Hybrid Interaction Point Process Model
+Iest                    Estimate the I-function
+Jcross                  Multitype J Function (i-to-j)
+Jdot                    Multitype J Function (i-to-any)
+Jest                    Estimate the J-function
+Jinhom                  Inhomogeneous J-function
+Jmulti                  Marked J Function
+K3est                   K-function of a Three-Dimensional Point Pattern
+Kcom                    Model Compensator of K Function
+Kcross                  Multitype K Function (Cross-type)
+Kcross.inhom            Inhomogeneous Cross K Function
+Kdot                    Multitype K Function (i-to-any)
+Kdot.inhom              Inhomogeneous Multitype K Dot Function
+Kest                    K-function
+Kest.fft                K-function using FFT
+Kinhom                  Inhomogeneous K-function
+Kmark                   Mark-Weighted K Function
+Kmeasure                Reduced Second Moment Measure
+Kmodel                  K Function or Pair Correlation Function of a
+                        Point Process Model
+Kmodel.dppm             K-function or Pair Correlation Function of a
+                        Determinantal Point Process Model
+Kmodel.kppm             K Function or Pair Correlation Function of
+                        Cluster Model or Cox model
+Kmodel.ppm              K Function or Pair Correlation Function of
+                        Gibbs Point Process model
+Kmulti                  Marked K-Function
+Kmulti.inhom            Inhomogeneous Marked K-Function
+Kres                    Residual K Function
+Kscaled                 Locally Scaled K-function
+Ksector                 Sector K-function
+LambertW                Lambert's W Function
+Lcross                  Multitype L-function (cross-type)
+Lcross.inhom            Inhomogeneous Cross Type L Function
+Ldot                    Multitype L-function (i-to-any)
+Ldot.inhom              Inhomogeneous Multitype L Dot Function
+LennardJones            The Lennard-Jones Potential
+Lest                    L-function
+Linhom                  Inhomogeneous L-function
+MultiHard               The Multitype Hard Core Point Process Model
+MultiStrauss            The Multitype Strauss Point Process Model
+MultiStraussHard        The Multitype/Hard Core Strauss Point Process
+                        Model
+Ops.msr                 Arithmetic Operations on Measures
+Ord                     Generic Ord Interaction model
+OrdThresh               Ord's Interaction model
+PPversion               Transform a Function into its P-P or Q-Q
+                        Version
+PairPiece               The Piecewise Constant Pairwise Interaction
+                        Point Process Model
+Pairwise                Generic Pairwise Interaction model
+Penttinen               Penttinen Interaction
+Poisson                 Poisson Point Process Model
+SatPiece                Piecewise Constant Saturated Pairwise
+                        Interaction Point Process Model
+Saturated               Saturated Pairwise Interaction model
+Smooth                  Spatial smoothing of data
+Smooth.fv               Apply Smoothing to Function Values
+Smooth.msr              Smooth a Signed or Vector-Valued Measure
+Smooth.ppp              Spatial smoothing of observations at irregular
+                        points
+Smooth.ssf              Smooth a Spatially Sampled Function
+Smoothfun.ppp           Smooth Interpolation of Marks as a Spatial
+                        Function
+Softcore                The Soft Core Point Process Model
+Strauss                 The Strauss Point Process Model
+StraussHard             The Strauss / Hard Core Point Process Model
+Triplets                The Triplet Point Process Model
+Tstat                   Third order summary statistic
+Window.ppm              Extract Window of Spatial Object
+[.fasp                  Extract Subset of Function Array
+[.fv                    Extract or Replace Subset of Function Values
+[.influence.ppm         Extract Subset of Influence Object
+[.leverage.ppm          Extract Subset of Leverage Object
+[.msr                   Extract Subset of Signed or Vector Measure
+[.ssf                   Subset of spatially sampled function
+adaptive.density        Adaptive Estimate of Intensity of Point Pattern
+addvar                  Added Variable Plot for Point Process Model
+allstats                Calculate four standard summary functions of a
+                        point pattern.
+alltypes                Calculate Summary Statistic for All Types in a
+                        Multitype Point Pattern
+anova.mppm              ANOVA for Fitted Point Process Models for
+                        Replicated Patterns
+anova.ppm               ANOVA for Fitted Point Process Models
+anova.slrm              Analysis of Deviance for Spatial Logistic
+                        Regression Models
+as.data.frame.envelope
+                        Coerce Envelope to Data Frame
+as.function.fv          Convert Function Value Table to Function
+as.function.leverage.ppm
+                        Convert Leverage Object to Function of
+                        Coordinates
+as.function.rhohat      Convert Function Table to Function
+as.fv                   Convert Data To Class fv
+as.interact             Extract Interaction Structure
+as.layered.msr          Convert Measure To Layered Object
+as.owin.ppm             Convert Data To Class owin
+as.ppm                  Extract Fitted Point Process Model
+auc                     Area Under ROC Curve
+bc.ppm                  Bias Correction for Fitted Model
+berman.test             Berman's Tests for Point Process Model
+bind.fv                 Combine Function Value Tables
+bits.envelope           Global Envelopes for Balanced Independent
+                        Two-Stage Test
+bits.test               Balanced Independent Two-Stage Monte Carlo Test
+blur                    Apply Gaussian Blur to a Pixel Image
+bw.CvL                  Cronie and van Lieshout's Criterion for
+                        Bandwidth Selection for Kernel Density
+bw.CvLHeat              Bandwidth Selection for Diffusion Smoother by
+                        Cronie-van Lieshout Rule
+bw.abram                Abramson's Adaptive Bandwidths
+bw.diggle               Cross Validated Bandwidth Selection for Kernel
+                        Density
+bw.frac                 Bandwidth Selection Based on Window Geometry
+bw.pcf                  Cross Validated Bandwidth Selection for Pair
+                        Correlation Function
+bw.ppl                  Likelihood Cross Validation Bandwidth Selection
+                        for Kernel Density
+bw.pplHeat              Bandwidth Selection for Diffusion Smoother by
+                        Likelihood Cross-Validation
+bw.relrisk              Cross Validated Bandwidth Selection for
+                        Relative Risk Estimation
+bw.scott                Scott's Rule for Bandwidth Selection for Kernel
+                        Density
+bw.smoothppp            Cross Validated Bandwidth Selection for Spatial
+                        Smoothing
+bw.stoyan               Stoyan's Rule of Thumb for Bandwidth Selection
+cauchy.estK             Fit the Neyman-Scott cluster process with
+                        Cauchy kernel
+cauchy.estpcf           Fit the Neyman-Scott cluster process with
+                        Cauchy kernel
+cdf.test                Spatial Distribution Test for Point Pattern or
+                        Point Process Model
+cdf.test.mppm           Spatial Distribution Test for Multiple Point
+                        Process Model
+circdensity             Density Estimation for Circular Data
+clarkevans              Clark and Evans Aggregation Index
+clarkevans.test         Clark and Evans Test
+closepaircounts         Count Close Pairs of Points
+clusterfield.kppm       Field of clusters
+clusterfit              Fit Cluster or Cox Point Process Model via
+                        Minimum Contrast
+clusterkernel.kppm      Extract Cluster Offspring Kernel
+clusterradius.kppm      Compute or Extract Effective Range of Cluster
+                        Kernel
+clusterset              Allard-Fraley Estimator of Cluster Feature
+coef.mppm               Coefficients of Point Process Model Fitted to
+                        Multiple Point Patterns
+coef.ppm                Coefficients of Fitted Point Process Model
+coef.slrm               Coefficients of Fitted Spatial Logistic
+                        Regression Model
+collapse.fv             Collapse Several Function Tables into One
+compareFit              Residual Diagnostics for Multiple Fitted Models
+compatible.fasp         Test Whether Function Arrays Are Compatible
+compatible.fv           Test Whether Function Objects Are Compatible
+compileK                Generic Calculation of K Function and Pair
+                        Correlation Function
+cov.im                  Covariance and Correlation between Images
+data.ppm                Extract Original Data from a Fitted Point
+                        Process Model
+dclf.progress           Progress Plot of Test of Spatial Pattern
+dclf.sigtrace           Significance Trace of Cressie-Loosmore-Ford or
+                        Maximum Absolute Deviation Test
+dclf.test               Diggle-Cressie-Loosmore-Ford and Maximum
+                        Absolute Deviation Tests
+density.ppp             Kernel Smoothed Intensity of Point Pattern
+density.psp             Kernel Smoothing of Line Segment Pattern
+density.splitppp        Kernel Smoothed Intensity of Split Point
+                        Pattern
+densityAdaptiveKernel   Adaptive Kernel Estimate of Intensity of Point
+                        Pattern
+densityHeat             Diffusion Estimate of Point Pattern Intensity
+densityHeat.ppp         Diffusion Estimate of Point Pattern Intensity
+densityVoronoi          Intensity Estimate of Point Pattern Using
+                        Voronoi-Dirichlet Tessellation
+densityfun.ppp          Kernel Estimate of Intensity as a Spatial
+                        Function
+deriv.fv                Calculate Derivative of Function Values
+detpointprocfamilyfun   Construct a New Determinantal Point Process
+                        Model Family Function
+dfbetas.ppm             Parameter Influence Measure
+dffit.ppm               Case Deletion Effect Measure of Fitted Model
+dg.envelope             Global Envelopes for Dao-Genton Test
+dg.progress             Progress Plot of Dao-Genton Test of Spatial
+                        Pattern
+dg.sigtrace             Significance Trace of Dao-Genton Test
+dg.test                 Dao-Genton Adjusted Goodness-Of-Fit Test
+diagnose.ppm            Diagnostic Plots for Fitted Point Process Model
+dim.detpointprocfamily
+                        Dimension of Determinantal Point Process Model
+dimhat                  Estimate Dimension of Central Subspace
+distcdf                 Distribution Function of Interpoint Distance
+dkernel                 Kernel distributions and random generation
+domain.ppm              Extract the Domain of any Spatial Object
+dppBessel               Bessel Type Determinantal Point Process Model
+dppCauchy               Generalized Cauchy Determinantal Point Process
+                        Model
+dppGauss                Gaussian Determinantal Point Process Model
+dppMatern               Whittle-Matern Determinantal Point Process
+                        Model
+dppPowerExp             Power Exponential Spectral Determinantal Point
+                        Process Model
+dppapproxkernel         Approximate Determinantal Point Process Kernel
+dppapproxpcf            Approximate Pair Correlation Function of
+                        Determinantal Point Process Model
+dppeigen                Internal function calculating eig and index
+dppkernel               Extract Kernel from Determinantal Point Process
+                        Model Object
+dppm                    Fit Determinantal Point Process Model
+dppparbounds            Parameter Bound for a Determinantal Point
+                        Process Model
+dppspecden              Extract Spectral Density from Determinantal
+                        Point Process Model Object
+dppspecdenrange         Range of Spectral Density of a Determinantal
+                        Point Process Model
+dummify                 Convert Data to Numeric Values by Constructing
+                        Dummy Variables
+dummy.ppm               Extract Dummy Points Used to Fit a Point
+                        Process Model
+edge.Ripley             Ripley's Isotropic Edge Correction
+edge.Trans              Translation Edge Correction
+eem                     Exponential Energy Marks
+effectfun               Compute Fitted Effect of a Spatial Covariate in
+                        a Point Process Model
+emend                   Force Model to be Valid
+emend.ppm               Force Point Process Model to be Valid
+emend.slrm              Force Spatial Logistic Regression Model to be
+                        Valid
+envelope                Simulation Envelopes of Summary Function
+envelope.envelope       Recompute Envelopes
+envelope.pp3            Simulation Envelopes of Summary Function for 3D
+                        Point Pattern
+envelopeArray           Array of Simulation Envelopes of Summary
+                        Function
+eval.fasp               Evaluate Expression Involving Function Arrays
+eval.fv                 Evaluate Expression Involving Functions
+exactMPLEstrauss        Exact Maximum Pseudolikelihood Estimate for
+                        Stationary Strauss Process
+fasp.object             Function Arrays for Spatial Patterns
+fitin.ppm               Extract the Interaction from a Fitted Point
+                        Process Model
+fitted.mppm             Fitted Conditional Intensity for Multiple Point
+                        Process Model
+fitted.ppm              Fitted Conditional Intensity for Point Process
+                        Model
+fitted.slrm             Fitted Probabilities for Spatial Logistic
+                        Regression
+fixef.mppm              Extract Fixed Effects from Point Process Model
+formula.fv              Extract or Change the Plot Formula for a
+                        Function Value Table
+formula.ppm             Model Formulae for Gibbs Point Process Models
+fryplot                 Fry Plot of Point Pattern
+fv                      Create a Function Value Table
+fv.object               Function Value Table
+fvnames                 Abbreviations for Groups of Columns in Function
+                        Value Table
+hardcoredist            Extract the Hard Core Distance of a Point
+                        Process Model
+harmonic                Basis for Harmonic Functions
+harmonise.fv            Make Function Tables Compatible
+harmonise.msr           Make Measures Compatible
+hierpair.family         Hierarchical Pairwise Interaction Process
+                        Family
+hopskel                 Hopkins-Skellam Test
+hotbox                  Heat Kernel for a Two-Dimensional Rectangle
+hybrid.family           Hybrid Interaction Family
+ic.kppm                 Model selection criteria for the intensity
+                        function of a point process
+idw                     Inverse-distance weighted smoothing of
+                        observations at irregular points
+improve.kppm            Improve Intensity Estimate of Fitted Cluster
+                        Point Process Model
+increment.fv            Increments of a Function
+influence.ppm           Influence Measure for Spatial Point Process
+                        Model
+inforder.family         Infinite Order Interaction Family
+integral.msr            Integral of a Measure
+intensity.dppm          Intensity of Determinantal Point Process Model
+intensity.ppm           Intensity of Fitted Point Process Model
+intensity.slrm          Intensity of Fitted Spatial Logistic Regression
+                        Model
+interactionorder        Determine the Order of Interpoint Interaction
+                        in a Model
+ippm                    Fit Point Process Model Involving Irregular
+                        Trend Parameters
+is.dppm                 Recognise Fitted Determinantal Point Process
+                        Models
+is.hybrid               Test Whether Object is a Hybrid
+is.marked.ppm           Test Whether A Point Process Model is Marked
+is.multitype.ppm        Test Whether A Point Process Model is Multitype
+is.ppm                  Test Whether An Object Is A Fitted Point
+                        Process Model
+is.stationary.ppm       Recognise Stationary and Poisson Point Process
+                        Models
+isf.object              Interaction Structure Family Objects
+kaplan.meier            Kaplan-Meier Estimator using Histogram Data
+kernel.factor           Scale factor for density kernel
+kernel.moment           Moment of Smoothing Kernel
+kernel.squint           Integral of Squared Kernel
+km.rs                   Kaplan-Meier and Reduced Sample Estimator using
+                        Histograms
+kppm                    Fit Cluster or Cox Point Process Model
+laslett                 Laslett's Transform
+leverage.ppm            Leverage Measure for Spatial Point Process
+                        Model
+leverage.slrm           Leverage and Influence Diagnostics for Spatial
+                        Logistic Regression
+lgcp.estK               Fit a Log-Gaussian Cox Point Process by Minimum
+                        Contrast
+lgcp.estpcf             Fit a Log-Gaussian Cox Point Process by Minimum
+                        Contrast
+localK                  Neighbourhood density function
+localKcross             Local Multitype K Function (Cross-Type)
+localKcross.inhom       Inhomogeneous Multitype K Function
+localKdot               Local Multitype K Function (Dot-Type)
+localKinhom             Inhomogeneous Neighbourhood Density Function
+localpcf                Local pair correlation function
+logLik.dppm             Log Likelihood and AIC for Fitted Determinantal
+                        Point Process Model
+logLik.kppm             Log Likelihood and AIC for Fitted Cox or
+                        Cluster Point Process Model
+logLik.mppm             Log Likelihood and AIC for Multiple Point
+                        Process Model
+logLik.ppm              Log Likelihood and AIC for Point Process Model
+logLik.slrm             Loglikelihood of Spatial Logistic Regression
+lohboot                 Bootstrap Confidence Bands for Summary Function
+lurking                 Lurking Variable Plot
+lurking.mppm            Lurking Variable Plot for Multiple Point
+                        Patterns
+markconnect             Mark Connection Function
+markcorr                Mark Correlation Function
+markcrosscorr           Mark Cross-Correlation Function
+markmarkscatter         Mark-Mark Scatter Plot
+marktable               Tabulate Marks in Neighbourhood of Every Point
+                        in a Point Pattern
+markvario               Mark Variogram
+matclust.estK           Fit the Matern Cluster Point Process by Minimum
+                        Contrast
+matclust.estpcf         Fit the Matern Cluster Point Process by Minimum
+                        Contrast Using Pair Correlation
+measureContinuous       Discrete and Continuous Components of a Measure
+measureVariation        Positive and Negative Parts, and Variation, of
+                        a Measure
+methods.dppm            Methods for Determinantal Point Process Models
+methods.fii             Methods for Fitted Interactions
+methods.influence.ppm   Methods for Influence Objects
+methods.kppm            Methods for Cluster Point Process Models
+methods.leverage.ppm    Methods for Leverage Objects
+methods.objsurf         Methods for Objective Function Surfaces
+methods.rho2hat         Methods for Intensity Functions of Two Spatial
+                        Covariates
+methods.rhohat          Methods for Intensity Functions of Spatial
+                        Covariate
+methods.slrm            Methods for Spatial Logistic Regression Models
+methods.ssf             Methods for Spatially Sampled Functions
+methods.zclustermodel   Methods for Cluster Models
+methods.zgibbsmodel     Methods for Gibbs Models
+mincontrast             Method of Minimum Contrast
+miplot                  Morisita Index Plot
+model.depends           Identify Covariates Involved in each Model Term
+model.frame.ppm         Extract the Variables in a Point Process Model
+model.images            Compute Images of Constructed Covariates
+model.matrix.mppm       Extract Design Matrix of Point Process Model
+                        for Several Point Patterns
+model.matrix.ppm        Extract Design Matrix from Point Process Model
+model.matrix.slrm       Extract Design Matrix from Spatial Logistic
+                        Regression Model
+mppm                    Fit Point Process Model to Several Point
+                        Patterns
+msr                     Signed or Vector-Valued Measure
+nnclean                 Nearest Neighbour Clutter Removal
+nncorr                  Nearest-Neighbour Correlation Indices of Marked
+                        Point Pattern
+nndensity.ppp           Estimate Intensity of Point Pattern Using
+                        Nearest Neighbour Distances
+nnorient                Nearest Neighbour Orientation Distribution
+npfun                   Dummy Function Returns Number of Points
+objsurf                 Objective Function Surface
+ord.family              Ord Interaction Process Family
+pairMean                Mean of a Function of Interpoint Distance
+pairorient              Point Pair Orientation Distribution
+pairs.im                Scatterplot Matrix for Pixel Images
+pairsat.family          Saturated Pairwise Interaction Point Process
+                        Family
+pairwise.family         Pairwise Interaction Process Family
+panel.contour           Panel Plots using Colour Image or Contour Lines
+parameters              Extract Model Parameters in Understandable Form
+parres                  Partial Residuals for Point Process Model
+pcf                     Pair Correlation Function
+pcf.fasp                Pair Correlation Function obtained from array
+                        of K functions
+pcf.fv                  Pair Correlation Function obtained from K
+                        Function
+pcf.ppp                 Pair Correlation Function of Point Pattern
+pcf3est                 Pair Correlation Function of a
+                        Three-Dimensional Point Pattern
+pcfcross                Multitype pair correlation function
+                        (cross-type)
+pcfcross.inhom          Inhomogeneous Multitype Pair Correlation
+                        Function (Cross-Type)
+pcfdot                  Multitype pair correlation function (i-to-any)
+pcfdot.inhom            Inhomogeneous Multitype Pair Correlation
+                        Function (Type-i-To-Any-Type)
+pcfinhom                Inhomogeneous Pair Correlation Function
+pcfmulti                Marked pair correlation function
+plot.bermantest         Plot Result of Berman Test
+plot.cdftest            Plot a Spatial Distribution Test
+plot.dppm               Plot a fitted determinantal point process
+plot.envelope           Plot a Simulation Envelope
+plot.fasp               Plot a Function Array
+plot.fv                 Plot Function Values
+plot.influence.ppm      Plot Influence Measure
+plot.kppm               Plot a fitted cluster point process
+plot.laslett            Plot Laslett Transform
+plot.leverage.ppm       Plot Leverage Function
+plot.mppm               plot a Fitted Multiple Point Process Model
+plot.msr                Plot a Signed or Vector-Valued Measure
+plot.plotppm            Plot a plotppm Object Created by plot.ppm
+plot.ppm                plot a Fitted Point Process Model
+plot.profilepl          Plot Profile Likelihood
+plot.quadrattest        Display the result of a quadrat counting test.
+plot.rppm               Plot a Recursively Partitioned Point Process
+                        Model
+plot.scan.test          Plot Result of Scan Test
+plot.slrm               Plot a Fitted Spatial Logistic Regression
+plot.ssf                Plot a Spatially Sampled Function
+plot.studpermutest      Plot a Studentised Permutation Test
+polynom                 Polynomial in One or Two Variables
+pool                    Pool Data
+pool.anylist            Pool Data from a List of Objects
+pool.envelope           Pool Data from Several Envelopes
+pool.fasp               Pool Data from Several Function Arrays
+pool.fv                 Pool Several Functions
+pool.quadrattest        Pool Several Quadrat Tests
+pool.rat                Pool Data from Several Ratio Objects
+ppm                     Fit Point Process Model to Data
+ppm.object              Class of Fitted Point Process Models
+ppm.ppp                 Fit Point Process Model to Point Pattern Data
+ppmInfluence            Leverage and Influence Measures for Spatial
+                        Point Process Model
+predict.dppm            Prediction from a Fitted Determinantal Point
+                        Process Model
+predict.kppm            Prediction from a Fitted Cluster Point Process
+                        Model
+predict.mppm            Prediction for Fitted Multiple Point Process
+                        Model
+predict.ppm             Prediction from a Fitted Point Process Model
+predict.rppm            Make Predictions From a Recursively Partitioned
+                        Point Process Model
+predict.slrm            Predicted or Fitted Values from Spatial
+                        Logistic Regression
+print.ppm               Print a Fitted Point Process Model
+profilepl               Fit Models by Profile Maximum Pseudolikelihood
+                        or AIC
+prune.rppm              Prune a Recursively Partitioned Point Process
+                        Model
+pseudoR2                Calculate Pseudo-R-Squared for Point Process
+                        Model
+psib                    Sibling Probability of Cluster Point Process
+psst                    Pseudoscore Diagnostic For Fitted Model against
+                        General Alternative
+psstA                   Pseudoscore Diagnostic For Fitted Model against
+                        Area-Interaction Alternative
+psstG                   Pseudoscore Diagnostic For Fitted Model against
+                        Saturation Alternative
+qqplot.ppm              Q-Q Plot of Residuals from Fitted Point Process
+                        Model
+quad.ppm                Extract Quadrature Scheme Used to Fit a Point
+                        Process Model
+quadrat.test            Dispersion Test for Spatial Point Pattern Based
+                        on Quadrat Counts
+quadrat.test.mppm       Chi-Squared Test for Multiple Point Process
+                        Model Based on Quadrat Counts
+quadrat.test.splitppp   Dispersion Test of CSR for Split Point Pattern
+                        Based on Quadrat Counts
+quantile.density        Quantiles of a Density Estimate
+ranef.mppm              Extract Random Effects from Point Process Model
+range.fv                Range of Function Values
+rat                     Ratio object
+rdpp                    Simulation of a Determinantal Point Process
+reach.dppm              Range of Interaction for a Determinantal Point
+                        Process Model
+reach.kppm              Range of Interaction for a Cox or Cluster Point
+                        Process Model
+reach.ppm               Interaction Distance of a Point Process Model
+rectcontact             Contact Distribution Function using Rectangular
+                        Structuring Element
+reduced.sample          Reduced Sample Estimator using Histogram Data
+reload.or.compute       Compute Unless Previously Saved
+relrisk                 Estimate of Spatially-Varying Relative Risk
+relrisk.ppm             Parametric Estimate of Spatially-Varying
+                        Relative Risk
+relrisk.ppp             Nonparametric Estimate of Spatially-Varying
+                        Relative Risk
+repul.dppm              Repulsiveness Index of a Determinantal Point
+                        Process Model
+residuals.dppm          Residuals for Fitted Determinantal Point
+                        Process Model
+residuals.kppm          Residuals for Fitted Cox or Cluster Point
+                        Process Model
+residuals.mppm          Residuals for Point Process Model Fitted to
+                        Multiple Point Patterns
+residuals.ppm           Residuals for Fitted Point Process Model
+residuals.slrm          Residuals for Fitted Spatial Logistic
+                        Regression Model
+response                Extract the Values of the Response from a
+                        Fitted Model
+rex                     Richardson Extrapolation
+rho2hat                 Smoothed Relative Density of Pairs of Covariate
+                        Values
+rhohat                  Nonparametric Estimate of Intensity as Function
+                        of a Covariate
+rmh.ppm                 Simulate from a Fitted Point Process Model
+rmhmodel.ppm            Interpret Fitted Model for Metropolis-Hastings
+                        Simulation.
+roc                     Receiver Operating Characteristic
+rose                    Rose Diagram
+rotmean                 Rotational Average of a Pixel Image
+rppm                    Recursively Partitioned Point Process Model
+scan.test               Spatial Scan Test
+scanLRTS                Likelihood Ratio Test Statistic for Scan Test
+sdr                     Sufficient Dimension Reduction
+sdrPredict              Compute Predictors from Sufficient Dimension
+                        Reduction
+segregation.test        Test of Spatial Segregation of Types
+sharpen                 Data Sharpening of Point Pattern
+simulate.dppm           Simulation of Determinantal Point Process Model
+simulate.kppm           Simulate a Fitted Cluster Point Process Model
+simulate.mppm           Simulate a Point Process Model Fitted to
+                        Several Point Patterns
+simulate.ppm            Simulate a Fitted Gibbs Point Process Model
+simulate.slrm           Simulate a Fitted Spatial Logistic Regression
+                        Model
+slrm                    Spatial Logistic Regression
+spatcov                 Estimate the Spatial Covariance Function of a
+                        Random Field
+spatialcdf              Spatial Cumulative Distribution Function
+spatstat.core-package   The spatstat.core Package
+split.msr               Divide a Measure into Parts
+ssf                     Spatially Sampled Function
+stieltjes               Compute Integral of Function Against Cumulative
+                        Distribution
+stienen                 Stienen Diagram
+studpermu.test          Studentised Permutation Test
+subfits                 Extract List of Individual Point Process Models
+subspaceDistance        Distance Between Linear Spaces
+suffstat                Sufficient Statistic of Point Process Model
+summary.dppm            Summarizing a Fitted Determinantal Point
+                        Process Model
+summary.kppm            Summarizing a Fitted Cox or Cluster Point
+                        Process Model
+summary.ppm             Summarizing a Fitted Point Process Model
+thomas.estK             Fit the Thomas Point Process by Minimum
+                        Contrast
+thomas.estpcf           Fit the Thomas Point Process by Minimum
+                        Contrast
+thresholdCI             Confidence Interval for Threshold of Numerical
+                        Predictor
+thresholdSelect         Select Threshold to Convert Numerical Predictor
+                        to Binary Predictor
+transect.im             Pixel Values Along a Transect
+triplet.family          Triplet Interaction Family
+unitname.dppm           Name for Unit of Length
+unstack.msr             Separate a Vector Measure into its Scalar
+                        Components
+update.detpointprocfamily
+                        Set Parameter Values in a Determinantal Point
+                        Process Model
+update.interact         Update an Interpoint Interaction
+update.kppm             Update a Fitted Cluster Point Process Model
+update.ppm              Update a Fitted Point Process Model
+valid                   Check Whether Point Process Model is Valid
+valid.detpointprocfamily
+                        Check Validity of a Determinantal Point Process
+                        Model
+valid.ppm               Check Whether Point Process Model is Valid
+valid.slrm              Check Whether Spatial Logistic Regression Model
+                        is Valid
+varblock                Estimate Variance of Summary Statistic by
+                        Subdivision
+varcount                Predicted Variance of the Number of Points
+vargamma.estK           Fit the Neyman-Scott Cluster Point Process with
+                        Variance Gamma kernel
+vargamma.estpcf         Fit the Neyman-Scott Cluster Point Process with
+                        Variance Gamma kernel
+vcov.kppm               Variance-Covariance Matrix for a Fitted Cluster
+                        Point Process Model
+vcov.mppm               Calculate Variance-Covariance Matrix for Fitted
+                        Multiple Point Process Model
+vcov.ppm                Variance-Covariance Matrix for a Fitted Point
+                        Process Model
+vcov.slrm               Variance-Covariance Matrix for a Fitted Spatial
+                        Logistic Regression
+with.fv                 Evaluate an Expression in a Function Table
+with.msr                Evaluate Expression Involving Components of a
+                        Measure
+with.ssf                Evaluate Expression in a Spatially Sampled
+                        Function
+zclustermodel           Cluster Point Process Model
+zgibbsmodel             Gibbs Model

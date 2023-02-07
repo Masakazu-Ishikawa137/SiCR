@@ -1,0 +1,8 @@
+finches                 NEXUS data example
+mb_attrs                Parse MrBayes-supplied attributes from a NEXUS
+                        file
+parse_annotated         Parse an annotated phylogenetic tree
+phylotate-package       Phylogenies with Annotations
+print_annotated         Serialize an annotated phylogenetic tree
+read_annotated          Read an annotated phylogenetic tree
+write_annotated         Write an annotated phylogenetic tree to a file

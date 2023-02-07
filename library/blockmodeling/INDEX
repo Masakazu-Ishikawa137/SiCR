@@ -1,0 +1,62 @@
+REGE.FC                 REGE - Algorithms for compiting
+                        (dis)similarities in terms of regular
+                        equivalnece
+RF                      Calculate the value of the Relative Fit
+                        function
+baker                   Citation data between social work journals for
+                        the 1985-86 period
+blockmodeling           An R package for Generalized and classical
+                        blockmodeling of valued networks
+canClu                  Create canonical partition and find unique
+                        canonical partitions in a list of partitions.
+clu                     Function for extraction of some elements for
+                        objects, returend by functions for Generalized
+                        blockmodeling
+critFunC                Functions for Generalized blockmodeling for
+                        valued networks
+expandMat               Expands a square matrix by repeating each
+                        row/column the specified number of times.
+find.cut                Computing the threshold
+formatA                 A formating function for numbers
+funByBlocks.default     Computation of function values by blocks
+genMatrixMult           Generalized matrix multiplication
+genRandomPar            The function for generating random partitions
+gplot1                  A wrapper for function gplot - Two-Dimensional
+                        Visualization of Graphs
+ircNorm                 Function for iterated row and column
+                        normalization of valued matrices
+loadmatrix              Functions for loading and writing Pajek files
+nanRep                  Replaces NaN values by the speficied values (0
+                        by default)
+nkpar                   Functions for listing all possible partitions
+                        or just counting the number of them
+notesBorrowing          The notes borrowing network between
+                        social-informatics students
+one2two                 Two-mode network conversions
+optRandomParC           Optimizing a set of partitions based on the
+                        value of a criterion function
+orderClu                Orders the partition so that mean values of
+                        'fun' applied to columns (if 'funWay=2',
+                        default), rows (if 'funWay=1') or both (if
+                        'funWay=c(1,2)') is decreasing by clusters.
+plot.critFun            Functions for plotting a partitioned matrix
+                        (representing the network)
+printBlocks             Niceprinting of the 'blocks' parameter as used
+                        in 'optRandomParC' and 'critFunC'.
+rand                    Comparing partitions on one or multiple sets of
+                        units
+recode                  Recode
+relInv                  Functions for computing "relative inverse"
+                        ('x[1]/x').
+reorderImage            Reordering an image matrix of the blockmodel
+                        (or an error matrix based on new and old
+                        partition
+sedist                  Computes distances in terms of Structural
+                        equivalence (Lorrain & White, 1971)
+splitClu                Functions creating a list of partitions based
+                        on a single partition and information on the
+                        number of units in each set.
+ss                      Sum of Squared deviations from the mean and sum
+                        of Absolute Deviations from the median
+unlistClu               Function for "unlisting" a partition.
+unlistCluInt            Unlist a partition.

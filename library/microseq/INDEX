@@ -1,0 +1,20 @@
+backTranslate           Replace amino acids with codons
+findGenes               Finding coding genes
+findOrfs                Finding ORFs in genomes
+findrRNA                Finding rRNA genes
+gff2fasta               Retrieving annotated sequences
+gregexpr                Extended 'gregexpr' with substring retrieval
+iupac2regex             Ambiguity symbol conversion
+lorfs                   Longest ORF
+microseq-package        Basic Biological Sequence Analysis
+msa2mat                 Convert alignment to matrix
+msaTrim                 Trimming multiple sequence alignments
+msalign                 Multiple alignment
+muscle                  Multiple alignment using MUSCLE
+orfLength               Length of ORF
+readFasta               Read and write FASTA files
+readFastq               Read and write FASTQ files
+readGFF                 Reading and writing GFF-tables
+reverseComplement       Reverse-complementation of DNA
+translate               Translation according to the standard genetic
+                        code

@@ -1,0 +1,22 @@
+DJ                      Jost's D
+EBDJ                    Empirical Bayes estimator of Jost's D
+EBFST                   Empirical Bayes estimator of Fst.
+EBGstH                  Empirical Bayes estimator of Hedrick's G'st
+FinePop-package         Fine-Scale Population Analysis
+FstBoot                 Bootstrap sampler of Fst
+FstEnv                  Regression analysis of environmental factors on
+                        genetic differentiation
+GstH                    Hedrick's G'st
+GstN                    Nei's Gst.
+GstNC                   Nei and Chesser's Gst
+clip.genepop            Remove designated markers from a GENEPOP file.
+herring                 An example dataset of Atlantic herring.
+jsmackerel              An example dataset of Japanese Spanich mackerel
+                        in GENEPOP and frequency format.
+read.frequency          Create an allele (haplotype) frequency data
+                        object of populations from a frequency format
+                        file.
+read.genepop            Create a genotype data object of populations
+                        from a GENEPOP format file.
+thetaWC.pair            Weir and Cockerham's theta adapted for pairwise
+                        Fst.

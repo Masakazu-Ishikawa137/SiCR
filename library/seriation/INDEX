@@ -1,0 +1,51 @@
+Chameleon               2D Data Sets used for the CHAMELEON Clustering
+                        Algorithm
+Irish                   Irish Referendum Data Set
+LS                      Neighborhood functions for Seriation Method SA
+Munsingen               Hodson's Munsingen Data Set
+Psych24                 Results of 24 Psychological Test for 8th Grade
+                        Students
+SupremeCourt            Voting Patterns in the Second Rehnquist U.S.
+                        Supreme Court
+Townships               Bertin's Characteristics of Townships
+VAT                     Visual Analysis for Cluster Tendency Assessment
+                        (VAT/iVAT)
+Wood                    Gene Expression Data for Wood Formation in
+                        Poplar Trees
+Zoo                     Zoo Data Set
+bertinplot              Plot a Bertin Matrix
+create_lines_data       Create Simulated Data for Seriation Evaluation
+criterion               Criterion for a Loss/Merit Function for Data
+                        Given a Permutation
+dissplot                Dissimilarity Plot
+get_order               Extracting Order Information from a Permutation
+                        Object
+hmap                    Plot Heat Map Reordered Using Seriation
+is.robinson             Create and Recognize Robinson and Pre-Robinson
+                        Matrices
+palette                 Different Useful Color Palettes
+permutation_vector2matrix
+                        Conversion Between Permutation Vector and
+                        Permutation Matrix
+permute                 Permute the Order in Various Objects
+pimage                  Permutation Image Plot
+register_DendSer        Register Seriation Methods from Package DendSer
+register_GA             Register a Genetic Algorithm Seriation Method
+register_optics         Register Seriation Based on OPTICS
+register_tsne           Register Seriation Based on 1D t-SNE
+register_umap           Register Seriation Based on 1D UMAP
+registry_criterion      Registry for Criterion Methods
+registry_seriate        Registry for Seriation Methods
+reorder.hclust          Reorder Dendrograms using Optimal Leaf Ordering
+ser_dist                Dissimilarities and Correlations Between
+                        Seriation Orders
+ser_permutation         Class ser_permutation - A Collection of
+                        Permutation Vectors for Seriation
+ser_permutation_vector
+                        Class ser_permutation_vector - A Single
+                        Permutation Vector for Seriation
+seriate                 Seriate Dissimilarity Matrices, Matrices or
+                        Arrays
+seriation-package       seriation: Infrastructure for Ordering Objects
+                        Using Seriation
+uniscale                Unidimensional Scaling from Seriation Results

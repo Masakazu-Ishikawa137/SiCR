@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head><title>R: Representing and Inferring Single-Cell Trajectories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+<h1> Representing and Inferring Single-Cell Trajectories
+<img class="toplogo" src="../../../doc/html/Rlogo.svg" alt="[R logo]" />
+</h1>
+<hr/>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
+</div><h2>Documentation for package &lsquo;dynwrap&rsquo; version 1.2.2</h2>
+
+<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="dot-method_process_definition.html">.method_process_definition</a></td>
+<td>Method process definition</td></tr>
+<tr><td style="width: 25%;"><a href="add_attraction.html">add_attraction</a></td>
+<td>Add attraction of cells using RNA velocity</td></tr>
+<tr><td style="width: 25%;"><a href="add_branch_trajectory.html">add_branch_trajectory</a></td>
+<td>Construct a trajectory given its branch network and the pseudotime of the cells on one of the branches.</td></tr>
+<tr><td style="width: 25%;"><a href="add_cell_graph.html">add_cell_graph</a></td>
+<td>Constructs a trajectory using a graph between cells, by mapping cells onto a set of backbone cells.</td></tr>
+<tr><td style="width: 25%;"><a href="add_cell_waypoints.html">add_cell_waypoints</a></td>
+<td>Add or select waypoint cells of a trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="add_cluster_graph.html">add_cluster_graph</a></td>
+<td>Constructs a trajectory using a cell grouping and a network between groups. Will use an existing grouping if it is present in the dataset.</td></tr>
+<tr><td style="width: 25%;"><a href="add_cyclic_trajectory.html">add_cyclic_trajectory</a></td>
+<td>Constructs a circular trajectory using the pseudotime values of each cell.</td></tr>
+<tr><td style="width: 25%;"><a href="add_dimred.html">add_dimred</a></td>
+<td>Add or create a dimensionality reduction</td></tr>
+<tr><td style="width: 25%;"><a href="add_dimred_projection.html">add_dimred_projection</a></td>
+<td>Constructs a trajectory by projecting cells within a dimensionality reduction</td></tr>
+<tr><td style="width: 25%;"><a href="add_end_state_probabilities.html">add_end_state_probabilities</a></td>
+<td>Constructs a multifurcating trajectory using end state probabilities</td></tr>
+<tr><td style="width: 25%;"><a href="add_expression.html">add_expression</a></td>
+<td>Add count and normalised expression values to a dataset</td></tr>
+<tr><td style="width: 25%;"><a href="add_feature_importance.html">add_feature_importance</a></td>
+<td>Add a feature importance to a dataset</td></tr>
+<tr><td style="width: 25%;"><a href="add_grouping.html">add_grouping</a></td>
+<td>Add a cell grouping to a dataset</td></tr>
+<tr><td style="width: 25%;"><a href="add_linear_trajectory.html">add_linear_trajectory</a></td>
+<td>Constructs a linear trajectory using pseudotime values</td></tr>
+<tr><td style="width: 25%;"><a href="add_prior_information.html">add_prior_information</a></td>
+<td>Add or compute prior information for a trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="add_pseudotime.html">add_pseudotime</a></td>
+<td>Add or calculate pseudotime as distance from the root</td></tr>
+<tr><td style="width: 25%;"><a href="add_regulatory_network.html">add_regulatory_network</a></td>
+<td>Add a GRN to a dynwrap object</td></tr>
+<tr><td style="width: 25%;"><a href="add_root.html">add_root</a></td>
+<td>Root the trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="add_root.html">add_root_using_expression</a></td>
+<td>Root the trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="add_tde_overall.html">add_tde_overall</a></td>
+<td>Add information on overall differentially expressed features</td></tr>
+<tr><td style="width: 25%;"><a href="add_timings.html">add_timings</a></td>
+<td>Add timings to a trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="add_timings.html">add_timing_checkpoint</a></td>
+<td>Add timings to a trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="add_trajectory.html">add_trajectory</a></td>
+<td>Construct a trajectory given its milestone network and milestone percentages or progressions</td></tr>
+<tr><td style="width: 25%;"><a href="add_waypoints.html">add_waypoints</a></td>
+<td>Add or create waypoints to a trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="allowed_inputs.html">allowed_inputs</a></td>
+<td>All allowed inputs for a TI method</td></tr>
+<tr><td style="width: 25%;"><a href="allowed_outputs.html">allowed_outputs</a></td>
+<td>All allowed outputs for a TI method</td></tr>
+<tr><td style="width: 25%;"><a href="calculate_attraction.html">calculate_attraction</a></td>
+<td>Calculate the attraction of cells to other cells using velocity</td></tr>
+<tr><td style="width: 25%;"><a href="calculate_average.html">calculate_average_by_group</a></td>
+<td>Calculate average values of a matrix</td></tr>
+<tr><td style="width: 25%;"><a href="calculate_geodesic_distances.html">calculate_geodesic_distances</a></td>
+<td>Calculate geodesic distances between cells in a trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="add_pseudotime.html">calculate_pseudotime</a></td>
+<td>Add or calculate pseudotime as distance from the root</td></tr>
+<tr><td style="width: 25%;"><a href="calculate_trajectory_dimred.html">calculate_trajectory_dimred</a></td>
+<td>Layout the trajectory and its cells in 2 dimensions using a graph layout</td></tr>
+<tr><td style="width: 25%;"><a href="classify_milestone_network.html">classify_milestone_network</a></td>
+<td>Classify a milestone network</td></tr>
+<tr><td style="width: 25%;"><a href="calculate_geodesic_distances.html">compute_tented_geodesic_distances</a></td>
+<td>Calculate geodesic distances between cells in a trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="convert_definition.html">convert_definition</a></td>
+<td>Convert a definition loaded in from a yaml</td></tr>
+<tr><td style="width: 25%;"><a href="convert_milestone_percentages_to_progressions.html">convert_milestone_percentages_to_progressions</a></td>
+<td>Conversion between milestone percentages and progressions</td></tr>
+<tr><td style="width: 25%;"><a href="convert_progressions_to_milestone_percentages.html">convert_progressions_to_milestone_percentages</a></td>
+<td>Conversion between milestone percentages and progressions</td></tr>
+<tr><td style="width: 25%;"><a href="create_ti_method_container.html">create_ti_method_container</a></td>
+<td>Create a TI method from a docker / singularity container</td></tr>
+<tr><td style="width: 25%;"><a href="create_ti_method_definition.html">create_ti_method_definition</a></td>
+<td>Create a TI method from a local method definition file</td></tr>
+<tr><td style="width: 25%;"><a href="create_ti_method_r.html">create_ti_method_r</a></td>
+<td>Create a TI method from an R function wrapper</td></tr>
+<tr><td style="width: 25%;"><a href="definition.html">definition</a></td>
+<td>Create a definition</td></tr>
+<tr><td style="width: 25%;"><a href="def_author.html">def_author</a></td>
+<td>Meta information on an author</td></tr>
+<tr><td style="width: 25%;"><a href="def_container.html">def_container</a></td>
+<td>Meta information on the container in which the wrapper resides</td></tr>
+<tr><td style="width: 25%;"><a href="def_manuscript.html">def_manuscript</a></td>
+<td>Meta information on the manuscript</td></tr>
+<tr><td style="width: 25%;"><a href="def_method.html">def_method</a></td>
+<td>Define meta information on the TI method.</td></tr>
+<tr><td style="width: 25%;"><a href="def_package.html">def_package</a></td>
+<td>Meta information on the package in which the TI function resides</td></tr>
+<tr><td style="width: 25%;"><a href="def_parameters.html">def_parameters</a></td>
+<td>Meta information on the parameters of the TI method</td></tr>
+<tr><td style="width: 25%;"><a href="def_wrapper.html">def_wrapper</a></td>
+<td>Meta information on the wrapper</td></tr>
+<tr><td style="width: 25%;"><a href="add_cell_waypoints.html">determine_cell_trajectory_positions</a></td>
+<td>Add or select waypoint cells of a trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="dynwrap.html">dynwrap</a></td>
+<td>Inferring and adapting single-cell trajectories</td></tr>
+<tr><td style="width: 25%;"><a href="example_dataset.html">example_dataset</a></td>
+<td>Example dataset</td></tr>
+<tr><td style="width: 25%;"><a href="example_trajectory.html">example_trajectory</a></td>
+<td>Example trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="flip_edges.html">flip_edges</a></td>
+<td>Flip a set of edges of the milestone network</td></tr>
+<tr><td style="width: 25%;"><a href="gather_cells_at_milestones.html">gather_cells_at_milestones</a></td>
+<td>Gather cells to their closest milestones</td></tr>
+<tr><td style="width: 25%;"><a href="generate_parameter_documentation.html">generate_parameter_documentation</a></td>
+<td>Generate the parameter documentation of a method, use with @eval</td></tr>
+<tr><td style="width: 25%;"><a href="add_prior_information.html">generate_prior_information</a></td>
+<td>Add or compute prior information for a trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="get_default_parameters.html">get_default_parameters</a></td>
+<td>Get the default parameters of a method</td></tr>
+<tr><td style="width: 25%;"><a href="add_dimred.html">get_dimred</a></td>
+<td>Add or create a dimensionality reduction</td></tr>
+<tr><td style="width: 25%;"><a href="add_expression.html">get_expression</a></td>
+<td>Add count and normalised expression values to a dataset</td></tr>
+<tr><td style="width: 25%;"><a href="add_grouping.html">get_grouping</a></td>
+<td>Add a cell grouping to a dataset</td></tr>
+<tr><td style="width: 25%;"><a href="label_milestones.html">get_milestone_labelling</a></td>
+<td>Label milestones either manually ('label_milestones') or using marker genes ('label_milestones_markers')</td></tr>
+<tr><td style="width: 25%;"><a href="get_ti_methods.html">get_ti_methods</a></td>
+<td>Return all TI that are installed in one or more packages</td></tr>
+<tr><td style="width: 25%;"><a href="group_from_trajectory.html">group_from_trajectory</a></td>
+<td>Create a grouping from a trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="group_from_trajectory.html">group_onto_nearest_milestones</a></td>
+<td>Create a grouping from a trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="group_from_trajectory.html">group_onto_trajectory_edges</a></td>
+<td>Create a grouping from a trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="infer_trajectories.html">infer_trajectories</a></td>
+<td>Infer one or more trajectories from a single-cell dataset</td></tr>
+<tr><td style="width: 25%;"><a href="infer_trajectories.html">infer_trajectory</a></td>
+<td>Infer one or more trajectories from a single-cell dataset</td></tr>
+<tr><td style="width: 25%;"><a href="wrap_data.html">is_data_wrapper</a></td>
+<td>A data wrapper for datasets and trajectories</td></tr>
+<tr><td style="width: 25%;"><a href="add_root.html">is_rooted</a></td>
+<td>Root the trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="definition.html">is_ti_method</a></td>
+<td>Create a definition</td></tr>
+<tr><td style="width: 25%;"><a href="add_dimred.html">is_wrapper_with_dimred</a></td>
+<td>Add or create a dimensionality reduction</td></tr>
+<tr><td style="width: 25%;"><a href="add_expression.html">is_wrapper_with_expression</a></td>
+<td>Add count and normalised expression values to a dataset</td></tr>
+<tr><td style="width: 25%;"><a href="add_feature_importance.html">is_wrapper_with_feature_importance</a></td>
+<td>Add a feature importance to a dataset</td></tr>
+<tr><td style="width: 25%;"><a href="add_grouping.html">is_wrapper_with_grouping</a></td>
+<td>Add a cell grouping to a dataset</td></tr>
+<tr><td style="width: 25%;"><a href="label_milestones.html">is_wrapper_with_milestone_labelling</a></td>
+<td>Label milestones either manually ('label_milestones') or using marker genes ('label_milestones_markers')</td></tr>
+<tr><td style="width: 25%;"><a href="add_prior_information.html">is_wrapper_with_prior_information</a></td>
+<td>Add or compute prior information for a trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="add_timings.html">is_wrapper_with_timings</a></td>
+<td>Add timings to a trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="add_trajectory.html">is_wrapper_with_trajectory</a></td>
+<td>Construct a trajectory given its milestone network and milestone percentages or progressions</td></tr>
+<tr><td style="width: 25%;"><a href="add_waypoints.html">is_wrapper_with_waypoints</a></td>
+<td>Add or create waypoints to a trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="add_cell_waypoints.html">is_wrapper_with_waypoint_cells</a></td>
+<td>Add or select waypoint cells of a trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="label_milestones.html">label_milestones</a></td>
+<td>Label milestones either manually ('label_milestones') or using marker genes ('label_milestones_markers')</td></tr>
+<tr><td style="width: 25%;"><a href="label_milestones.html">label_milestones_markers</a></td>
+<td>Label milestones either manually ('label_milestones') or using marker genes ('label_milestones_markers')</td></tr>
+<tr><td style="width: 25%;"><a href="priors.html">priors</a></td>
+<td>Metadata on priors</td></tr>
+<tr><td style="width: 25%;"><a href="prior_usages.html">prior_usages</a></td>
+<td>Metadata on prior usages</td></tr>
+<tr><td style="width: 25%;"><a href="project_trajectory.html">project_milestones</a></td>
+<td>Project a trajectory onto a dimensionality reduction</td></tr>
+<tr><td style="width: 25%;"><a href="project_trajectory.html">project_trajectory</a></td>
+<td>Project a trajectory onto a dimensionality reduction</td></tr>
+<tr><td style="width: 25%;"><a href="project_waypoints.html">project_waypoints</a></td>
+<td>Project waypoints of a trajectory (e.g. milestones) into a space defined by cells (e.g. expression or a dimensionality reduction)</td></tr>
+<tr><td style="width: 25%;"><a href="random_seed.html">random_seed</a></td>
+<td>Generate a random seed</td></tr>
+<tr><td style="width: 25%;"><a href="add_root.html">remove_root</a></td>
+<td>Root the trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="add_waypoints.html">select_waypoints</a></td>
+<td>Add or create waypoints to a trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="add_cell_waypoints.html">select_waypoint_cells</a></td>
+<td>Add or select waypoint cells of a trajectory</td></tr>
+<tr><td style="width: 25%;"><a href="simplify_igraph_network.html">simplify_igraph_network</a></td>
+<td>Simplify an igraph network such that consecutive linear edges are removed</td></tr>
+<tr><td style="width: 25%;"><a href="simplify_trajectory.html">simplify_trajectory</a></td>
+<td>Simplify a trajectory by removing transient milestones</td></tr>
+<tr><td style="width: 25%;"><a href="trajectory_types.html">trajectory_types</a></td>
+<td>Metadata on the trajectory types</td></tr>
+<tr><td style="width: 25%;"><a href="trajectory_type_dag.html">trajectory_type_dag</a></td>
+<td>A DAG connecting different trajectory types</td></tr>
+<tr><td style="width: 25%;"><a href="wrapper_types.html">wrapper_types</a></td>
+<td>Metadata on wrapper types</td></tr>
+<tr><td style="width: 25%;"><a href="wrap_data.html">wrap_data</a></td>
+<td>A data wrapper for datasets and trajectories</td></tr>
+<tr><td style="width: 25%;"><a href="wrap_expression.html">wrap_expression</a></td>
+<td>Create a wrapper object with expression and counts</td></tr>
+</table>
+</div></body></html>

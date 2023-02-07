@@ -1,0 +1,16 @@
+dimred	dimred
+dimred_dm_destiny	dimred
+dimred_dm_diffusionmap	dimred
+dimred_ica	dimred
+dimred_knn_fr	dimred
+dimred_landmark_mds	dimred
+dimred_lle	dimred
+dimred_mds	dimred
+dimred_mds_isomds	dimred
+dimred_mds_sammon	dimred
+dimred_mds_smacof	dimred
+dimred_pca	dimred
+dimred_tsne	dimred_tsne
+dimred_umap	dimred_umap
+dyndimred	dyndimred
+list_dimred_methods	dimred
