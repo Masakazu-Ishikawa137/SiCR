@@ -216,6 +216,14 @@ shinyApp(
 
 ### Clustering plot
           output$clustering_plot <- renderPlot(DimPlot(seurat_object, label=TRUE, pt.size= input$point_size, group.by=input$group_by, label.size = input$label_size) + theme(legend.position=input$legend), width = reactive(input$width_of_dimplot), height = reactive(input$Height_of_dimplot))
+          metadata <- seurat_object@meta.data
+          output$downloadmetadata = downloadHandler(
+            filename = "metadata.csv",
+            content = function(file) {
+            #ファイル出力するためのコード
+            write.csv(metadata, file)## write.csv()やwrite.tabel()やwriteDocなど。
+          })
+
         }
 
 
