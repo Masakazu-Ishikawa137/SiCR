@@ -17,7 +17,6 @@ mysinglecell_add_metadata <- function(seurat_object, csv){
     return(seurat_object)
 }
 
-
 myBCR_dataframe <- function(sample){
     sample <- read.csv(sample)
     combinedBCR <- combineBCR(sample, samples = "NA", ID = "NA", removeMulti = TRUE)
