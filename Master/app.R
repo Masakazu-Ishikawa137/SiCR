@@ -291,7 +291,7 @@ server <- function(input, output, session) {
         TCR(seurat_object, tcr) -> seurat_object
       }
       if(!is.null(bcr)){
-        TCR(seurat_object, bcr) -> seurat_object
+        BCR(seurat_object, bcr) -> seurat_object
       }
     }
 
