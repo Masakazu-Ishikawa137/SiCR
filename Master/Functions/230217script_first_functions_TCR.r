@@ -16,6 +16,7 @@ mysinglecell_add_metadata <- function(seurat_object, csv){
     seurat_object@meta.data <- metadata
     return(seurat_object)
 }
+
 myTCR_dataframe <- function(sample){
     sample <- read.csv(sample)
     combinedTCR <- combineTCR(sample, samples = "NA", ID = NA, cells = "T-AB", filterMulti = TRUE)
@@ -26,10 +27,10 @@ myTCR_dataframe <- function(sample){
     names(combinedTCR) <- str_c("pair_", names(combinedTCR))
     sample %>% dplyr::filter(chain == "TRA") -> TRA
     names(TRA) <- str_c("TRA_", names(TRA))
-    TRA %>% distinct(TRA_barcode,.keep_all=TRUE)　-> TRA
+    TRA %>% distinct(TRA_barcode,.keep_all=TRUE) -> TRA
     sample %>% dplyr::filter(chain == "TRB") -> TRB
     names(TRB) <- str_c("TRB_", names(TRB))
-    TRB %>% distinct(TRB_barcode,.keep_all=TRUE)　-> TRB
+    TRB %>% distinct(TRB_barcode,.keep_all=TRUE) -> TRB
     dplyr::left_join(combinedTCR, TRA, by=c("pair_barcode" = "TRA_barcode")) -> data_TRA
     dplyr::left_join(data_TRA, TRB, by=c("pair_barcode" = "TRB_barcode")) -> all_data
     names(all_data) <- str_c("TCR_", names(all_data))

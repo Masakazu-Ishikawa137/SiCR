@@ -5,7 +5,7 @@
 
 GEX <- function(h5){
     seurat_object <- mysinglecell_h5_to_umap(h5)
-#    seurat_object <- mysinglecell_celltyping_normal_normalization2(seurat_object)
+    seurat_object <- mysinglecell_celltyping_normal_normalization2(seurat_object)
     return (seurat_object)
 }
 

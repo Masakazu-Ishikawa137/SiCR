@@ -7,6 +7,10 @@ source("/Users/masakazuifrec/SiCR/Master/Functions/230217script_first_functions_
 source("/Users/masakazuifrec/SiCR/Master/Functions/230217script_first_functions_TCR.r")
 source("/Users/masakazuifrec/SiCR/Master/Functions/230217script_first_functions_BCR.r")
 source('/Users/masakazuifrec/SiCR/Master/Functions/230217script_first_Run.r')
+source("/Users/masakazuifrec/SiCR/Master/Functions/230217script_second_functions_GEX.r")
+source("/Users/masakazuifrec/SiCR/Master/Functions/230217script_second_functions_TCR.r")
+#source("/Users/masakazuifrec/SiCR/Master/Functions/230217script_second_functions_BCR.r")
+
 options(shiny.maxRequestSize=50*1024^2*1000)
 #source('230217singlecell_analysis.r')
 options(shiny.port = 8100)
@@ -244,22 +248,36 @@ server <- function(input, output, session) {
 
   observeEvent(input$Run,{
 
-    # add_clustring_plot <- function(){
-    #   output$clustering_plot <- renderPlot(DimPlot(
-    #     seurat_object,
-    #     label = TRUE,
-    #     pt.size = input$point_size,
-    #     group.by =input$group_by,
-    #     label.size = input$label_size) + theme(legend.position=input$legend),
-    #     width = reactive(input$width_of_dimplot),
-    #     height = reactive(input$Height_of_dimplot))
-    # }
+    add_clustring_plot <- function(seurat_object){
+      umap_group <- mysinglecell_metadata_for_UMAP(seurat_object)
+      updateSelectInput(session, "group_by", choices = umap_group)
+      output$clustering_plot <- renderPlot(DimPlot(
+        seurat_object,
+        label = TRUE,
+        pt.size = input$point_size,
+        group.by =input$group_by,
+        label.size = input$label_size) + theme(legend.position=input$legend),
+        width = reactive(input$width_of_dimplot),
+        height = reactive(input$Height_of_dimplot))
+    }
 
-    # TCR_processing <- function(){
+      # Download metadata
+      download_metadata <- function(){
+        output$downloadmetadata = downloadHandler(
+          filename = "metadata.csv",
+          content = function(file) {
+          #ファイル出力するためのコード
+          write.csv(seurat_object@meta.data, file)## write.csv()やwrite.tabel()やwriteDocなど。
+          }
+        )
+      }
+
+    TCR_processing <- function(){
     #   tcr_csv <- read.csv(tcr)
-    #   ####alpha diversity
-    #   updateSelectInput(session, "alphadiversity_group", choices = list)
-    #   output$alpha_diversity <- renderPlot(alphaDiversity_TCR(seurat_object, group = input$alphadiversity_group) + theme_classic() + scale_fill_nejm() + ggtitle(NULL) + scale_color_nejm() + theme(legend.position=input$alphadiversity_legend), width = reactive(input$width_of_alphadiversity), height = reactive(input$height_of_alphadiversity))
+       ####alpha diversity
+        metadata_list <- mysinglecell_metadata_for_alphadiversity(seurat_object)
+        updateSelectInput(session, "alphadiversity_group", choices = metadata_list)
+        output$alpha_diversity <- renderPlot(alphaDiversity_TCR(seurat_object, group = input$alphadiversity_group) + theme_classic() + scale_fill_nejm() + ggtitle(NULL) + scale_color_nejm() + theme(legend.position=input$alphadiversity_legend), width = reactive(input$width_of_alphadiversity), height = reactive(input$height_of_alphadiversity))
     #   ####Clonotype expand
     #   updateSelectInput(session, "tcrexpand_group", choices = list)
     #   observe({
@@ -277,7 +295,7 @@ server <- function(input, output, session) {
     #   clonotype_list <- sort(clonotype_list)
     #   updateSelectInput(session, "TCRclonotype", choices = clonotype_list)
     #   output$TCR_antigen <- renderTable(TCR_antigen_annotation(seurat_object, input$TCRclonotype))
-    # }
+    }
 
     # BCR_processing <- function(){
     #   bcr_csv <- read.csv(bcr)
@@ -325,23 +343,23 @@ server <- function(input, output, session) {
 
     #Second analysis
     if(!is.null(seurat_object)){
-
+      # GEX
       # Show UMAP
-      umap_group <- mysinglecell_metadata_for_UMAP(seurat_object)
-      updateSelectInput(session, "group_by", choices = umap_group)
-      output$clustering_plot <- renderPlot(DimPlot(seurat_object, label=TRUE, pt.size= input$point_size, group.by=input$group_by, label.size = input$label_size) + theme(legend.position=input$legend), width = reactive(input$width_of_dimplot), height = reactive(input$Height_of_dimplot))
+      add_clustring_plot(seurat_object)
 
-      # Download metadata
-      output$downloadmetadata = downloadHandler(
-        filename = "metadata.csv",
-        content = function(file) {
-        #ファイル出力するためのコード
-        write.csv(seurat_object@meta.data, file)## write.csv()やwrite.tabel()やwriteDocなど。
-        }
-      )
+      #download metadata
+      download_metadata()
 
-
-    }
+#       # TCR
+      if (sum(str_count(names(seurat_object@meta.data), 'TCR') != 0)){
+        ###alpha diversity
+        TCR_processing()
+      }
+#       # BCR
+#       if (sum(str_count(names(seurat_object@meta.data), 'BCR') != 0)){
+# #         BCR_processing()
+#       }
+     }
 
 
     # } else if (is.null(tcr) && is.null(bcr)) {
