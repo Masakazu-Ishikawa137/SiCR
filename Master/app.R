@@ -19,56 +19,82 @@ options(shiny.port = 8100)
 ui <- fluidPage(
 
   #Title####
-  titlePanel("SCiR"),
+  titlePanel("SCiR: Web Application for Single Cell Repertoire Analysis"),
 
   #Navbar####
-  navbarPage("Repertoverse",
+  navbarPage("SiCR",
 
     #TabPanel, introduction####
     tabPanel("Introduction", mainPanel()),
 
     #TabPanel, upload####
     tabPanel("Upload",
-      sidebarLayout(
-        sidebarPanel(
-          HTML(
-            '<h3>Upload cellranger output files</h3>
-            <p>Upload these files and press "Run". Clustering will be started.</p>
-            <h4>1. count file</h4>
-            <p>This is the file for clustering.
-            <p>.../outs/count/filtered_feature_bc_matrix.h5</p>
-            <h4>2. TCR file(if exists)</h4>
-            <p>This is the file for TCR. If you analyzed TCR, upload the csv file
-            <p>.../outs/vdj_t/filtered_contig_annotations.csv</p>
-            <h4>3. BCR file(if exists)</h4>
-            <p>This is the file for BCR. If you analyzed BCR, upload the csv file
-            <p>.../outs/vdj_b/filtered_contig_annotations.csv</p>'
-          )
+      tabsetPanel(
+        tabPanel("Cellranger output",
+          sidebarLayout(
+            sidebarPanel(
+              HTML(
+                '<h3>Upload cellranger output files</h3>
+                <p>Upload these files and press "Run". Clustering will be started.</p>
+                <h4>1. count file</h4>
+                <p>This is the file for clustering.
+                <p>.../outs/count/filtered_feature_bc_matrix.h5</p>
+                <h4>2. TCR file(if exists)</h4>
+                <p>This is the file for TCR. If you analyzed TCR, upload the csv file
+                <p>.../outs/vdj_t/filtered_contig_annotations.csv</p>
+                <h4>3. BCR file(if exists)</h4>
+                <p>This is the file for BCR. If you analyzed BCR, upload the csv file
+                <p>.../outs/vdj_b/filtered_contig_annotations.csv</p>'
+              )
+            ),
+            mainPanel(
+              fileInput("h5", "Choose .h5 file"),
+              fileInput("tcr", "Choose .tcr file"),
+              fileInput("bcr", "Choose .bcr file"),
+              actionButton("Run", "Run"),
+              textOutput("pleaseupload"),
+            ),
+          ),
         ),
-        mainPanel(
-          fileInput("h5", "Choose .h5 file"),
-          fileInput("tcr", "Choose .tcr file"),
-          fileInput("bcr", "Choose .bcr file"),
-          actionButton("Run", "Run"),
-          textOutput("pleaseupload"),
-          downloadButton('downloadmetadata', 'Download Metadata')
-        )
+        tabPanel("RDS file",
+          sidebarLayout(
+            sidebarPanel(
+            ),
+            mainPanel(
+            ),
+          ),
+        ),
       ),
     ),
 
-    #TabPanel, upload####
-    tabPanel("Subsetting",
-      sidebarLayout(
-        sidebarPanel(HTML('
-          <h3>Upload cellranger csv files</h3>
-          <p>Upload these files and press "Run". Clustering will be started.</p>
-        ')),
-        mainPanel(
-          fileInput("barcodes", "Choose .csv file"),
-          actionButton("Run_subset", "Run"),
-        )
+    #TabPanel, Basics and subsetting
+   tabPanel("Basics and subsettings",
+      tabsetPanel(
+        tabPanel("Basics",
+          sidebarLayout(
+            sidebarPanel(
+            ),
+            mainPanel(
+              downloadButton('downloadmetadata', 'Download Metadata')
+            ),
+          ),
+        ),
+        tabPanel("Subsetting",
+          sidebarLayout(
+            sidebarPanel(
+              HTML(
+                '<h3>Upload cellranger csv files</h3>
+                <p>Upload these files and press "Run". Clustering will be started.</p>'
+              ),
+            ),
+            mainPanel(
+              fileInput("barcodes", "Choose .csv file"),
+              actionButton("Run_subset", "Run"),
+            ),
+          ),
+        ),
       ),
-    ),
+   ),
 
     #TabPanel, gene expression####
     tabPanel("Gene Expression",
@@ -392,8 +418,21 @@ server <- function(input, output, session) {
     #   add_clustring_plot()
     #   BCR_processing()
     # }
+  observeEvent(input$Run_subset,{
+      #Subsetting
+      if(!is.null(seurat_object)){
+        
+        csv <- input$barcodes$datapath
+        mysinglecell_subsetting(seurat_object, csv) -> seurat_object
+        print('done')
+      }else{
+        print('please upload seurat_object')
+      }
 
   })
+
+  })
+
 
 }
 

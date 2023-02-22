@@ -73,7 +73,11 @@ mysinglecell_celltyping_normal_normalization2 <- function(seurat_object, type="I
     return(final)
 }
 
-mysinglecell_metadata_for_UMAP <- function(seurat_object){
-    select(seurat_object@meta.data, !starts_with('TCR')) %>% select(!starts_with('BCR')) %>% select(-orig.ident, -nCount_RNA, -nFeature_RNA, -RNA_snn_res.0.5) %>% names() -> group
-    return(group)
+
+mysinglecell_subsetting <- function(seurat_object, csv){
+    csv <- read.csv(csv, row.names = NULL, header=FALSE)
+    barcodes <- Filter(function(x) x != "", csv$V1)
+    seurat_object@meta.data$'rowname' <- rownames(seurat_object@meta.data)
+    subset(seurat_object, subset = rowname %in% barcodes) -> seurat_object
+    return(seurat_object)
 }
