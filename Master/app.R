@@ -288,67 +288,15 @@ server <- function(input, output, session) {
     }
 
       # Download metadata
-      download_metadata <- function(){
-        output$downloadmetadata = downloadHandler(
-          filename = "metadata.csv",
-          content = function(file) {
-          #ファイル出力するためのコード
-          write.csv(seurat_object@meta.data, file)## write.csv()やwrite.tabel()やwriteDocなど。
-          }
-        )
-      }
-
-    TCR_processing <- function(){
-    #   tcr_csv <- read.csv(tcr)
-       ####alpha diversity
-        metadata_list <- mysinglecell_metadata_for_alphadiversity(seurat_object)
-        updateSelectInput(session, "alphadiversity_group", choices = metadata_list)
-        output$alpha_diversity <- renderPlot(alphaDiversity_TCR(seurat_object, group = input$alphadiversity_group) + theme_classic() + scale_fill_nejm() + ggtitle(NULL) + scale_color_nejm() + theme(legend.position=input$alphadiversity_legend), width = reactive(input$width_of_alphadiversity), height = reactive(input$height_of_alphadiversity))
-    #   ####Clonotype expand
-    #   updateSelectInput(session, "tcrexpand_group", choices = list)
-    #   observe({
-    #     unique_choice <- unique(seurat_object@meta.data[input$tcrexpand_group])
-    #     updateSelectInput(session, "tcrexpand_sample", choices = unique_choice)
-    #   })
-    #   output$tcr_expand <- renderPlot(clonotype_expand(seurat_object, group = input$tcrexpand_group, sample = input$tcrexpand_sample, heat_bar = input$tcrexpand_heat_bar) + theme(legend.position=input$tcrexpand_legend), width = reactive(input$width_of_clonotypeexpand), height = reactive(input$height_of_clonotypeexpand))
-    #   ####Gene Usage
-    #   updateSelectInput(session, "tcrbarplot_fill", choices = list)
-    #   output$tcr_barplot <- renderPlot(barplot(seurat_object, input$tcrbarplot_x, input$tcrbarplot_fill, input$tcrbarplot_verhori) + theme(legend.position=input$BCR_barplot_legend), width = reactive(input$BCR_width_of_barplot), height = reactive(input$BCR_Height_of_barplot))
-    #   ####TCR antigen
-    #   seurat_object@meta.data %>% 
-    #     drop_na(TCR_TRB_raw_clonotype_id) -> metadata2
-    #   clonotype_list <- unique(metadata2$TCR_TRB_raw_clonotype_id)
-    #   clonotype_list <- sort(clonotype_list)
-    #   updateSelectInput(session, "TCRclonotype", choices = clonotype_list)
-    #   output$TCR_antigen <- renderTable(TCR_antigen_annotation(seurat_object, input$TCRclonotype))
+    download_metadata <- function(){
+      output$downloadmetadata = downloadHandler(
+        filename = "metadata.csv",
+        content = function(file) {
+        #ファイル出力するためのコード
+        write.csv(seurat_object@meta.data, file)## write.csv()やwrite.tabel()やwriteDocなど。
+        }
+      )
     }
-
-    # BCR_processing <- function(){
-    #   bcr_csv <- read.csv(bcr)
-    #   ####alpha diversity
-    #   updateSelectInput(session, "BCR_alphadiversity_group", choices = list)
-    #   output$BCR_alpha_diversity <- renderPlot(alphaDiversity_BCR(seurat_object, group = input$BCR_alphadiversity_group) + theme_classic() + scale_fill_nejm() + ggtitle(NULL) + scale_color_nejm() + theme(legend.position=input$BCR_alphadiversity_legend), width = reactive(input$BCR_width_of_alphadiversity), height = reactive(input$BCR_height_of_alphadiversity))
-    #   ####Clonotype expand
-    #   updateSelectInput(session, "BCR_expand_group", choices = list)
-    #   observe({
-    #     unique_choice <- unique(seurat_object@meta.data[input$BCR_expand_group])
-    #     updateSelectInput(session, "BCR_expand_sample", choices = unique_choice)
-    #   })
-    #   output$BCR_expand <- renderPlot(clonotype_expand_BCR(seurat_object, group = input$BCR_expand_group, sample = input$BCR_expand_sample, heat_bar = input$BCR_expand_heat_bar) + theme(legend.position=input$BCR_expand_legend), width = reactive(input$BCR_width_of_clonotypeexpand), height = reactive(input$BCR_height_of_clonotypeexpand))
-    #   ####Gene Usage
-    #   updateSelectInput(session, "BCR_barplot_fill", choices = list)
-    #   output$BCR_barplot <- renderPlot(barplot(seurat_object, input$BCR_barplot_x, input$BCR_barplot_fill, input$BCR_barplot_verhori) + theme(legend.position=input$tcrbarplot_legend), width = reactive(input$width_of_tcrbarplot), height = reactive(input$Height_of_tcrbarplot))
-    #   ####BCR antigen
-    #   seurat_object@meta.data %>% 
-    #     drop_na(BCR_IGH_raw_clonotype_id) -> metadata2
-    #   clonotype_list <- unique(metadata2$BCR_IGH_raw_clonotype_id)
-    #   clonotype_list <- sort(clonotype_list)
-    #   updateSelectInput(session, "BCR_clonotype", choices = clonotype_list)
-    #   output$BCR_antigen <- renderTable(BCR_antigen_annotation(seurat_object, input$BCR_clonotype))
-    #   ###Phylogenetic tree
-    #   output$bcr_phylogenetic_tree <- renderPlot(phylogenetic_tree(bcr, input$bcr_clonotype))
-    # }
-
 
     #First analysis
     h5 <- input$h5$datapath
@@ -372,189 +320,23 @@ server <- function(input, output, session) {
       # GEX
       # Show UMAP
       add_clustring_plot(seurat_object)
-
-      #download metadata
+      # download metadata
       download_metadata()
-
-#       # TCR
+      # TCR
       if (sum(str_count(names(seurat_object@meta.data), 'TCR') != 0)){
         ###alpha diversity
         TCR_processing()
       }
-#       # BCR
-#       if (sum(str_count(names(seurat_object@meta.data), 'BCR') != 0)){
-# #         BCR_processing()
-#       }
-     }
+    }
+  })
 
-
-    # } else if (is.null(tcr) && is.null(bcr)) {
-    #   cmbn <- "GEX"
-    # } else if (is.null(bcr)){
-    #   cmbn <- "GEX_TCR"
-    # } else if (is.null(tcr)){
-    #   cmbn <- "GEX_BCR"
-    # } else {
-    #   cmbn <- "GEX_TCR_BCR"
-    # }
-
-    # if (cmbn == "GEX"){
-    #   seurat_object <- GEX(h5)
-    #   add_clustring_plot()
-    # }
-
-    # if (cmbn == "GEX_TCR"){
-    #   seurat_object <- GEX_TCR(h5, tcr)
-    #   list <- names(metadata_table(tcr)) # 変数名が一般の関数名とかぶるのは良くないとされているので、listではなくてgroupsとかにした方がいいかも
-    #   list2 <- c('seurat_clusters', 'celltype', list)
-    #   updateSelectInput(session, "group_by", choices = list2)
-    #   add_clustring_plot()
-    #   TCR_processing()
-    # }
-
-    # if (cmbn == "GEX_BCR"){
-    #   seurat_object <- GEX_BCR(h5, bcr)
-    #   list <- names(metadata_table(bcr))
-    #   add_clustring_plot()
-    #   BCR_processing()
-    # }
   observeEvent(input$Run_subset,{
-      #Subsetting
-      if(!is.null(seurat_object)){
-        
-        csv <- input$barcodes$datapath
-        mysinglecell_subsetting(seurat_object, csv) -> seurat_object
-        print('done')
-      }else{
-        print('please upload seurat_object')
-      }
-
+    if(!is.null(seurat_object) && !is.null(input$barcodes)){
+      csv <- input$barcodes$datapath
+      mysinglecell_subsetting(seurat_object, csv) -> seurat_object
+      print('OK')
+    }
   })
-
-  })
-
-
 }
 
-
 shinyApp(ui = ui, server = server)
-
-
-# ###############
-
-# ## NO upload      
-#       if(is.null(input$h5)){
-#         output$pleaseupload <- renderText("Please upload .h5 file")
-#       }
-
-
-
-# ## GEX
-#       else if(!is.null(input$h5) && is.null(input$tcr) && is.null(input$bcr)){
-#           GEX(h5) -> seurat_object
-
-# ### Clustering plot
-#           output$clustering_plot <- renderPlot(DimPlot(seurat_object, label=TRUE, pt.size= input$point_size, group.by=input$group_by, label.size = input$label_size) + theme(legend.position=input$legend), width = reactive(input$width_of_dimplot), height = reactive(input$Height_of_dimplot))
-#         }
-
-
-
-
-
-
-
-# ## GEX TCR
-#       else if(!is.null(input$h5) && !is.null(input$tcr) && is.null(input$bcr)){
-#           GEX_TCR(h5, tcr) -> seurat_object
-#           list <- names(metadata_table(tcr))
-
-
-# ### Clustering plot
-#           list2 <- c('seurat_clusters', 'celltype', list)
-#           updateSelectInput(session, "group_by", choices = list2)
-#           output$clustering_plot <- renderPlot(DimPlot(seurat_object, label=TRUE, pt.size= input$point_size, group.by=input$group_by, label.size = input$label_size) + theme(legend.position=input$legend), width = reactive(input$width_of_dimplot), height = reactive(input$Height_of_dimplot))
-
-# ###TCR
-#           tcr_csv <- read.csv(tcr)
-# ####alpha diversity
-#           updateSelectInput(session, "alphadiversity_group", choices = list)
-#           output$alpha_diversity <- renderPlot(alphaDiversity_TCR(seurat_object, group = input$alphadiversity_group) + theme_classic() + scale_fill_nejm() + ggtitle(NULL) + scale_color_nejm() + theme(legend.position=input$alphadiversity_legend), width = reactive(input$width_of_alphadiversity), height = reactive(input$height_of_alphadiversity))
-# ####Clonotype expand
-#           updateSelectInput(session, "tcrexpand_group", choices = list)
-#           observe({
-#               unique_choice <- unique(seurat_object@meta.data[input$tcrexpand_group])
-#               updateSelectInput(session, "tcrexpand_sample", choices = unique_choice)
-#                   })
-#           output$tcr_expand <- renderPlot(clonotype_expand(seurat_object, group = input$tcrexpand_group, sample = input$tcrexpand_sample, heat_bar = input$tcrexpand_heat_bar) + theme(legend.position=input$tcrexpand_legend), width = reactive(input$width_of_clonotypeexpand), height = reactive(input$height_of_clonotypeexpand))
-
-# ####Gene Usage
-#           updateSelectInput(session, "tcrbarplot_fill", choices = list)
-#           output$tcr_barplot <- renderPlot(barplot(seurat_object, input$tcrbarplot_x, input$tcrbarplot_fill, input$tcrbarplot_verhori) + theme(legend.position=input$BCR_barplot_legend), width = reactive(input$BCR_width_of_barplot), height = reactive(input$BCR_Height_of_barplot))
-
-# ####TCR antigen
-#         seurat_object@meta.data %>% 
-#           drop_na(TCR_TRB_raw_clonotype_id) -> metadata2
-#         clonotype_list <- unique(metadata2$TCR_TRB_raw_clonotype_id)
-#         clonotype_list <- sort(clonotype_list)
-#         updateSelectInput(session, "TCRclonotype", choices = clonotype_list)
-#         output$TCR_antigen <- renderTable(TCR_antigen_annotation(seurat_object, input$TCRclonotype))
-
-#         }
-
-# ## GEX BCR
-#       else if(!is.null(input$h5) && is.null(input$tcr) && !is.null(input$bcr)){
-#           GEX_BCR(h5, bcr) -> seurat_object
-#           list <- names(metadata_table(bcr))
-# ### Clustering plot
-#           output$clustering_plot <- renderPlot(DimPlot(seurat_object, label=TRUE, pt.size= input$point_size, group.by=input$group_by, label.size = input$label_size) + theme(legend.position=input$legend), width = reactive(input$width_of_dimplot), height = reactive(input$Height_of_dimplot))
-
-# ##BCR
-#           bcr_csv <- read.csv(bcr)
-# ####alpha diversity
-#           updateSelectInput(session, "BCR_alphadiversity_group", choices = list)
-#           output$BCR_alpha_diversity <- renderPlot(alphaDiversity_BCR(seurat_object, group = input$BCR_alphadiversity_group) + theme_classic() + scale_fill_nejm() + ggtitle(NULL) + scale_color_nejm() + theme(legend.position=input$BCR_alphadiversity_legend), width = reactive(input$BCR_width_of_alphadiversity), height = reactive(input$BCR_height_of_alphadiversity))
-
-# ####Clonotype expand
-#           updateSelectInput(session, "BCR_expand_group", choices = list)
-#           observe({
-#               unique_choice <- unique(seurat_object@meta.data[input$BCR_expand_group])
-#               updateSelectInput(session, "BCR_expand_sample", choices = unique_choice)
-#                   })
-#           output$BCR_expand <- renderPlot(clonotype_expand_BCR(seurat_object, group = input$BCR_expand_group, sample = input$BCR_expand_sample, heat_bar = input$BCR_expand_heat_bar) + theme(legend.position=input$BCR_expand_legend), width = reactive(input$BCR_width_of_clonotypeexpand), height = reactive(input$BCR_height_of_clonotypeexpand))
-
-# ####Gene Usage
-#           updateSelectInput(session, "BCR_barplot_fill", choices = list)
-#           output$BCR_barplot <- renderPlot(barplot(seurat_object, input$BCR_barplot_x, input$BCR_barplot_fill, input$BCR_barplot_verhori) + theme(legend.position=input$tcrbarplot_legend), width = reactive(input$width_of_tcrbarplot), height = reactive(input$Height_of_tcrbarplot))
-
-# ####BCR antigen
-#         seurat_object@meta.data %>% 
-#           drop_na(BCR_IGH_raw_clonotype_id) -> metadata2
-#         clonotype_list <- unique(metadata2$BCR_IGH_raw_clonotype_id)
-#         clonotype_list <- sort(clonotype_list)
-#         updateSelectInput(session, "BCR_clonotype", choices = clonotype_list)
-#         output$BCR_antigen <- renderTable(BCR_antigen_annotation(seurat_object, input$BCR_clonotype))
-
-
-# ###Phylogenetic tree
-#           output$bcr_phylogenetic_tree <- renderPlot(phylogenetic_tree(bcr, input$bcr_clonotype))
-#         }
-
-
-
-
-# ## GEX TCR BCR
-#       else if(!is.null(input$h5) && !is.null(input$tcr) && !is.null(input$bcr)){
-#           GEX_TCR_BCR(h5, tcr, bcr) -> seurat_object
-
-# ### Clustering plot
-#           output$clustering_plot <- renderPlot(DimPlot(seurat_object, label=TRUE, pt.size= input$point_size, group.by=input$group_by, label.size = input$label_size) + theme(legend.position=input$legend), width = reactive(input$width_of_dimplot), height = reactive(input$Height_of_dimplot))
-
-
-#         }
-
-
-
-#         })}
-
-
-
