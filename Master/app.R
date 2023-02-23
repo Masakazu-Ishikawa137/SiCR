@@ -2,13 +2,14 @@ library(shiny)
 library(Seurat)
 library(tidyverse)
 library(hrbrthemes)
-getwd() -> current
-source(paste0(current,"/","Functions/230217script_first_functions_GEX.r"))
-source(paste0(current,"/","Functions/230217script_first_functions_TCR.r"))
-source(paste0(current,"/","Functions/230217script_first_functions_BCR.r"))
-source(paste0(current,"/",'Functions/230217script_first_Run.r'))
-source(paste0(current,"/","Functions/230217script_second_functions_GEX.r"))
-source(paste0(current,"/","Functions/230217script_second_functions_TCR.r"))
+
+
+source(paste0("Functions/230217script_first_functions_GEX.r"))
+source(paste0("Functions/230217script_first_functions_TCR.r"))
+source(paste0("Functions/230217script_first_functions_BCR.r"))
+source(paste0('Functions/230217script_first_Run.r'))
+source(paste0("Functions/230217script_second_functions_GEX.r"))
+source(paste0("Functions/230217script_second_functions_TCR.r"))
 #source("/Users/masakazuifrec/SiCR/Master/Functions/230217script_second_functions_BCR.r")
 
 options(shiny.maxRequestSize=50*1024^2*1000)
@@ -52,7 +53,7 @@ ui <- fluidPage(
               fileInput("tcr", "Choose .tcr file"),
               fileInput("bcr", "Choose .bcr file"),
               actionButton("Run", "Run"),
-              textOutput("pleaseupload"),
+              textOutput("done_or_upload"),
             ),
           ),
         ),
@@ -67,34 +68,16 @@ ui <- fluidPage(
       ),
     ),
 
-    #TabPanel, Basics and subsetting
-   tabPanel("Basics and subsettings",
-      tabsetPanel(
-        tabPanel("Basics",
-          sidebarLayout(
-            sidebarPanel(
-            ),
-            mainPanel(
-              downloadButton('downloadmetadata', 'Download Metadata')
-            ),
-          ),
+    #TabPanel, Basics
+    tabPanel("Basics",
+      sidebarLayout(
+        sidebarPanel(
         ),
-        tabPanel("Subsetting",
-          sidebarLayout(
-            sidebarPanel(
-              HTML(
-                '<h3>Upload cellranger csv files</h3>
-                <p>Upload these files and press "Run". Clustering will be started.</p>'
-              ),
-            ),
-            mainPanel(
-              fileInput("barcodes", "Choose .csv file"),
-              actionButton("Run_subset", "Run"),
-            ),
-          ),
+        mainPanel(
+          downloadButton('downloadmetadata', 'Download Metadata')
         ),
       ),
-   ),
+    ),
 
     #TabPanel, gene expression####
     tabPanel("Gene Expression",
@@ -265,6 +248,20 @@ ui <- fluidPage(
 
       )
     ),
+    tabPanel("Subsetting",
+      sidebarLayout(
+        sidebarPanel(
+          HTML(
+            '<h3>Upload cellranger csv files</h3>
+            <p>Upload these files and press "Run". Clustering will be started.</p>'
+          ),
+        ),
+        mainPanel(
+          fileInput("barcodes", "Choose .csv file"),
+          actionButton("Run_subset", "Run"),
+        ),
+      ),
+    ),
   )
 )
 
@@ -272,73 +269,115 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
 
-  observeEvent(input$Run,{
-
-    add_clustring_plot <- function(seurat_object){
-      umap_group <- mysinglecell_metadata_for_UMAP(seurat_object)
-      updateSelectInput(session, "group_by", choices = umap_group)
-      output$clustering_plot <- renderPlot(DimPlot(
-        seurat_object,
-        label = TRUE,
-        pt.size = input$point_size,
-        group.by =input$group_by,
-        label.size = input$label_size) + theme(legend.position=input$legend),
-        width = reactive(input$width_of_dimplot),
-        height = reactive(input$Height_of_dimplot))
+  First_analysis <-function(){
+  h5 <- input$h5$datapath
+  tcr <- input$tcr$datapath
+  bcr <- input$bcr$datapath
+  if (is.null(h5)){
+    done <- print('Pleaes upload .h5 file')
+    return(done)
+  }else{
+    GEX(h5) -> seurat_object
+    if(!is.null(tcr)){
+      TCR(seurat_object, tcr) -> seurat_object
     }
-
-      # Download metadata
-    download_metadata <- function(){
-      output$downloadmetadata = downloadHandler(
-        filename = "metadata.csv",
-        content = function(file) {
-        #ファイル出力するためのコード
-        write.csv(seurat_object@meta.data, file)## write.csv()やwrite.tabel()やwriteDocなど。
-        }
-      )
+    if(!is.null(bcr)){
+      BCR(seurat_object, bcr) -> seurat_object
     }
+  done <- print('Analysis was done!')
+  return(list(done, seurat_object))
+  }
+  }
 
-    #First analysis
-    h5 <- input$h5$datapath
-    tcr <- input$tcr$datapath
-    bcr <- input$bcr$datapath
+  add_clustering_plot <- function(seurat_object){
+    umap_group <- mysinglecell_metadata_for_UMAP(seurat_object)
+    updateSelectInput(session, "group_by", choices = umap_group)
+    output$clustering_plot <- renderPlot(DimPlot(
+      seurat_object,
+      label = TRUE,
+      pt.size = input$point_size,
+      group.by =input$group_by,
+      label.size = input$label_size) + theme(legend.position=input$legend),
+      width = reactive(input$width_of_dimplot),
+      height = reactive(input$Height_of_dimplot))
+  }
 
-    if (is.null(h5)){
-      output$pleaseupload <- renderText("Please upload .h5 file")
-    }else{
-      GEX(h5) -> seurat_object
-      if(!is.null(tcr)){
-        TCR(seurat_object, tcr) -> seurat_object
-      }
-      if(!is.null(bcr)){
-        BCR(seurat_object, bcr) -> seurat_object
-      }
-    }
-
-    #Second analysis
-    if(!is.null(seurat_object)){
-      # GEX
-      # Show UMAP
-      add_clustring_plot(seurat_object)
-      # download metadata
-      download_metadata()
-      # TCR
-      if (sum(str_count(names(seurat_object@meta.data), 'TCR') != 0)){
-        ###alpha diversity
-        TCR_processing()
-      }
-    }
-
-    observeEvent(input$Run_subset,{
-      if(!is.null(seurat_object) && !is.null(input$barcodes)){
-        csv <- input$barcodes$datapath
-        mysinglecell_subsetting(seurat_object, csv) -> seurat_object
-        print('OK')
-      }
-    })
+  #First analysis
+  Run_output <- eventReactive(input$Run,{
+    First_analysis()
   })
+  output$done_or_upload <- renderText({Run_output()[[1]]})
 
-
+  observe({
+    #Second analysis
+    if(!is.null(Run_output()[[2]])){
+      seurat_object <- Run_output()[[2]]
+    # GEX
+    # Show UMAP
+    add_clustering_plot(seurat_object)
+  }
+  })
 }
 
 shinyApp(ui = ui, server = server)
+
+
+
+  #   #Second analysis
+  #   if(!is.null(seurat_object)){
+  #     # GEX
+  #     # Show UMAP
+  #     add_clustring_plot(seurat_object)
+  #     # download metadata
+  #     download_metadata()
+  #     # TCR
+  #     if (sum(str_count(names(seurat_object@meta.data), 'TCR') != 0)){
+  #       ###alpha diversity
+  #       TCR_processing()
+  #     }
+  #   }
+
+  #   observeEvent(input$Run_subset,{
+  #     if(!is.null(seurat_object) && !is.null(input$barcodes)){
+  #       csv <- input$barcodes$datapath
+  #       mysinglecell_subsetting(seurat_object, csv) -> seurat_object
+  #       print('OK')
+  #     }
+  #   })
+  # })
+
+
+    # add_clustring_plot <- function(seurat_object){
+    #   umap_group <- mysinglecell_metadata_for_UMAP(seurat_object)
+    #   updateSelectInput(session, "group_by", choices = umap_group)
+    #   output$clustering_plot <- renderPlot(DimPlot(
+    #     seurat_object,
+    #     label = TRUE,
+    #     pt.size = input$point_size,
+    #     group.by =input$group_by,
+    #     label.size = input$label_size) + theme(legend.position=input$legend),
+    #     width = reactive(input$width_of_dimplot),
+    #     height = reactive(input$Height_of_dimplot))
+    # }
+
+    #   # Download metadata
+    # download_metadata <- function(){
+    #   output$downloadmetadata = downloadHandler(
+    #     filename = "metadata.csv",
+    #     content = function(file) {
+    #     #ファイル出力するためのコード
+    #     write.csv(seurat_object@meta.data, file)## write.csv()やwrite.tabel()やwriteDocなど。
+    #     }
+    #   )
+    # }
+
+  #Download metadata
+    # download_metadata <- function(){
+    #   output$downloadmetadata = downloadHandler(
+    #     filename = "metadata.csv",
+    #     content = function(file) {
+    #     #ファイル出力するためのコード
+    #     write.csv(seurat_object@meta.data, file)## write.csv()やwrite.tabel()やwriteDocなど。
+    #     }
+    #   )
+    # }
