@@ -2,13 +2,13 @@ library(shiny)
 library(Seurat)
 library(tidyverse)
 library(hrbrthemes)
-
-source("/Users/masakazuifrec/SiCR/Master/Functions/230217script_first_functions_GEX.r")
-source("/Users/masakazuifrec/SiCR/Master/Functions/230217script_first_functions_TCR.r")
-source("/Users/masakazuifrec/SiCR/Master/Functions/230217script_first_functions_BCR.r")
-source('/Users/masakazuifrec/SiCR/Master/Functions/230217script_first_Run.r')
-source("/Users/masakazuifrec/SiCR/Master/Functions/230217script_second_functions_GEX.r")
-source("/Users/masakazuifrec/SiCR/Master/Functions/230217script_second_functions_TCR.r")
+getwd() -> current
+source(paste0(current,"/","Functions/230217script_first_functions_GEX.r"))
+source(paste0(current,"/","Functions/230217script_first_functions_TCR.r"))
+source(paste0(current,"/","Functions/230217script_first_functions_BCR.r"))
+source(paste0(current,"/",'Functions/230217script_first_Run.r'))
+source(paste0(current,"/","Functions/230217script_second_functions_GEX.r"))
+source(paste0(current,"/","Functions/230217script_second_functions_TCR.r"))
 #source("/Users/masakazuifrec/SiCR/Master/Functions/230217script_second_functions_BCR.r")
 
 options(shiny.maxRequestSize=50*1024^2*1000)
@@ -328,15 +328,17 @@ server <- function(input, output, session) {
         TCR_processing()
       }
     }
+
+    observeEvent(input$Run_subset,{
+      if(!is.null(seurat_object) && !is.null(input$barcodes)){
+        csv <- input$barcodes$datapath
+        mysinglecell_subsetting(seurat_object, csv) -> seurat_object
+        print('OK')
+      }
+    })
   })
 
-  observeEvent(input$Run_subset,{
-    if(!is.null(seurat_object) && !is.null(input$barcodes)){
-      csv <- input$barcodes$datapath
-      mysinglecell_subsetting(seurat_object, csv) -> seurat_object
-      print('OK')
-    }
-  })
+
 }
 
 shinyApp(ui = ui, server = server)
