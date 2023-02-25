@@ -1,4 +1,0 @@
-if test -n "-L/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lxml2 -lz -lpthread -licucore -lm" ; then
- LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:-L/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib -lxml2 -lz -lpthread -licucore -lm
- export LD_LIBRARY_PATH 
-fi

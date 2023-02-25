@@ -1,6 +1,0 @@
-colSds                  Standard deviation of columns and rows of large
-                        matrices
-colZeros                Count number of zeros in columns and rows of
-                        large matrices
-simil                   Compute similarity/distance between rows or
-                        columns of large matrices

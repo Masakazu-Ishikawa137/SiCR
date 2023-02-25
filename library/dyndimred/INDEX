@@ -1,4 +1,0 @@
-dimred                  Perform simple dimensionality reduction
-dimred_tsne             tSNE
-dimred_umap             UMAP
-dyndimred               Common dimensionality reduction methods
