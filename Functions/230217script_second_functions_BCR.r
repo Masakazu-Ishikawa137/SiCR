@@ -18,7 +18,7 @@ alphaDiversity_BCR<- function(seurat_object, group = "Sample", q = 'all'){
 
 }
 
-clonotype_expand_TCR <- function(seurat_object, x = "TCR_TRB_raw_clonotype_id", group = "Sample", sample = "1", heat_bar = "heatmap", color = "Greys", range_color = 50, label_size=5, type = "Percent")
+clonotype_expand_BCR <- function(seurat_object, x = "BCR_IGH_raw_clonotype_id", group = "Sample", sample = "1", heat_bar = "heatmap", color = "Greys", range_color = 50, label_size=5, type = "Percent")
 {
     metadata <- seurat_object@meta.data
     # drop NA row in x or fill
@@ -28,7 +28,7 @@ clonotype_expand_TCR <- function(seurat_object, x = "TCR_TRB_raw_clonotype_id", 
     # calculate percentage of each clonotype in each group
     metadata <- group_by(metadata, metadata[x], metadata[group]) %>% add_count(name="Cell_number") %>% transform(Percent=Cell_number/n * 100)
     metadata <- distinct(metadata, metadata[x], metadata[group], n, Cell_number, Percent)
-    dplyr::filter(metadata, metadata[group] == sample) %>% arrange(-Percent) %>% head(20) %>% .$"TCR_TRB_raw_clonotype_id" -> topclonotype
+    dplyr::filter(metadata, metadata[group] == sample) %>% arrange(-Percent) %>% head(20) %>% .$"BCR_IGH_raw_clonotype_id" -> topclonotype
      if(type == "Percent"){
          metadata <- distinct(metadata, metadata[x], metadata[group], n, Cell_number, Percent) %>% dplyr::select(-n, -Cell_number)
     }
