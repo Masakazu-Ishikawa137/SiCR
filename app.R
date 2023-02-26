@@ -323,7 +323,8 @@ server <- function(input, output, session) {
       updateSelectInput(session, "tcrexpand_sample", choices = unique_choice)
     })
       output$tcr_expand <- renderPlot(clonotype_expand_TCR(seurat_object, group = input$tcrexpand_group, sample = input$tcrexpand_sample, heat_bar = input$tcrexpand_heat_bar) + theme(legend.position=input$tcrexpand_legend), width = reactive(input$width_of_clonotypeexpand), height = reactive(input$height_of_clonotypeexpand))
-    }
+  }
+
   ####Gene Usage
   TCR_gene_usage <-function(seurat_object){
     metadata_group_for_TCR <- mysinglecell_metadata_for_TCR(seurat_object)
@@ -344,9 +345,28 @@ server <- function(input, output, session) {
   ####BCR alpha diversity
   BCR_alpha_diversity <- function(seurat_object){
     metadata_group_for_BCR <- mysinglecell_metadata_for_BCR(seurat_object)
-    updateSelectInput(session, "BCR_alphadiversity_group", choices = metadata_group_for_TCR)
+    updateSelectInput(session, "BCR_alphadiversity_group", choices = metadata_group_for_BCR)
     output$BCR_alpha_diversity <- renderPlot(alphaDiversity_BCR(seurat_object, group = input$BCR_alphadiversity_group) + theme_classic() + scale_fill_nejm() + ggtitle(NULL) + scale_color_nejm() + theme(legend.position=input$BCR_alphadiversity_legend), width = reactive(input$BCR_width_of_alphadiversity), height = reactive(input$BCR_height_of_alphadiversity))
   }
+
+  ####Clonotype expand
+  BCR_clonotype_expand <- function(seurat_object){
+    metadata_group_for_BCR <- mysinglecell_metadata_for_BCR(seurat_object)
+    updateSelectInput(session, "BCR_expand_group", choices = metadata_group_for_BCR)
+    observe({
+      unique_choice <- unique(seurat_object@meta.data[input$BCR_expand_group])
+      updateSelectInput(session, "BCR_expand_sample", choices = unique_choice)
+    })
+      output$BCR_expand <- renderPlot(clonotype_expand_BCR(seurat_object, group = input$BCR_expand_group, sample = input$BCR_expand_sample, heat_bar = input$BCR_expand_heat_bar) + theme(legend.position=input$BCR_expand_legend), width = reactive(input$BCR_width_of_clonotypeexpand), height = reactive(input$BCR_height_of_clonotypeexpand))
+  }
+
+  ####Gene Usage
+  BCR_gene_usage <-function(seurat_object){
+    metadata_group_for_BCR <- mysinglecell_metadata_for_BCR(seurat_object)
+    updateSelectInput(session, "BCR_barplot_fill", choices = metadata_group_for_BCR)
+    output$BCR_barplot <- renderPlot(barplot(seurat_object, input$BCR_barplot_x, input$BCR_barplot_fill, input$BCR_barplot_verhori) + theme(legend.position=input$BCR_barplot_legend), width = reactive(input$BCR_width_of_barplot), height = reactive(input$BCR_height_of_barplot))
+  }
+
 
   #First analysis
   Run_output <- eventReactive(input$Run,{
@@ -368,6 +388,8 @@ server <- function(input, output, session) {
     }
     if(sum(str_count(names(seurat_object@meta.data), 'BCR')) !=0){
       BCR_alpha_diversity(seurat_object)
+      BCR_clonotype_expand(seurat_object)
+      BCR_gene_usage(seurat_object)
     }
   })
 }
