@@ -1,7 +1,13 @@
 # SiCR: Web Application for Single Cell Repertoire Analysis
-## 1. Summary
-SiCR is web application for single cell repertoire analysis based on R Shiny. 
-## 2. Introduction
+## 1. Introduction
+SiCR is web application specialized for single cell repertoire analysis. 
+## 2. Install
+Download SiCR's docker image.
+
+```bash
+ # Download the docker image:
+ docker pull 〇〇
+```
 ## 3. How to use
 ### 3.1 One sample
 #### 3.1.1 Cellranger
