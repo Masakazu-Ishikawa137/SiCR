@@ -1,7 +1,17 @@
 # SiCR: Web Application for Single Cell Repertoire Analysis
 ## 1. Introduction
 SiCR is web application specialized for single cell repertoire analysis. 
-## 2. Install
+## 2. Install SiCR
+### 2.1 Install R and R studio
+If your PC (Windows, Mac, Linux) does not have R and R studio, please install these.
+https://posit.co/download/rstudio-desktop/
+### 2.2 Install R library packages.
+SiCR uses following libraries, so please install using this command
+```R
+install.packages(c('ggsci', ‘RColorBrewer', 'tidyverse', 'Seurat', 'shiny', 'HGNChelper', 'alakazam', 'dowser'))
+```
+### 2.2 Download SiCR command
+
 Download SiCR's docker image.
 
 ```bash
