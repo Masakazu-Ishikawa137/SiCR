@@ -8,7 +8,7 @@ https://posit.co/download/rstudio-desktop/
 ### 2.2 Install R library packages.
 SiCR uses following libraries, so please install using this command
 ```R
-install.packages(c('ggsci', ‘RColorBrewer', 'tidyverse', 'Seurat', 'shiny', 'HGNChelper', 'alakazam', 'dowser'))
+install.packages(c('ggsci', ‘RColorBrewer', 'tidyverse', 'Seurat', 'shiny', 'HGNChelper', 'alakazam', 'dowser',　'hdf5r'))
 ```
 ### 2.2 Download SiCR command
 
