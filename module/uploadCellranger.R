@@ -50,7 +50,11 @@ uploadCellrangerServer <- function(id) {
       
       # h5
       withProgress(message = "Processing h5 (1/8):", detail = "Seurat - making seurat object", value = 1/9, {
-        seurat_object <- CreateSeuratObject(Read10X_h5(h5_path))
+        h5 <- Read10X_h5(h5_path)
+        if (!is.null(names(h5)) & ("Gene Expression" %in% names(h5))) { # names(h5) are NULL OR c('Gene Expression','Antibody Capture')
+          h5 <- h5[["Gene Expression"]]
+        }
+        seurat_object <- CreateSeuratObject(h5)
         seurat_object@meta.data <- seurat_object@meta.data %>%
           mutate(barcode = rownames(.)) %>%
           mutate(sample = str_remove(barcode, "^.+-"))
