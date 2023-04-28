@@ -6,12 +6,14 @@ geneUsageUI <- function(id, chain_choice) {
       selectInput(ns("gene"), "Gene", choices = ""),
       selectInput(ns("group_by"), "Group by", choices = list("sample" = "sample")),
       radioButtons(ns("ver_or_hori"), "Vertical or horizontal", choices = list("vertical" = "vertical", "horizontal" = "horizontal"), selected = "vertical"),
-      radioButtons(ns("legend"), "Legend", choices = list("False" = "none", "True" = "right"), selected = "right"),
+      checkboxInput(ns("legend"), "Show legend", value = TRUE),
       sliderInput(ns("plot_width"), "Width", min = 100, max = 2000, value = 500, step = 100),
       sliderInput(ns("plot_height"), "Height", min = 100, max = 2000, value = 500, step = 100),
     ),
     mainPanel(
-      plotOutput(ns("gene_usage_plot"))
+      plotOutput(ns("gene_usage_plot")),
+      downloadButton(ns("download_data"), "Download data (.csv)"),
+      downloadButton(ns("download_plot"), "Download plot (.pdf)")
     )
   )
 }
@@ -73,6 +75,20 @@ geneUsageServer <- function(id, data, group_cols) {
       geneUsagePlot(),
       width  = plot_width,
       height = plot_height
+    )
+    
+    output$download_data <- downloadHandler(
+      filename = function() {"gene_usage.csv"},
+      content = function(file) {
+        write_csv(geneUsageTally(), file)
+      }
+    )
+    
+    output$download_plot <- downloadHandler(
+      filename = function() {"gene_usage.pdf"},
+      content = function(file) {
+        ggsave(file, plot = geneUsagePlot(), width = plot_width(), height = plot_height(), unit = "px", dpi = "screen")
+      }
     )
 
   })

@@ -12,6 +12,12 @@ my_barplot <- function(
   
 ) {
   
+  if (isTRUE(legend_position)) {
+    legend_position <- "right"
+  } else if (isFALSE(legend_position)) {
+    legend_position <- "none"
+  }
+  
   my_colors <- my_brewer.pal(length(unique(pull(data, !!fill))), palette)
   
   g <- ggplot(data) +

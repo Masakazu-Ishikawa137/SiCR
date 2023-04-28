@@ -7,12 +7,14 @@ clonotypeExpandUI <- function(id){
       radioButtons(ns("count_or_percent"), "Use cell count or percent?", choices = list("count" = "count", "percent" = "percent"), selected = "count"),
       selectInput(ns("group_by"), "Group by", choices = list("sample" = "sample")),
       selectInput(ns("focus_group"), "Show top 20 in this group", choices = ""),
-      radioButtons(ns("legend"), "Legend", choices = list("False" = "none", "True" = "right"), selected = "right"),
+      checkboxInput(ns("legend"), "Show legend", value = TRUE),
       sliderInput(ns("plot_width"),  "Width",  min = 100, max = 2000, value = 500, step = 100),
       sliderInput(ns("plot_height"), "Height", min = 100, max = 2000, value = 500, step = 100),
     ),
     mainPanel(
-      plotOutput(ns("clonotype_expand_plot"))
+      plotOutput(ns("clonotype_expand_plot")),
+      downloadButton(ns("download_data"), "Download data (.csv)"),
+      downloadButton(ns("download_plot"), "Download plot (.pdf)")
     )
   )
 }
@@ -93,6 +95,20 @@ clonotypeExpandServer <- function(id, data, group_cols) {
       clonotypeExpandPlot(),
       width  = plot_width,
       height = plot_height
+    )
+    
+    output$download_data <- downloadHandler(
+      filename = function() {"clonotype_expand.csv"},
+      content = function(file) {
+        write_csv(clonotypeTally(), file)
+      }
+    )
+    
+    output$download_plot <- downloadHandler(
+      filename = function() {"clonotype_expand.pdf"},
+      content = function(file) {
+        ggsave(file, plot = clonotypeExpandPlot(), width = plot_width(), height = plot_height(), unit = "px", dpi = "screen")
+      }
     )
     
   })

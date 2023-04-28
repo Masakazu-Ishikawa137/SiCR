@@ -14,6 +14,12 @@ my_heatmap <- function(
   
 ) {
   
+  if (isTRUE(legend_position)) {
+    legend_position <- "right"
+  } else if (isFALSE(legend_position)) {
+    legend_position <- "none"
+  }
+  
   g <- ggplot(data, aes(x = get(x), y = get(y))) +
     geom_raster(aes(fill = get(fill))) +
     geom_text(size=label_size, aes(label=round(get(fill), round))) +

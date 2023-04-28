@@ -7,14 +7,14 @@ geneExpressionBarplotUI <- function(id) {
       selectInput(ns("color_by"), "Color by", "seurat_clusters"),
       selectInput(ns("palette"), "Color palette", list("Paired", "Dark2", "Set1", "Set2", "Set3", "Accent")),
       radioButtons(ns("ver_or_hori"), "Vertical or horizontal", choices = list("vertical" = "vertical", "horizontal" = "horizontal"), selected = "vertical"),
-      radioButtons(ns("legend"), "Legend", choices = list("False" = "none", "True" = "right"), selected = "right"),
+      checkboxInput(ns("legend"), "Show legend", value = TRUE),
       sliderInput(ns("plot_width"),  "Width",  min = 100, max = 2000, value = 500, step = 100),
       sliderInput(ns("plot_height"), "Height", min = 100, max = 2000, value = 500, step = 100),
     ),
     mainPanel(
       plotOutput(ns("barplot")),
       downloadButton(ns("download_data"), "Download data (.csv)"),
-      downloadButton(ns("download_plot"), "Download plot (.png)")
+      downloadButton(ns("download_plot"), "Download plot (.pdf)")
     )
   )
 }
@@ -75,7 +75,7 @@ geneExpressionBarplotServer <- function(id, seurat_metadata, group_cols) {
     )
     
     output$download_plot <- downloadHandler(
-      filename = function() {"gene_expression.png"},
+      filename = function() {"gene_expression.pdf"},
       content = function(file) {
         ggsave(file, plot = geneExpressionPlot(), width = plot_width(), height = plot_height(), unit = "px", dpi = "screen")
       }

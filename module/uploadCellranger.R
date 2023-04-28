@@ -19,7 +19,7 @@ uploadCellrangerUI <- function(id) {
       fileInput(ns("h5"),  "1. Choose .h5  file"),
       fileInput(ns("tcr"), "2. Choose .tcr file (optional)"),
       fileInput(ns("bcr"), "3. Choose .bcr file (optional)"),
-      actionButton(ns("Run"), "Run"),
+      actionButton(ns("run"), "Run"),
       textOutput(ns("text")),
       tableOutput(ns('cellnumber_table'))
     )
@@ -42,7 +42,7 @@ uploadCellrangerServer <- function(id) {
       )
     })
       
-    dataList <- eventReactive(input$Run, {
+    dataList <- eventReactive(input$run, {
       
       h5_path  <- input$h5$datapath
       tcr_path <- input$tcr$datapath
