@@ -1,0 +1,7 @@
+.navbar-header {
+  width:100% 
+}
+
+.shiny-plot-output {
+  height: 500px !important;
+}
