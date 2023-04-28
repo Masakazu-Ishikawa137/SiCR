@@ -1,4 +1,5 @@
 library(ggsci)
+library(RColorBrewer)
 library(tidyverse)
 library(Seurat)
 library(shiny)
@@ -20,7 +21,9 @@ for (i in module_file_lst) {
 
 ui <- navbarPage(
   
-  "SCiR: Web Application for Single Cell Repertoire Analysis",
+  includeCSS("style.css"),
+
+  title = "SCiR: Web Application for Single Cell Repertoire Analysis",
   
   tabPanel("Upload",
     tabsetPanel(
@@ -28,7 +31,12 @@ ui <- navbarPage(
     )
   ),
   
-  tabPanel("Gene Expression", geneExpressionUI("gene_expression")),
+  tabPanel("Gene Expression", 
+    tabsetPanel(
+      tabPanel("UMAP", geneExpressionUmapUI("gene_expression_umap")),
+      tabPanel("Bar plot", geneExpressionBarplotUI("gene_expression_barplot"))
+    )
+  ),
   
   tabPanel("TCR",
     tabsetPanel(
@@ -40,26 +48,16 @@ ui <- navbarPage(
   
   tabPanel("BCR",
     tabsetPanel(
-      tabPanel("Alpha Diversity",  alphaDiversityUI("bcr_alpha_diversity")),
-      tabPanel("Clonotype expand", clonotypeExpandUI("bcr_clonotype_expand")),
-      tabPanel("Gene usage",       geneUsageUI("bcr_gene_usage", chain_choice = list("IGH", "IGL")))
+      tabPanel("Alpha Diversity",   alphaDiversityUI("bcr_alpha_diversity")),
+      tabPanel("Clonotype expand",  clonotypeExpandUI("bcr_clonotype_expand")),
+      tabPanel("Gene usage",        geneUsageUI("bcr_gene_usage", chain_choice = list("IGH", "IGL"))),
+      tabPanel("Phylogenetic tree", phylogeneticTreeUI("bcr_phylogenetic_tree")),
     )
   ),
   
 
   tabPanel("(Data)", dataUI("data")),
   
-  # tags$style(
-  #   HTML(".shiny-notification {
-  #             height: 80px;
-  #             width: 400px;
-  #             position:fixed;
-  #             top:  calc(50% - 40px);;
-  #             left: calc(50% - 200px);;
-  #           }"
-  #   )
-  # ),
-  tags$style(HTML(".navbar-header { width:100% }"))
 )
 
 
@@ -71,7 +69,8 @@ server <- function(input, output) {
   bcrList      <- reactive({ dataList()[["bcr_list"]] })
   groupCols    <- reactive({ dataList()[["group_cols"]] })
   
-  geneExpressionServer("gene_expression", seuratObject(), groupCols())
+  geneExpressionUmapServer("gene_expression_umap", seuratObject(), groupCols())
+  geneExpressionBarplotServer("gene_expression_barplot", seuratObject()@meta.data, groupCols())
   
   alphaDiversityServer("tcr_alpha_diversity", tcrList()[["TRB"]], groupCols())
   alphaDiversityServer("bcr_alpha_diversity", bcrList()[["IGH"]], groupCols())
@@ -81,6 +80,8 @@ server <- function(input, output) {
   
   geneUsageServer("tcr_gene_usage", tcrList(), groupCols())
   geneUsageServer("bcr_gene_usage", bcrList(), groupCols())
+  
+  phylogeneticTreeServer("bcr_phylogenetic_tree", bcrList()[["IGH"]])
   
   dataServer("data", seuratObject(), tcrList(), bcrList(), groupCols())
   
