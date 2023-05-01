@@ -12,7 +12,7 @@ install.packages(c('ggsci', 'RColorBrewer', 'tidyverse', 'Seurat', 'shiny', 'HGN
 BiocManager::install(c("Biostrings", "GenomicAlignments", "ggtree"))
 ```
 ### 2.2 Download SiCR scripts, and unzip it.
-
+Click here https://github.com/Masakazu-Ishikawa137/SiCR/archive/refs/heads/main.zip
 
 Download SiCR's docker image.
 
