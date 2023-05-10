@@ -2,6 +2,12 @@
 ## 1. Introduction
 SiCR is web application specialized for single cell repertoire analysis. 
 
+The high-throughput analysis technique for the antigen receptor repertoire has been developed through Next Generation Sequencing (NGS). Additionally, with the advent of Single-Cell RNA Sequencing (scRNA-seq), it has become possible to analyze the complete sequence information of antigen receptors for each individual cell. While scRNA-seq is a powerful tool, the analysis is complex and requires various analyses to obtain accurate data. Currently, there are several user-friendly tools available for scRNA-seq, but none are specifically designed for immuno-profiling.
+
+We have developed a web application called SiCR, which is based on R's Shiny and specializes in single-cell immune-profiling. In addition to the clustering and cell typing required for general single-cell analysis, SiCR allows for analysis of immune-profiling, such as predicting whether the chronotype is expanding in each group and which antigen the expanding chronotype targets. These analyses can be performed through mouse manipulation. Furthermore, SiCR allows for detailed figure settings, enabling immediate publication of results as a paper.
+
+SiCR is a comprehensive workbench that can be used by all biologists for analysis. SiCR significantly reduces the time and effort required to analyze and interpret information in single-cell immune-profiling.
+
 ## 2. Install SiCR
 ### 2.1 Install R and R studio
 If your PC (Windows, Mac, Linux) does not have R and R studio, please install these.
