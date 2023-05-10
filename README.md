@@ -1,4 +1,5 @@
 # SiCR: Web Application for Single Cell Repertoire Analysis
+![Figure_Cover.png](Figure_Cover.png)
 ## 1. Introduction
 SiCR is web application specialized for single cell repertoire analysis. 
 
