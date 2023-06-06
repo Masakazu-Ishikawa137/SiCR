@@ -1,0 +1,1 @@
+palette_list <- list("nejm", "Paired", "Dark2", "Set2", "Default")
