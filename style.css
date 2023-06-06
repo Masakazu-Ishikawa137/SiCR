@@ -5,3 +5,10 @@
 .shiny-plot-output {
   height: 500px !important;
 }
+
+footer {
+  color: #999999;
+  font-size: 1.2rem;
+  bottom: 0;
+  position: fixed;
+}
