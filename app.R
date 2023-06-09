@@ -22,7 +22,7 @@ for (i in module_file_lst) {
 ui <- navbarPage(
   
   includeCSS("style.css"),
-  title = "SCiR: Web Application for Single Cell Repertoire Analysis",
+  title = "SiCR: Web Application for Single Cell Repertoire Analysis",
   tags$footer("© 2023 Your Company. All rights reserved."),
   
   tabPanel("Upload",
