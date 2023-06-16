@@ -17,7 +17,7 @@ https://posit.co/download/rstudio-desktop/
 SiCR uses following libraries, so please install using this command
 ```R
 install.packages(c('ggsci', 'RColorBrewer', 'tidyverse', 'Seurat', 'shiny', 'HGNChelper', 'alakazam', 'dowser', 'hdf5r',  'BiocManager', 'openxlsx', 'hrbrhemes'))
-BiocManager::install(c("Biostrings", "GenomicAlignments", "ggtree"))
+BiocManager::install(c("Biostrings", "GenomicAlignments", "ggtree"), force=TRUE)
 ```
 ### 2.2 Download SiCR scripts, and unzip it.
 Click here https://github.com/Masakazu-Ishikawa137/SiCR/archive/refs/heads/main.zip
