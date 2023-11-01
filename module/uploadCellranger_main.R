@@ -9,6 +9,7 @@ uploadCellranger_mainUI <- function(id) {
     actionButton(ns("run"), "Run"),
     textOutput(ns("text")),
     tableOutput(ns('cellnumber_table')),
+    downloadButton('downloaddata', 'Download data')
   )
 }
 
