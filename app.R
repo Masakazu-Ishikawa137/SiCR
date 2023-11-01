@@ -28,7 +28,8 @@ ui <- navbarPage(
   tabPanel("Upload",
     sidebarLayout(
         uploadCellranger_sidebarUI('upload'),
-        uploadCellranger_mainUI('upload')
+        uploadCellranger_mainUI('upload'),
+#        downloadButton('downloaddata', 'Download data')
     ),
   ),
   
@@ -142,12 +143,24 @@ ui <- navbarPage(
 
 server <- function(input, output) {
   
+#  dataList <- uploadCellrangerServer("upload_cellranger")
   dataList <- uploadCellranger_mainServer("upload")
   
   seuratObject <- reactive({ dataList()[["seurat_object"]] })
   tcrList      <- reactive({ dataList()[["tcr_list"]] })
   bcrList      <- reactive({ dataList()[["bcr_list"]] })
   groupCols    <- reactive({ dataList()[["group_cols"]] })
+  
+#  seuratObject()@misc$BCR <- bcrList()
+#  seuratObject()@misc$TCR <- tcrList()
+#  seuratObject()@misc$group <- groupCols()
+  
+  output$downloaddata = downloadHandler(
+    filename = "data.rds",
+    content = function(file) {
+      saveRDS(seuratObject(), file)
+    }
+  )
   
   geneExpressionUmap_mainServer("gene_expression_umap", seuratObject(), groupCols())
   geneExpressionBarplot_mainServer("gene_expression_barplot", seuratObject()@meta.data, groupCols())
