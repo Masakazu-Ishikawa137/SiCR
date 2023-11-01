@@ -158,7 +158,7 @@ server <- function(input, output) {
   output$downloaddata = downloadHandler(
     filename = "data.rds",
     content = function(file) {
-      saveRDS(seuratObject(), file)
+      saveRDS(dataList, file)
     }
   )
   
