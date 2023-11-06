@@ -138,6 +138,10 @@ ui <- navbarPage(
       ),
     ),
   ),
+  tabPanel("Inquiry",
+           h4("If you have any question/suggestion, please fill the form below and send me"),
+           shiny::a("Link to Google Form", href = "https://docs.google.com/forms/d/e/1FAIpQLSeIGfGtbFvQKhx6lF9j29nGREMCyRxD_eEcGiqcmrNFORhIMQ/viewform?usp=sf_link", target = "_blank")
+  ),
 )
 
 
