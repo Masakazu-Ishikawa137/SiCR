@@ -1,5 +1,8 @@
 # SiCR: Web Application for Single Cell Repertoire Analysis
 ![Figure_Cover.jpg](Figure_Cover.jpg)
+## 0. Inquiry 問い合わせ
+Please send me any question/suggestion by using Github issues, or Google Form here 
+なにか問い合わせ、ご提案ありましたらGithub　issuesかGoogle Formでお問い合わせください。
 ## 1. Updates
 2023-11-06 Inquiry page was added.  
 2023-11-01 Download Button was Added.  
