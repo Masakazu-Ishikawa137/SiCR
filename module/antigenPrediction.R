@@ -12,24 +12,29 @@ antigenPredictionUI <- function(id) {
   )
 }
 
-antigenPredictionServer <- function(id, data, db_path) {
+antigenPredictionServer <- function(id, myReactives, chain = "TCR_TRB_raw_clonotype_id", db_path) {
   moduleServer(id, function(input, output, session) {
-    
-      joinData <- reactive({
-        if (!is.null(data)){ # To prevent an error when there is no input for TCR or BCR.
-          db <- read.delim(db_path)
-          data %>%
-            select(all_of(c("raw_clonotype_id", "cdr3"))) %>%
-            left_join(db, by=c("cdr3" = "CDR3"))
-        }
-      })
-    
+
+  if(chain == "TCR_TRB_raw_clonotype_id"){
+    cdr3 <- "TCR_TRB_cdr3"
+  } else if(chain == 'BCR_IGH_raw_clonotype_id'){
+    cdr3 <- "BCR_IGH_cdr3"
+  }
+
+  joinData <- reactive({
+    if(!is.null(myReactives$seurat_object) && !is.null(myReactives$seurat_object@misc$meta_data)) {
+      db <- read.delim(db_path)
+      myReactives$seurat_object@meta.data %>%
+        select(all_of(c(chain, cdr3))) %>%
+          left_join(db, by=setNames("CDR3", cdr3))
+      }
+    })    
       
     observeEvent(joinData(), {
       # Get clonotype_ids of which cdr3 exist in the db, and set those to pulldown menu
       clonotype_ids <- joinData() %>%
         filter(if_any(starts_with("Epitope"), ~!is.na(.))) %>%
-        pull(raw_clonotype_id) %>%
+        pull(!!sym(chain)) %>%
         unique()
       clonotype_ids_order <- clonotype_ids %>%
         str_remove("clonotype") %>%
@@ -42,7 +47,7 @@ antigenPredictionServer <- function(id, data, db_path) {
     # Output table
     output$table <- renderTable(
       joinData() %>%
-        filter(raw_clonotype_id == input$clonotype_id) %>%
+        filter(!!sym(chain) == input$clonotype_id) %>%
         distinct()
     )
     
@@ -51,7 +56,7 @@ antigenPredictionServer <- function(id, data, db_path) {
       filename = function() {paste0("antigen_prediction_", input$clonotype_id, ".csv")},
       content = function(file) {
         joinData() %>%
-          filter(raw_clonotype_id == input$clonotype_id) %>%
+          filter(!!sym(chain) == input$clonotype_id) %>%
           distinct() %>%
           write_csv(file)
       }
