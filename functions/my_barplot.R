@@ -21,7 +21,8 @@ my_barplot <- function(
   my_colors <- my_palette(length(unique(pull(data, !!fill))), palette)
   
   g <- ggplot(data) +
-    geom_col(aes(x = get(x), y = get(y), fill = get(fill)), position = position) +
+    geom_col(aes(x = reorder(get(x), count, decreasing = TRUE), y = get(y), fill = get(fill)), position = position) +
+#    geom_col(aes(x = get(x), y = get(y), fill = get(fill)), position = position) +
     scale_y_continuous(expand = c(0,0)) +
     theme_classic() +
     labs(fill = fill, y = y, x = x) +

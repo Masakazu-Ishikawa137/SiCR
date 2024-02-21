@@ -20,21 +20,21 @@ clonalAbundanceUI <- function(id) {
 }
 
 
-clonalAbundanceServer <- function(id, data, group_cols) {
+clonalAbundanceServer <- function(id, myReactives, chain = "TCR_TRB_raw_clonotype_id") {
   moduleServer(id, function(input, output, session) {
     
     plot_width <- reactive(input$plot_width)
     plot_height <- reactive(input$plot_height)
     legend <- reactive(ifelse(input$legend, "right", "none"))
-    observe(updateSelectInput(session, "group_by", choices = group_cols))
+#    observe(updateSelectInput(session, "group_by", choices = group_cols))
     
     # get clonal_abundance
     clonalAbundance <- reactive({
-      data <- data %>%
-        drop_na(any_of(c("raw_clonotype_id", input$group_by)))
+      data <- myReactives$seurat_object@meta.data %>%
+        drop_na(any_of(c(chain, input$group_by)))
       alakazam::estimateAbundance(
         data,
-        clone  = "raw_clonotype_id",
+        clone  = chain,
         group  = input$group_by,
         ci     = 0.95,
         nboot  = 100
