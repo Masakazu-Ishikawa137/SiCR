@@ -2,7 +2,7 @@ source('setting.R')
 
 ui <- navbarPage(
 #  includeCSS("style.css"),
-  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.1.0)",
+  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.2.0)",
   tabPanel("Upload",
     uploadUI("upload")
   ),
@@ -11,9 +11,15 @@ ui <- navbarPage(
       tabPanel("Dimensional Plot",
         dimentional_plotUI("dimplot")
       ),
+      tabPanel('Feature Plot',
+        featureplotUI("featureplot")
+      ),
       tabPanel("Violin Plot",
         ViolinPlotUI("violinplot")
       ),
+      tabPanel('Quality control',
+        Quality_controlUI("quality_control")
+      )
     ),
   ),
   tabPanel('TCR',
@@ -58,6 +64,8 @@ server <- function(input, output, session){
   myReactives <- reactiveValues()
   uploadServer("upload", myReactives)
   dimentional_plotServer("dimplot", myReactives)
+  featureplotServer('featureplot', myReactives)
+  Quality_controlServer('quality_control', myReactives)
   ViolinPlotServer("violinplot", myReactives)
   alphaDiversityServer("TCR_alpha_diversity", myReactives, "TCR_TRB_raw_clonotype_id")
   alphaDiversityServer("BCR_alpha_diversity", myReactives, "BCR_IGH_raw_clonotype_id")

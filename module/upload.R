@@ -34,12 +34,12 @@ uploadUI <- function(id) {
 uploadServer <- function(id, myReactives){
   moduleServer(id, function(input, output, session){
     observeEvent(input$run,{
-      h5_path  <- input$h5$datapath
-      tcr_path <- input$tcr$datapath
-      bcr_path <- input$bcr$datapath
-#      h5_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000.h5"
-#      tcr_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000_t.csv"
-#      bcr_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000_b.csv"
+#      h5_path  <- input$h5$datapath
+#      tcr_path <- input$tcr$datapath
+#      bcr_path <- input$bcr$datapath
+      h5_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000.h5"
+      tcr_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000_t.csv"
+      bcr_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000_b.csv"
 
       if(is.null(h5_path)){
         output$upload5h <- renderText('Please upload .h5 file')

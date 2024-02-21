@@ -8,7 +8,7 @@ h5_to_seurat_object <- function(h5_path){
   seurat_object@meta.data <- seurat_object@meta.data %>%
     mutate(barcode = rownames(.)) %>%
       mutate(sample = str_remove(barcode, "^.+-"))
-
+  seurat_object[["percent.mt"]] <- PercentageFeatureSet(seurat_object, pattern = "^MT-")
   seurat_object <- NormalizeData(seurat_object)
   seurat_object <- FindVariableFeatures(seurat_object, selection.method = "vst", nfeatures = 2000)
   all.genes <- rownames(seurat_object)
