@@ -2,7 +2,7 @@ source('setting.R')
 
 ui <- navbarPage(
 #  includeCSS("style.css"),
-  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.2.0)",
+  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.3.0)",
   tabPanel("Upload",
     uploadUI("upload")
   ),
@@ -19,6 +19,9 @@ ui <- navbarPage(
       ),
       tabPanel('Quality control',
         Quality_controlUI("quality_control")
+      ),
+      tabPanel('FindMarker',
+        findmarkerUI("findmarker")
       )
     ),
   ),
@@ -67,6 +70,7 @@ server <- function(input, output, session){
   featureplotServer('featureplot', myReactives)
   Quality_controlServer('quality_control', myReactives)
   ViolinPlotServer("violinplot", myReactives)
+  findmarkerServer("findmarker", myReactives)
   alphaDiversityServer("TCR_alpha_diversity", myReactives, "TCR_TRB_raw_clonotype_id")
   alphaDiversityServer("BCR_alpha_diversity", myReactives, "BCR_IGH_raw_clonotype_id")
   clonalAbundanceServer("TCR_clonal_abundance", myReactives, "TCR_TRB_raw_clonotype_id")

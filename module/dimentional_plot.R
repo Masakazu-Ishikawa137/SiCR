@@ -3,7 +3,7 @@ dimentional_plotUI <- function(id){
   sidebarLayout(
     sidebarPanel(
       radioButtons(ns('reduction'), 'Dimentional Reduction Method', choices = c('UMAP' = 'umap', 'T-SNE' = 'tsne'), selected = 'umap'),
-      selectInput(ns("group_by"), "Group by", choices = "seurat_clusters"),
+      selectInput(ns("group_by"), "Group by", choices = c("seurat_clusters", "sample")),
       selectInput(ns("palette"), "Color palette", choices = palette_list),
       sliderInput(ns("point_size"), "Size of points", min = 0.01, max = 10, value = 0.1, step = 0.01),
       sliderInput(ns("label_size"), "Size of labels", min = 0, max = 20, value = 10, step = 1),
