@@ -4,8 +4,9 @@
 Please send me any question/suggestion by using Github issues, or [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSeIGfGtbFvQKhx6lF9j29nGREMCyRxD_eEcGiqcmrNFORhIMQ/viewform?usp=sf_link)  
 なにか問い合わせ、ご提案ありましたらGithub　issuesか[Google Form](https://docs.google.com/forms/d/e/1FAIpQLSeIGfGtbFvQKhx6lF9j29nGREMCyRxD_eEcGiqcmrNFORhIMQ/viewform?usp=sf_link)でお問い合わせください。
 ## 1. Updates
-1.3.0 added Findmarker  
-1.2.0 added Violin Plot
+2023-11-06 Inquiry page was added.  
+2023-11-01 Download Button was Added.  
+2023-10-31 Bug Fixed.
 ## 2. Introduction
 SiCR is web application specialized for single cell repertoire analysis. 
 

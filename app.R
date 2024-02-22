@@ -2,7 +2,7 @@ source('setting.R')
 
 ui <- navbarPage(
 #  includeCSS("style.css"),
-  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.3.0)",
+  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.4.0)",
   tabPanel("Upload",
     uploadUI("upload")
   ),
@@ -22,8 +22,11 @@ ui <- navbarPage(
       ),
       tabPanel('FindMarker',
         findmarkerUI("findmarker")
+      ),
+      tabPanel('marker',  # Corrected the spelling from 'tabPalnel' to 'tabPanel'
+        marker_showUI('marker')
       )
-    ),
+    )
   ),
   tabPanel('TCR',
     tabsetPanel(
@@ -38,8 +41,8 @@ ui <- navbarPage(
       ),
       tabPanel("TCR antigen prediction",
         antigenPredictionUI("TCR_antigen_prediction")
-      ),
-    ),
+      )
+    )
   ),
   tabPanel('BCR',
     tabsetPanel(
@@ -57,11 +60,10 @@ ui <- navbarPage(
       ),
       tabPanel("BCR phylogenetic tree",
         phylogeneticTreeUI("BCR_phylogentic_tree")
-      ),
-    ),
-  ),
+      )
+    )
+  )
 )
-
 
 server <- function(input, output, session){
   myReactives <- reactiveValues()
@@ -71,6 +73,7 @@ server <- function(input, output, session){
   Quality_controlServer('quality_control', myReactives)
   ViolinPlotServer("violinplot", myReactives)
   findmarkerServer("findmarker", myReactives)
+  marker_showServer("marker", myReactives)
   alphaDiversityServer("TCR_alpha_diversity", myReactives, "TCR_TRB_raw_clonotype_id")
   alphaDiversityServer("BCR_alpha_diversity", myReactives, "BCR_IGH_raw_clonotype_id")
   clonalAbundanceServer("TCR_clonal_abundance", myReactives, "TCR_TRB_raw_clonotype_id")
