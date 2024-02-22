@@ -2,7 +2,7 @@ source('setting.R')
 
 ui <- navbarPage(
 #  includeCSS("style.css"),
-  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.4.0)",
+  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.6.0)",
   tabPanel("Upload",
     uploadUI("upload")
   ),
@@ -16,6 +16,12 @@ ui <- navbarPage(
       ),
       tabPanel("Violin Plot",
         ViolinPlotUI("violinplot")
+      ),
+      tabPanel("heatmap",
+        heatmapUI("heatmap")
+      ),
+      tabPanel("DotPlot",
+        dotplotUI("dotplot")
       ),
       tabPanel('Quality control',
         Quality_controlUI("quality_control")
@@ -70,6 +76,8 @@ server <- function(input, output, session){
   uploadServer("upload", myReactives)
   dimentional_plotServer("dimplot", myReactives)
   featureplotServer('featureplot', myReactives)
+  heatmapServer("heatmap", myReactives)
+  dotplotServer("dotplot", myReactives)
   Quality_controlServer('quality_control', myReactives)
   ViolinPlotServer("violinplot", myReactives)
   findmarkerServer("findmarker", myReactives)
