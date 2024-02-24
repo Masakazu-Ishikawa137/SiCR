@@ -37,9 +37,9 @@ uploadServer <- function(id, myReactives){
       h5_path  <- input$h5$datapath
       tcr_path <- input$tcr$datapath
       bcr_path <- input$bcr$datapath
-#      h5_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000.h5"
-#      tcr_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000_t.csv"
-#      bcr_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000_b.csv"
+      h5_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000.h5"
+      tcr_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000_t.csv"
+      bcr_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000_b.csv"
 
       if(is.null(h5_path)){
         output$upload5h <- renderText('Please upload .h5 file')
@@ -51,7 +51,9 @@ uploadServer <- function(id, myReactives){
           metadata_df <- make_metadata_df(tcr_path)
           myReactives$seurat_object@misc$meta_data <- metadata_df
           myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, tcr_table, by=c('barcode' = 'TCR_pair_barcode'))
-          myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, metadata_df, by='sample')
+          if(is.null(bcr_path)){
+            myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, metadata_df, by='sample')
+          }
 
         }
         if (!is.null(bcr_path) & !is.null(myReactives$seurat_object)){
@@ -61,6 +63,7 @@ uploadServer <- function(id, myReactives){
           myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, metadata_df, by='sample')
         }
       rownames(myReactives$seurat_object@meta.data) <- myReactives$seurat_object@meta.data$'barcode'
+      write.csv(myReactives$seurat_object@meta.data, 'metadata.csv')
       }
     })
   })
