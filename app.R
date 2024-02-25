@@ -2,7 +2,7 @@ source('setting.R')
 
 ui <- navbarPage(
 #  includeCSS("style.css"),
-  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.7.2)",
+  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.7.3)",
   tabPanel("Upload",
     uploadUI("upload")
   ),
@@ -26,7 +26,7 @@ ui <- navbarPage(
       tabPanel('Quality control',
         Quality_controlUI("quality_control")
       ),
-      tabPanel('FindMarker',
+      tabPanel('Differential Expression',
         findmarkerUI("findmarker")
       ),
       tabPanel('loupeR',
