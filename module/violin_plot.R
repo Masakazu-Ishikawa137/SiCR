@@ -2,9 +2,11 @@ ViolinPlotUI <- function(id){
   ns <- NS(id)
   sidebarLayout(
     sidebarPanel(
-      textInput(ns("gene"), "Enter feature (gene) names (ex. CD3E, CD19, CD14):"),
+      textInput(ns("gene"), "Enter gene names (ex. CD3E, CD19, CD14):", value = "CD3E, CD19"),
       selectInput(ns("group_by"), "Group by", choices = c("seurat_clusters" = "seurat_clusters", "sample" = "sample")),
-      sliderInput(ns('feature_column'), label = 'Number of columns', min = 1, max = 10, value = 1),
+      selectInput(ns("split_by"), "Split by", choices = c("None" = "none", "seurat_clusters" = "seurat_clusters", "sample" = "sample")),
+      numericInput(ns('feature_column'), label = 'Number of columns', min = 1, value = 1),
+      sliderInput(ns("point_size"), "Size of points", min = 0, max = 1, value = 0.1, step = 0.01),
       sliderInput(ns("plot_width"),  "Width",  min = 100, max = 2000, value = 500, step = 100),
       sliderInput(ns("plot_height"), "Height", min = 100, max = 2000, value = 500, step = 100),
       downloadButton(ns("downloadPlot"), "Download Plot as PDF")
@@ -19,14 +21,28 @@ ViolinPlotServer <- function(id, myReactives){
   plot_width <- reactive(input$plot_width)
   plot_height <- reactive(input$plot_height)
   legend <- reactive(input$legend)
-  ncol <- reactive(input$feature_column)
-  group_by <- reactive(input$group_by)
+
+#  ncol <- reactive(input$feature_column)
+#  group_by <- reactive(input$group_by)
 
 
   observeEvent(myReactives$seurat_object,{
     update_group_by(myReactives, session)
   })
 
+  observeEvent(myReactives$seurat_object,{
+    update_split_by(myReactives, session)
+  })
+
+  # split_by <- reactive({
+  #   if (input$split_by == "none") {
+  #     # "None"が選択された場合の処理
+  #     NULL
+  #   } else {
+  #     # その他の値が選択された場合の処理
+  #     input$split_by
+  #   }
+  # })
 
   # Seuratオブジェクト内の遺伝子名を取得
   available_genes <- get_available_genes(reactive(myReactives$seurat_object))
@@ -41,11 +57,21 @@ observe({
     
     if(length(valid_genes) > 0){
       # 有効な遺伝子が存在する場合、DotPlotを計算
-      myReactives$violin_plot <- VlnPlot(myReactives$seurat_object, 
-      features = valid_genes,
-      group.by = input$group_by,
-      ncol = input$feature_column)
-
+      if(input$split_by == "none"){
+        myReactives$violin_plot <- VlnPlot(myReactives$seurat_object, 
+        features = valid_genes,
+        group.by = input$group_by,
+        split.by = NULL,
+        ncol = input$feature_column,
+        pt.size = input$point_size)
+      } else{
+        myReactives$violin_plot <- VlnPlot(myReactives$seurat_object, 
+        features = valid_genes,
+        group.by = input$group_by,
+        split.by = input$split_by,
+        ncol = input$feature_column,
+        pt.size = input$point_size)
+      }
 #      group.by = group_by(),
 #      ncol = ncol())
     } else {

@@ -2,7 +2,7 @@ heatmapUI <- function(id){
   ns <- NS(id)
   sidebarLayout(
     sidebarPanel(
-      textInput(ns("gene"), "Enter feature (gene) names (ex. CD3E, CD19, CD14):"),
+      textInput(ns("gene"), "Enter gene names (ex. CD3E, CD19, CD14):", value = "CD3E, CD19"),
       radioButtons(ns("legend"), "Legend", choices = c("right", "left", "bottom", "top", "none"), selected = "right"),
       selectInput(ns("group_by"), "Group by", choices = c("seurat_clusters" = "seurat_clusters", "sample" = "sample")),
       sliderInput(ns("plot_width"),  "Width",  min = 100, max = 2000, value = 500, step = 100),
