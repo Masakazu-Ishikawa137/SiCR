@@ -4,14 +4,14 @@
 Please send me any question/suggestion by using Github issues, or [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSeIGfGtbFvQKhx6lF9j29nGREMCyRxD_eEcGiqcmrNFORhIMQ/viewform?usp=sf_link)  
 なにか問い合わせ、ご提案ありましたらGithub　issuesか[Google Form](https://docs.google.com/forms/d/e/1FAIpQLSeIGfGtbFvQKhx6lF9j29nGREMCyRxD_eEcGiqcmrNFORhIMQ/viewform?usp=sf_link)でお問い合わせください。
 ## 1. Updates
-1.7.2 fix bugs
-1.7.1 added download button to violin plot
-1.7.0 added quality control
-1.6.0 added dotplot
-1.5.0 added heatmap
-1.4.0 added Marker section  
-1.3.0 added Findmarker section  
-1.2.0 added Vilin Plot  
+1.7.2 fix bugs  
+1.7.1 added download button to violin plot  
+1.7.0 added quality control  
+1.6.0 added dotplot  
+1.5.0 added heatmap  
+1.4.0 added Marker section    
+1.3.0 added Findmarker section    
+1.2.0 added Vilin Plot   
 ## 2. Introduction
 SiCR is web application specialized for single cell repertoire analysis. 
 
