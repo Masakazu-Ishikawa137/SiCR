@@ -8,9 +8,7 @@ alphaDiversityUI <- function(id) {
       selectInput(ns("palette"), "Color palette", choices = palette_list),
       selectInput(ns("q"), "Order of the Hill number (q)", choices = list("all (1-4)" = "all", "1 (Shannon diversity)" = 1, "2 (Simpson’s index)" = 2)),
       checkboxInput(ns("sd"), "Show SD", value = TRUE),
-      checkboxInput(ns("legend"), "Show legend", value = TRUE),
-      sliderInput(ns("plot_width"),  "Width",  min = 100, max = 2000, value = 500, step = 100),
-      sliderInput(ns("plot_height"), "Height", min = 100, max = 2000, value = 500, step = 100),
+      commonSettingsUI(ns("common_settings"))  # 共通設定UIを追加
     ),
     mainPanel(
       plotOutput(ns('alpha_diversity_plot')),
@@ -25,9 +23,10 @@ alphaDiversityUI <- function(id) {
 
 alphaDiversityServer <- function(id, myReactives, chain = "TCR_TRB_raw_clonotype_id") {
   moduleServer(id, function(input, output, session) {
-    plot_width <- reactive(input$plot_width)
-    plot_height <- reactive(input$plot_height)
-    legend <- reactive(ifelse(input$legend, "right", "none"))
+    commonSettings <- commonSettingsServer("common_settings", session)
+    plot_width <- commonSettings$plot_width
+    plot_height <- commonSettings$plot_height
+    legend <- commonSettings$legend
     
   observe({
     if(!is.null(myReactives$seurat_object) && !is.null(myReactives$seurat_object@misc$meta_data)) {

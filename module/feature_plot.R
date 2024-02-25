@@ -1,82 +1,83 @@
 featureplotUI <- function(id){
   ns <- NS(id)
-  fluidPage(
-    radioButtons(ns('reduction'), 'Dimentional Reduction Method', choices = c('UMAP' = 'umap', 'T-SNE' = 'tsne'), selected = 'umap'),
-    textInput(ns("feature_text"), "Enter text:"),
-    sliderInput(ms('feature_column'), label = 'Number of column', min = 1, max = 10, value = 2),
-    plotOutput(ns('FeaturePlot'))
+  sidebarLayout(
+    sidebarPanel(
+      radioButtons(ns('reduction'), 'Dimensional Reduction Method', choices = c('UMAP' = 'umap', 'T-SNE' = 'tsne'), selected = 'umap'),
+      textInput(ns("gene"), "Enter feature (gene) names (ex. CD3E, CD19, CD14):"),
+      sliderInput(ns("point_size"), "Size of points", min = 0.01, max = 10, value = 0.1, step = 0.01),
+      sliderInput(ns('feature_column'), label = 'Number of columns', min = 1, max = 10, value = 1),
+      radioButtons(ns("legend"), "Legend", choices = c("right", "left", "bottom", "top", "none"), selected = "right"),
+      sliderInput(ns("plot_width"),  "Width",  min = 100, max = 2000, value = 500, step = 100),
+      sliderInput(ns("plot_height"), "Height", min = 100, max = 2000, value = 500, step = 100),
+      downloadButton(ns("downloadPlot"), "Download Plot as PDF")
+    ),
+    mainPanel(
+      plotOutput(ns('plot'))
+    )
   )
 }
 
-# dimentional_plotUI <- function(id){
-#   ns <- NS(id)
-#   sidebarLayout(
-#     sidebarPanel(
-#       radioButtons(ns('reduction'), 'Dimentional Reduction Method', choices = c('UMAP' = 'umap', 'T-SNE' = 'tsne'), selected = 'umap'),
-#       selectInput(ns("group_by"), "Group by", choices = "seurat_clusters"),
-#       selectInput(ns("palette"), "Color palette", choices = palette_list),
-#       sliderInput(ns("point_size"), "Size of points", min = 0.01, max = 10, value = 0.1, step = 0.01),
-#       sliderInput(ns("label_size"), "Size of labels", min = 0, max = 20, value = 10, step = 1),
-#       checkboxInput(ns("legend"), "Show legend", value = TRUE),
-#       sliderInput(ns("plot_width"),  "Width",  min = 100, max = 2000, value = 500, step = 100),
-#       sliderInput(ns("plot_height"), "Height", min = 100, max = 2000, value = 500, step = 100)
-#     ),
-#     mainPanel(
-#       plotOutput(ns('clustering'))
-#     )
-#   )
-# }
-
-
 featureplotServer <- function(id, myReactives){
   moduleServer(id, function(input, output, session){
-  observeEvent(input$feature_text,{
-    if(!is.null(input$feature_text)){
-      text_list <- unlist(strsplit(input$feature_text, ",\\s*"))
-      output$FeaturePlot <- renderPlot(FeaturePlot(myReactives$seurat_object, text_list, ncol = input$feature_column, reduction = input$reduction))
-    }
-  })
-})
-}
+  plot_width <- reactive(input$plot_width)
+  plot_height <- reactive(input$plot_height)
+  legend <- reactive(input$legend)
+  ncol <- reactive(input$feature_column)
 
-# dimentional_plotServer <- function(id, myReactives){
-#   moduleServer(id, function(input, output, session){
-#     plot_width <- reactive(input$plot_width)
-#     plot_height <- reactive(input$plot_height)
-#     legend <- reactive(ifelse(input$legend, "right", "none"))
+  # Seuratオブジェクト内の遺伝子名を取得
+  available_genes <- get_available_genes(reactive(myReactives$seurat_object))
+  # available_genes <- eventReactive(myReactives$seurat_object,{
+  #   if(!is.null(myReactives$seurat_object)){
+  #     rownames(myReactives$seurat_object[["RNA"]])
+  #   }
+  # })
+
+observe({
+#observeEvent(input$gene,{
+  req(myReactives$seurat_object) # ここでmyReactives$seurat_objectがNULLでないことを確認
+  if(!is.null(input$gene)){
+    text_list <- unlist(strsplit(input$gene, ",\\s*"))
+
+    # 利用可能な遺伝子のみをフィルタリング
+    valid_genes <- text_list[text_list %in% available_genes()]
     
-#   observe({
-#     if(!is.null(myReactives$seurat_object) && !is.null(myReactives$seurat_object@misc$meta_data)) {
-#       # 既存の選択肢を設定
-#       group_cols <- list("sample" = "sample", "seurat_clusters" = "seurat_clusters")
-#       # meta_dataの各列について、選択肢を追加
-#       meta_data_cols <- names(myReactives$seurat_object@misc$meta_data)
-#      for(col in meta_data_cols) {
-#         group_cols[[col]] <- col
-#       }
-#     updateSelectInput(session, "group_by", choices = group_cols)
-#     }
-#   })   # get alpha_diversity
+    if(length(valid_genes) > 0){
+      # 有効な遺伝子が存在する場合、DotPlotを計算
+      myReactives$feature_plot <- FeaturePlot(myReactives$seurat_object, 
+      features = valid_genes, 
+      reduction = input$reduction,
+      pt.size = input$point_size,
+      ncol = ncol()) + theme(legend.position = legend())
+    } else {
+      # 有効な遺伝子がない場合、ユーザーに通知
+      showNotification("指定された遺伝子がデータセットに存在しません。", type = "warning")
+    }
+  }
+})
 
-#      g <- reactive({
-#        if (!is.null(myReactives$seurat_object)) {
-#          my_colors <- my_palette(length(unique(myReactives$seurat_object@meta.data[[input$group_by]])), input$palette)
-#          DimPlot(
-#            myReactives$seurat_object,
-#            reduction = input$reduction,
-#            label = TRUE,
-#            pt.size = input$point_size,
-#            group.by = input$group_by,
-#            label.size = input$label_size
-#          ) +
-#          scale_color_manual(values = my_colors) +
-#          theme(legend.position = legend())
-#        }
-#      })
+    render_plot(output, 'plot', reactive({ myReactives$feature_plot }), plot_width, plot_height)
+    setupDownloadPlotHandler(output, input, reactive({ myReactives$feature_plot }))
 
-#     output$clustering <- renderPlot({
-#       req(g())
-#       g()
-#     }, width = plot_width, height = plot_height)
-#   })
-# }
+
+    # output$plot <- renderPlot({
+    #   req(myReactives$feature_plot)
+    #   myReactives$feature_plot
+    # }, 
+    # width = plot_width, height = plot_height)
+
+
+    # output$downloadPlot <- downloadHandler(
+    #   filename = function() {
+    #     paste("feature_plot-", Sys.Date(), ".pdf", sep="")
+    #   },
+    #   content = function(file) {
+    #     pdf(file, width = input$plot_width / 72, height = input$plot_height / 72)
+    #     plot <- myReactives$feature_plot
+    #     print(plot)
+    #     dev.off()
+    #   }
+    # )
+
+
+  })
+}

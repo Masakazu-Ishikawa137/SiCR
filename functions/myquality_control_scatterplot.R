@@ -1,13 +1,8 @@
-myquality_control_scatterplot <- function(seurat_object, feature_low, feature_high, count_low, count_high, mito){
-#  plot1 <- FeatureScatter(seurat_object, feature1 = "nCount_RNA", feature2 = "percent.mt", group.by= 'orig.ident') + theme(legend.position = "none") + #+ geom_pointdensity() + scale_color_viridis() +
-#    geom_vline(xintercept=count_low, col="red") +
-#    geom_vline(xintercept=count_high, col="red") +
-#    geom_hline(yintercept=mito, col="red")
-
+myquality_control_scatterplot <- function(seurat_object, feature_low, feature_high, count_low, count_high, mito, plotsize){
 
 plot1 <- seurat_object@meta.data %>% 
   ggplot(mapping = aes(x = nCount_RNA, y = percent.mt)) + 
-  geom_pointdensity() +
+  geom_pointdensity(size = plotsize) +
   scale_color_viridis(guide = 'none') +
   theme(legend.position = 'none') +
   theme_classic() +
@@ -22,7 +17,7 @@ plot1 <- ggMarginal(plot1,
 
 plot2 <- seurat_object@meta.data %>% 
   ggplot(mapping = aes(x = nCount_RNA, y = nFeature_RNA)) + 
-  geom_pointdensity() +
+  geom_pointdensity(size = plotsize) +
   scale_color_viridis(guide = 'none') +
   theme(legend.position = 'none') +
   theme_classic() +

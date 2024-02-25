@@ -5,17 +5,23 @@ Quality_controlUI <- function(id){
       sliderInput(ns('slider_nCount_RNA'), label = "cCount", min = 0, max = 100000, value = c(0, 100000)),
       sliderInput(ns('slider_nFeatures_RNA'), label = "nFeature", min = 0, max = 10000, value = c(0, 10000)),
       sliderInput(ns('slider_percent_mt'), label = "percent mt", min = 0, max = 100, value = 100),
+      sliderInput(ns("point_size"), "Size of points", min = 0.01, max = 1, value = 0.1, step = 0.01),
+      sliderInput(ns("plot_width"),  "Width",  min = 100, max = 2000, value = 900, step = 100),
+      sliderInput(ns("plot_height"), "Height", min = 100, max = 2000, value = 900, step = 100),
+      downloadButton(ns("downloadPlot"), "Download Plot as PDF"),
       actionButton(ns("quality_control_rerun"), "Re-run"),
     ),
     mainPanel(
       textOutput(ns('rerun_started')),
-      plotOutput(ns('quality_sca')),
-      plotOutput(ns('quality_vln')),
+      plotOutput(ns('plot'))
     ),
   )
 }
 Quality_controlServer <- function(id, myReactives){
   moduleServer(id, function(input, output, session){
+    plot_width <- reactive(input$plot_width)
+    plot_height <- reactive(input$plot_height)
+    
   # Update input
   observeEvent(myReactives$seurat_object,
                {
@@ -32,11 +38,22 @@ Quality_controlServer <- function(id, myReactives){
   #Quality control
   observe({
     if (!is.null(myReactives$seurat_object)) {
-      seurat_object <- myReactives$seurat_object
-      output$quality_sca <- renderPlot(myquality_control_scatterplot(seurat_object, input$slider_nFeatures_RNA[1], input$slider_nFeatures_RNA[2], input$slider_nCount_RNA[1], input$slider_nCount_RNA[2], input$slider_percent_mt))
-      output$quality_vln <- renderPlot(myquality_control_violinplot(seurat_object, input$slider_nFeatures_RNA[1], input$slider_nFeatures_RNA[2], input$slider_nCount_RNA[1], input$slider_nCount_RNA[2], input$slider_percent_mt))
+      myReactives$quality_sca <- myquality_control_scatterplot(myReactives$seurat_object, input$slider_nFeatures_RNA[1], input$slider_nFeatures_RNA[2], input$slider_nCount_RNA[1], input$slider_nCount_RNA[2], input$slider_percent_mt, input$point_size)
+      myReactives$quality_vln <- myquality_control_violinplot(myReactives$seurat_object, input$slider_nFeatures_RNA[1], input$slider_nFeatures_RNA[2], input$slider_nCount_RNA[1], input$slider_nCount_RNA[2], input$slider_percent_mt)
     }
   })
+
+  output$plot <- renderPlot({
+      req(myReactives$seurat_object)
+      myReactives$quality_control_plot <- ggarrange(myReactives$quality_sca, myReactives$quality_vln, ncol = 1)
+      myReactives$quality_control_plot
+    }, 
+    width = plot_width, height = plot_height)
+
+    setupDownloadPlotHandler(output, input, reactive({ myReactives$quality_control_plot }))
+
+
+
   observeEvent(input$quality_control_rerun, {
     output$rerun_started <- renderText('Re-run started')
     myReactives$seurat_object <- myseurat_normalize_umap_rerun(myReactives$seurat_object, input$slider_nFeatures_RNA[1], input$slider_nFeatures_RNA[2], input$slider_nCount_RNA[1], input$slider_nCount_RNA[2], input$slider_percent_mt)
