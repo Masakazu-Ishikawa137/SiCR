@@ -10,6 +10,7 @@ library(GGally)
 library(ggpubr)
 library(ggplot2)
 library(ggExtra)
+library(loupeR)
 
 options(shiny.maxRequestSize=50*1024^2*1000)
 options(shiny.port = 8100)
