@@ -2,25 +2,25 @@ source('setting.R')
 
 ui <- navbarPage(
 #  includeCSS("style.css"),
-  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.6.0)",
+  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.7.2)",
   tabPanel("Upload",
     uploadUI("upload")
   ),
   tabPanel('Gene Expression',
     tabsetPanel(
-      tabPanel("Dimensional Plot",
-        dimentional_plotUI("dimplot")
+      tabPanel("Dimensional plot",
+        dimensional_plotUI("dimplot")
       ),
-      tabPanel('Feature Plot',
+      tabPanel('Feature plot',
         featureplotUI("featureplot")
       ),
-      tabPanel("Violin Plot",
+      tabPanel("Violin plot",
         ViolinPlotUI("violinplot")
       ),
-      tabPanel("heatmap",
+      tabPanel("Heatmap",
         heatmapUI("heatmap")
       ),
-      tabPanel("DotPlot",
+      tabPanel("Dot plot",
         dotplotUI("dotplot")
       ),
       tabPanel('Quality control',
@@ -29,6 +29,10 @@ ui <- navbarPage(
       tabPanel('FindMarker',
         findmarkerUI("findmarker")
       ),
+      tabPanel('loupeR',
+        louperUI("louper")
+      ),
+
       tabPanel('marker',  # Corrected the spelling from 'tabPalnel' to 'tabPanel'
         marker_showUI('marker')
       )
@@ -74,7 +78,7 @@ ui <- navbarPage(
 server <- function(input, output, session){
   myReactives <- reactiveValues()
   uploadServer("upload", myReactives)
-  dimentional_plotServer("dimplot", myReactives)
+  dimensional_plotServer("dimplot", myReactives)
   featureplotServer('featureplot', myReactives)
   heatmapServer("heatmap", myReactives)
   dotplotServer("dotplot", myReactives)
@@ -82,6 +86,7 @@ server <- function(input, output, session){
   ViolinPlotServer("violinplot", myReactives)
   findmarkerServer("findmarker", myReactives)
   marker_showServer("marker", myReactives)
+  louperServer('louper', myReactives)
   alphaDiversityServer("TCR_alpha_diversity", myReactives, "TCR_TRB_raw_clonotype_id")
   alphaDiversityServer("BCR_alpha_diversity", myReactives, "BCR_IGH_raw_clonotype_id")
   clonalAbundanceServer("TCR_clonal_abundance", myReactives, "TCR_TRB_raw_clonotype_id")
