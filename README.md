@@ -4,6 +4,7 @@
 Please send me any question/suggestion by using Github issues, or [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSeIGfGtbFvQKhx6lF9j29nGREMCyRxD_eEcGiqcmrNFORhIMQ/viewform?usp=sf_link)  
 なにか問い合わせ、ご提案ありましたらGithub　issuesか[Google Form](https://docs.google.com/forms/d/e/1FAIpQLSeIGfGtbFvQKhx6lF9j29nGREMCyRxD_eEcGiqcmrNFORhIMQ/viewform?usp=sf_link)でお問い合わせください。
 ## 1. Updates
+1.7.5 We can see the marker genes.  
 1.7.4 You can split dimensional plot and violin plot.  
 1.7.3 changed Differential Expression table nicer and you can download table as csv.  
 1.7.2 fixed bugs. 
