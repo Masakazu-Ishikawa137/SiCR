@@ -7,6 +7,8 @@ ViolinPlotUI <- function(id){
       selectInput(ns("split_by"), "Split by", choices = c("None" = "none", "seurat_clusters" = "seurat_clusters", "sample" = "sample")),
       numericInput(ns('feature_column'), label = 'Number of columns', min = 1, value = 1),
       sliderInput(ns("point_size"), "Size of points", min = 0, max = 1, value = 0.1, step = 0.01),
+      checkboxInput(ns("stack"), "Stack", value = FALSE),
+      checkboxInput(ns("flip"), "Flip", value = FALSE),
       sliderInput(ns("plot_width"),  "Width",  min = 100, max = 2000, value = 500, step = 100),
       sliderInput(ns("plot_height"), "Height", min = 100, max = 2000, value = 500, step = 100),
       downloadButton(ns("downloadPlot"), "Download Plot as PDF")
@@ -63,14 +65,18 @@ observe({
         group.by = input$group_by,
         split.by = NULL,
         ncol = input$feature_column,
-        pt.size = input$point_size)
+        pt.size = input$point_size,
+        stack = input$stack,
+        flip = input$flip)
       } else{
         myReactives$violin_plot <- VlnPlot(myReactives$seurat_object, 
         features = valid_genes,
         group.by = input$group_by,
         split.by = input$split_by,
         ncol = input$feature_column,
-        pt.size = input$point_size)
+        pt.size = input$point_size,
+        stack = input$stack,
+        flip = input$flip)
       }
 #      group.by = group_by(),
 #      ncol = ncol())
