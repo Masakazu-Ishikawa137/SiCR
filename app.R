@@ -2,7 +2,7 @@ source('setting.R')
 
 ui <- navbarPage(
 #  includeCSS("style.css"),
-  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.7.9)",
+  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.8.0)",
   tabPanel("Upload",
     uploadUI("upload")
   ),
@@ -11,6 +11,10 @@ ui <- navbarPage(
       tabPanel("Dimensional plot",
         dimensional_plotUI("dimplot")
       ),
+      tabPanel("Dimensional plot",
+        plotlyUI("plotly")
+      ),
+
       tabPanel('Feature plot',
         featureplotUI("featureplot")
       ),
@@ -79,6 +83,7 @@ server <- function(input, output, session){
   myReactives <- reactiveValues()
   uploadServer("upload", myReactives)
   dimensional_plotServer("dimplot", myReactives)
+  plotlyServer("plotly", myReactives)
   featureplotServer('featureplot', myReactives)
   heatmapServer("heatmap", myReactives)
   dotplotServer("dotplot", myReactives)

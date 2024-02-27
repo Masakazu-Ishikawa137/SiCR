@@ -12,6 +12,7 @@ library(ggplot2)
 library(ggExtra)
 library(loupeR)
 library(DT)
+library(plotly)
 
 options(shiny.maxRequestSize=50*1024^2*1000)
 options(shiny.port = 8100)

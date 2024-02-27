@@ -4,6 +4,7 @@
 Please send me any question/suggestion by using Github issues, or [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSeIGfGtbFvQKhx6lF9j29nGREMCyRxD_eEcGiqcmrNFORhIMQ/viewform?usp=sf_link)  
 なにか問い合わせ、ご提案ありましたらGithub　issuesか[Google Form](https://docs.google.com/forms/d/e/1FAIpQLSeIGfGtbFvQKhx6lF9j29nGREMCyRxD_eEcGiqcmrNFORhIMQ/viewform?usp=sf_link)でお問い合わせください。
 ## 1. Updates
+1.8.0 We added "Plotly" dimensional Plot.  
 1.7.9 We can download available gene name in feature plot, violin plot, dotplot, and heatmap.  
 1.7.8 We can change the color of dot plot.  
 1.7.7 We can see the cells which have TCR or BCR in dimensional plot. Select "TCR" or "BCR" in group.by.  
