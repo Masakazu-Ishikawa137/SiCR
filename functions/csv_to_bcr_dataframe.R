@@ -22,5 +22,12 @@ csv_to_bcr_dataframe <- function(bcr_path){
 
     bcr_all <- dplyr::full_join(pair, IGH, by=c("BCR_pair_barcode" = "BCR_IGH_barcode"))
     bcr_all <- dplyr::full_join(bcr_all, IGL, by=c("BCR_pair_barcode" = "BCR_IGL_barcode"))
+    bcr_all <- bcr_all %>% mutate(BCR = case_when(
+        BCR_IGH_is_cell == "TRUE" & BCR_IGL_is_cell == "TRUE" ~ "Pair",
+        BCR_IGH_is_cell == "TRUE" & is.na(BCR_IGL_is_cell) ~ "Only_IGH",
+        is.na(BCR_IGH_is_cell) & BCR_IGL_is_cell == "TRUE" ~ "Only_IGL_IGK",
+        TRUE ~ "No"
+    ))
+
     return(bcr_all)
 }

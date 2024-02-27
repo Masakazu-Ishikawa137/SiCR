@@ -13,3 +13,22 @@
       }
     })
  }
+
+
+    # Update group_by
+update_group_by2 <- function(myReactives){
+  group_cols <- list("seurat_clusters" = "seurat_clusters", "sample" = "sample")
+  meta_data_cols <- names(myReactives$seurat_object@misc$meta_data)
+  for(col in meta_data_cols) {
+    group_cols[[col]] <- col
+  }
+
+  if("TCR" %in% names(myReactives$seurat_object@meta.data)){
+    group_cols[["TCR"]] <- "TCR"
+  }
+
+  if("BCR" %in% names(myReactives$seurat_object@meta.data)){
+    group_cols[["BCR"]] <- "BCR"
+  }
+  return(group_cols)
+}

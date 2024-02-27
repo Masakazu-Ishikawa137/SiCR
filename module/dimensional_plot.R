@@ -6,7 +6,7 @@ dimensional_plotUI <- function(id){
       selectInput(ns("group_by"), "Group by", choices = c("seurat_clusters" = "seurat_clusters", "sample" = "sample")),
       selectInput(ns("split_by"), "Split by", choices = c("None" = "none", "seurat_clusters" = "seurat_clusters", "sample" = "sample")),
       sliderInput(ns("point_size"), "Size of points", min = 0.01, max = 10, value = 0.1, step = 0.01),
-      sliderInput(ns("label_size"), "Size of labels", min = 0, max = 20, value = 10, step = 1),
+      sliderInput(ns("label_size"), "Size of labels", min = 0, max = 20, value = 5, step = 1),
       uiOutput(ns('ncol_ui')),
       radioButtons(ns("legend"), "Legend", choices = c("right", "left", "bottom", "top", "none"), selected = "right"),
       sliderInput(ns("plot_width"),  "Width",  min = 100, max = 2000, value = 500, step = 100),
@@ -27,8 +27,12 @@ dimensional_plotServer <- function(id, myReactives){
     legend <- reactive(input$legend)
     
     observeEvent(myReactives$seurat_object,{
-      update_group_by(myReactives, session)
+      if(!is.null(myReactives$seurat_object) && !is.null(myReactives$seurat_object@misc$meta_data)) {
+        group_cols <- update_group_by2(myReactives)
+        updateSelectInput(session, "group_by", choices = group_cols)
+      }
     })
+
 
   observeEvent(myReactives$seurat_object,{
     update_split_by(myReactives, session)
