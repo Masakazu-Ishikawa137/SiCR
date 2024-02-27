@@ -4,6 +4,7 @@ dotplotUI <- function(id){
     sidebarPanel(
       textInput(ns("gene"), "Enter gene names (ex. CD3E, CD19, CD14):", value = "CD3E, CD19"),
       selectInput(ns("group_by"), "Group by", choices = c("seurat_clusters" = "seurat_clusters", "sample" = "sample")),
+      selectInput(ns('dot_color'), "Color of dots", choices = c("blue", "red", "green", "yellow", "black")),
       radioButtons(ns("legend"), "Legend", choices = c("right", "left", "bottom", "top", "none"), selected = "right"),
       sliderInput(ns("plot_width"),  "Width",  min = 100, max = 2000, value = 500, step = 100),
       sliderInput(ns("plot_height"), "Height", min = 100, max = 2000, value = 500, step = 100),
@@ -42,6 +43,7 @@ dotplotServer <- function(id, myReactives){
         # 有効な遺伝子が存在する場合、DotPlotを計算
         myReactives$dotplot <- DotPlot(myReactives$seurat_object, 
           features = valid_genes,
+          cols = c("lightgray", input$dot_color),
           group.by = input$group_by) + theme(legend.position = legend())
     } else {
       # 有効な遺伝子がない場合、ユーザーに通知
