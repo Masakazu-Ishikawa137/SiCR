@@ -3,6 +3,7 @@ heatmapUI <- function(id){
   sidebarLayout(
     sidebarPanel(
       textInput(ns("gene"), "Enter gene names (ex. CD3E, CD19, CD14):", value = "CD3E, CD19"),
+      downloadButton(ns('available_feature'), "You can download available gene name"),
       radioButtons(ns("legend"), "Legend", choices = c("right", "left", "bottom", "top", "none"), selected = "right"),
       selectInput(ns("group_by"), "Group by", choices = c("seurat_clusters" = "seurat_clusters", "sample" = "sample")),
       sliderInput(ns("plot_width"),  "Width",  min = 100, max = 2000, value = 500, step = 100),
@@ -57,6 +58,8 @@ observe({
 
     render_plot(output, 'plot', reactive({ myReactives$heatmap }), plot_width, plot_height)
     setupDownloadPlotHandler(output, input, reactive({ myReactives$heatmap }))
+    download_available_genes(output, input, available_genes())
+
 
   #   observeEvent(myReactives$seurat_object, {
   #     observe({

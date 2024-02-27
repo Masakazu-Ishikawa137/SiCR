@@ -3,6 +3,8 @@ dotplotUI <- function(id){
   sidebarLayout(
     sidebarPanel(
       textInput(ns("gene"), "Enter gene names (ex. CD3E, CD19, CD14):", value = "CD3E, CD19"),
+      downloadButton(ns('available_feature'), "You can download available gene name"),
+
       selectInput(ns("group_by"), "Group by", choices = c("seurat_clusters" = "seurat_clusters", "sample" = "sample")),
       selectInput(ns('dot_color'), "Color of dots", choices = c("blue", "red", "green", "yellow", "black")),
       radioButtons(ns("legend"), "Legend", choices = c("right", "left", "bottom", "top", "none"), selected = "right"),
@@ -60,6 +62,8 @@ observeEvent(input$rotate_plot,{
 
     render_plot(output, 'plot', reactive({ myReactives$dotplot }), plot_width, plot_height)
     setupDownloadPlotHandler(output, input, reactive({ myReactives$dotplot }))
+    download_available_genes(output, input, available_genes())
+
 
   })
 }

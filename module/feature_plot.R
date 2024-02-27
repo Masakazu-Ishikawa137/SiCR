@@ -4,6 +4,7 @@ featureplotUI <- function(id){
     sidebarPanel(
       radioButtons(ns('reduction'), 'Dimensional Reduction Method', choices = c('UMAP' = 'umap', 'T-SNE' = 'tsne'), selected = 'umap'),
       textInput(ns("gene"), "Enter feature (gene) names (ex. CD3E, CD19, CD14):", value = "CD3E, CD19"),
+      downloadButton(ns('available_feature'), "You can download available gene name"),
       sliderInput(ns("point_size"), "Size of points", min = 0.01, max = 10, value = 0.1, step = 0.01),
       sliderInput(ns('feature_column'), label = 'Number of columns', min = 1, max = 10, value = 1),
       radioButtons(ns("legend"), "Legend", choices = c("right", "left", "bottom", "top", "none"), selected = "right"),
@@ -57,6 +58,9 @@ observe({
 
     render_plot(output, 'plot', reactive({ myReactives$feature_plot }), plot_width, plot_height)
     setupDownloadPlotHandler(output, input, reactive({ myReactives$feature_plot }))
+    download_available_genes(output, input, available_genes())
+
+
 
 
     # output$plot <- renderPlot({

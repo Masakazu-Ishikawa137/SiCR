@@ -3,6 +3,7 @@ ViolinPlotUI <- function(id){
   sidebarLayout(
     sidebarPanel(
       textInput(ns("gene"), "Enter gene names (ex. CD3E, CD19, CD14):", value = "CD3E, CD19"),
+      downloadButton(ns('available_feature'), "You can download available gene name"),
       selectInput(ns("group_by"), "Group by", choices = c("seurat_clusters" = "seurat_clusters", "sample" = "sample")),
       selectInput(ns("split_by"), "Split by", choices = c("None" = "none", "seurat_clusters" = "seurat_clusters", "sample" = "sample")),
       numericInput(ns('feature_column'), label = 'Number of columns', min = 1, value = 1),
@@ -89,6 +90,8 @@ observe({
 
     render_plot(output, 'plot', reactive({ myReactives$violin_plot }), plot_width, plot_height)
     setupDownloadPlotHandler(output, input, reactive({ myReactives$violin_plot }))
+    download_available_genes(output, input, available_genes())
+
 
 
 
