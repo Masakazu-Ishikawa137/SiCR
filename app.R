@@ -2,7 +2,7 @@ source('setting.R')
 
 ui <- navbarPage(
 #  includeCSS("style.css"),
-  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.8.0)",
+  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.9.0)",
   tabPanel("Upload",
     uploadUI("upload")
   ),
@@ -14,7 +14,18 @@ ui <- navbarPage(
       tabPanel("Dimensional plot",
         plotlyUI("plotly")
       ),
-
+      tabPanel("highlight",
+        highlightUI("highlight")
+      ),
+      tabPanel('Subsetting',
+        subsettingUI('subsetting')
+      ),
+#      tabPanel('Annotaiton',
+#        annotationUI('annotation')
+#      ),
+      tabPanel('Barplot',
+        barplotUI('barplot')
+      ),
       tabPanel('Feature plot',
         featureplotUI("featureplot")
       ),
@@ -83,7 +94,11 @@ server <- function(input, output, session){
   myReactives <- reactiveValues()
   uploadServer("upload", myReactives)
   dimensional_plotServer("dimplot", myReactives)
+  highlightServer("highlight", myReactives)
   plotlyServer("plotly", myReactives)
+#  subsettingServer('subsetting', myReactives)
+#  annotationServer('annotation', myReactives)
+  barplotServer("barplot", myReactives)
   featureplotServer('featureplot', myReactives)
   heatmapServer("heatmap", myReactives)
   dotplotServer("dotplot", myReactives)
