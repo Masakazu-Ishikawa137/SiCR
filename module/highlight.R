@@ -76,10 +76,10 @@ highlightUI <- function(id){
       selectInput(ns("group_by"), "Group by", choices = c("seurat_clusters" = "seurat_clusters", "sample" = "sample")),
       checkboxGroupInput(ns("focus_group"), "Show top 20 in this group", choices = "", inline = TRUE),
       sliderInput(ns("point_size"), "Size of points", min = 0.01, max = 10,  value = 0.1, step = 0.01),
+      sliderInput(ns("highlight_size"), "Size of highlight", min = 0.01, max = 10,  value = 0.1, step = 0.01),
       sliderInput(ns("plot_width"),  "Width",  min = 100, max = 2000, value = 500, step = 100),
       sliderInput(ns("plot_height"), "Height", min = 100, max = 2000, value = 500, step = 100),
       downloadButton(ns("downloadPlot"), "Download Plot as PDF") 
-
     ),
     mainPanel(
       plotOutput(ns('plot'))
@@ -150,6 +150,7 @@ toListen <- reactive({list(myReactives$seurat_object,input$group_by) })
             reduction = input$reduction,
             cells.highlight = subject,
             cols.highlight = "darkblue",
+            sizes.highlight = input$highlight_size,
             cols = "grey",
             pt.size = input$point_size,
             group.by = input$group_by,
