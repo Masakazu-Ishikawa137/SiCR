@@ -1,4 +1,3 @@
-#  download .rds section was commented out.
 uploadUI <- function(id) {
   ns <- NS(id)
   sidebarLayout(
@@ -22,6 +21,16 @@ uploadUI <- function(id) {
           fileInput(ns("tcr"), "2. Choose .tcr file (optional)"),
           fileInput(ns("bcr"), "3. Choose .bcr file (optional)"),
           actionButton(ns("run"), "Run"),
+#          actionButton(ns("prepare_download"), "ファイルを準備する"),
+#          modalDialog(
+#            id = ns("modal_download_ready"),
+#            title = "ダウンロード準備完了",
+#            "ファイルの準備が完了しました。以下のリンクからダウンロードしてください。",
+#            downloadButton(ns("downloadrds"), "Download analyzed file"),
+#            easyClose = TRUE,
+#            size = "m"
+#          ),
+#          downloadButton(ns("downloadrds"), "Download analyzed file"),
           textOutput(ns('uploadh5'))
         ),
         column(6,
@@ -42,7 +51,10 @@ uploadServer <- function(id, myReactives){
       bcr_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000_b.csv"
 
       if(is.null(h5_path)){
-        output$upload5h <- renderText('Please upload .h5 file')
+#        print('Uploading RDS')
+#        myReactives <- readRDS('/user/ifrec/mishikawa/SiCR/myReactive.rds')
+#        print('Uploaded RDS')
+         output$upload5h <- renderText('Please upload .h5 file')
       }
       else {
         myReactives$seurat_object <- h5_to_seurat_object(h5_path)
@@ -66,7 +78,36 @@ uploadServer <- function(id, myReactives){
       write.csv(myReactives$seurat_object@meta.data, 'metadata.csv')
       }
     })
-  })
+#    observeEvent(input$prepare_download, {
+      # モーダルダイアログを表示する
+#      showModal(modalDialog(
+#        title = "処理中",
+#        "ボタンが押されました。ファイルの準備中です。しばらくお待ちください。",
+#        footer = NULL
+#      ))
+      # ここでファイルの準備処理を行う
+      # 例: データのロードや加工など
+      # この処理が終わったら、ダウンロード準備完了のモーダルを表示
+#      Sys.sleep(5) # 仮の処理時間
+      # ダウンロード準備完了のモーダルを表示
+#      removeModal()
+#      showModal(modalDialog(
+#        title = "ダウンロード準備完了",
+#        "ファイルの準備が完了しました。以下のリンクからダウンロードしてください。",
+#        downloadButton(ns("downloadrds"), "Download analyzed file"),
+#        easyClose = TRUE,
+#        size = "m"
+#      ))
+    })
+#    output$downloadrds <- downloadHandler(
+#    filename = function() {
+#      paste(format(Sys.time(), format = "%Y-%m-%d-%H-%M-%S"), ".rds", sep = "")
+#    },
+#    content = function(file) {
+#      saveRDS(myReactives, file)
+#    }
+#  )
+#  })
 }
 
 # uploadCellranger_mainServer <- function(id) {

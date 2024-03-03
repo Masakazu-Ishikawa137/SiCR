@@ -16,6 +16,7 @@ plotlyUI <- function(id){
     ),
     mainPanel(
       plotlyOutput(ns('plot')),
+       verbatimTextOutput("selectedData")
 
     )
   )
@@ -77,9 +78,24 @@ plotlyServer <- function(id, myReactives){
 
   output$plot <- renderPlotly({
   req(myReactives$dimplot)
-  plot <- ggplotly(myReactives$dimplot) %>% layout(width = plot_width(), height = plot_height())
+  plot <- ggplotly(myReactives$dimplot) %>% layout(width = plot_width(), height = plot_height(),
+    legend = list(
+      font = list(size = 10), # フォントサイズの調整
+        tracegroupgap = 1 # グループ間のスペースの調整
+    )
+  )
   plot
 })
+  output$selectedData <- renderPrint({
+    # 選択されたデータポイントの情報を取得
+    s <- event_data("plotly_selected")
+    if (is.null(s)) {
+      "細胞を選択してください。"
+    } else {
+      selected_cells <- sample_data[s$pointNumber + 1, ]
+      paste("選択された細胞のタイプ:", toString(unique(selected_cells$CellType)))
+    }
+  })
 
     setupDownloadPlotHandler(output, input, reactive({ myReactives$dimplot }))
   })
