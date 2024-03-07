@@ -2,57 +2,64 @@ source('setting.R')
 
 ui <- navbarPage(
 #  includeCSS("style.css"),
-  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.9.0)",
+  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.9.1)",
   tabPanel("Upload",
     uploadUI("upload")
   ),
-  tabPanel('Gene Expression',
+  tabPanel('Dimensional Plot',
     tabsetPanel(
-      tabPanel("Dimensional plot",
+      tabPanel("Clusters",
         dimensional_plotUI("dimplot")
       ),
-      tabPanel("Dimensional plot",
-        plotlyUI("plotly")
-      ),
-      tabPanel("highlight",
-        highlightUI("highlight")
-      ),
-      tabPanel('Subsetting',
-        subsettingUI('subsetting')
-      ),
-#      tabPanel('Annotaiton',
-#        annotationUI('annotation')
-#      ),
-      tabPanel('Barplot',
-        barplotUI('barplot')
-      ),
-      tabPanel('Feature plot',
+      tabPanel("Features",
         featureplotUI("featureplot")
       ),
-      tabPanel("Violin plot",
-        ViolinPlotUI("violinplot")
+      tabPanel("Highlight",
+        highlightUI("highlight")
       ),
-      tabPanel("Heatmap",
-        heatmapUI("heatmap")
-      ),
-      tabPanel("Dot plot",
-        dotplotUI("dotplot")
-      ),
-      tabPanel('Quality control',
-        Quality_controlUI("quality_control")
-      ),
-      tabPanel('Differential Expression',
-        findmarkerUI("findmarker")
-      ),
-      tabPanel('loupeR',
-        louperUI("louper")
-      ),
-
-      tabPanel('marker',  # Corrected the spelling from 'tabPalnel' to 'tabPanel'
-        marker_showUI('marker')
-      )
     )
   ),
+  # tabPanel('Gene Expression',
+  #   tabsetPanel(
+  #     tabPanel("highlight",
+  #       highlightUI("highlight")
+  #     ),
+  #     tabPanel('Subsetting',
+  #       subsettingUI('subsetting')
+  #     ),
+  #    tabPanel('tracking',
+  #      clonotype_trackingUI('clonotype_tracking')
+  #    ),
+  #   #  tabPanel('Annotaiton',
+  #   #    annotationUI('annotation')
+  #   #  ),
+  #     tabPanel('Barplot',
+  #       barplotUI('barplot')
+  #     ),
+  #     tabPanel("Violin plot",
+  #       ViolinPlotUI("violinplot")
+  #     ),
+  #     tabPanel("Heatmap",
+  #       heatmapUI("heatmap")
+  #     ),
+  #     tabPanel("Dot plot",
+  #       dotplotUI("dotplot")
+  #     ),
+  #     tabPanel('Quality control',
+  #       Quality_controlUI("quality_control")
+  #     ),
+  #     tabPanel('Differential Expression',
+  #       findmarkerUI("findmarker")
+  #     ),
+  #     tabPanel('loupeR',
+  #       louperUI("louper")
+  #     ),
+
+  #     tabPanel('marker',  # Corrected the spelling from 'tabPalnel' to 'tabPanel'
+  #       marker_showUI('marker')
+  #     )
+  #   )
+  # ),
   tabPanel('TCR',
     tabsetPanel(
       tabPanel("TCR alpha diversity",
@@ -93,20 +100,26 @@ ui <- navbarPage(
 server <- function(input, output, session){
   myReactives <- reactiveValues()
   uploadServer("upload", myReactives)
+
+
+# dimensional plot
   dimensional_plotServer("dimplot", myReactives)
-  highlightServer("highlight", myReactives)
-  plotlyServer("plotly", myReactives)
-#  subsettingServer('subsetting', myReactives)
-#  annotationServer('annotation', myReactives)
-  barplotServer("barplot", myReactives)
   featureplotServer('featureplot', myReactives)
-  heatmapServer("heatmap", myReactives)
-  dotplotServer("dotplot", myReactives)
-  Quality_controlServer('quality_control', myReactives)
-  ViolinPlotServer("violinplot", myReactives)
-  findmarkerServer("findmarker", myReactives)
-  marker_showServer("marker", myReactives)
-  louperServer('louper', myReactives)
+  highlightServer("highlight", myReactives)
+
+
+#   plotlyServer("plotly", myReactives)
+# #  subsettingServer('subsetting', myReactives)
+# #  annotationServer('annotation', myReactives)
+#   barplotServer("barplot", myReactives)
+#   heatmapServer("heatmap", myReactives)
+#   dotplotServer("dotplot", myReactives)
+#   Quality_controlServer('quality_control', myReactives)
+#   ViolinPlotServer("violinplot", myReactives)
+#   findmarkerServer("findmarker", myReactives)
+#   marker_showServer("marker", myReactives)
+#   louperServer('louper', myReactives)
+#   clonotype_trackingServer('clonotype_tracking', myReactives)
   alphaDiversityServer("TCR_alpha_diversity", myReactives, "TCR_TRB_raw_clonotype_id")
   alphaDiversityServer("BCR_alpha_diversity", myReactives, "BCR_IGH_raw_clonotype_id")
   clonalAbundanceServer("TCR_clonal_abundance", myReactives, "TCR_TRB_raw_clonotype_id")

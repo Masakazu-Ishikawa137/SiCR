@@ -1,4 +1,4 @@
-    # Update group_by
+#    Update group_by
  update_split_by <- function(myReactives, session){   
     observe({
       if(!is.null(myReactives$seurat_object) && !is.null(myReactives$seurat_object@misc$meta_data)) {
@@ -13,3 +13,15 @@
       }
     })
  }
+
+
+
+
+update_split_by_new <- function(myReactives){
+  group_cols <- list("seurat_clusters" = "seurat_clusters", "sample" = "sample")
+  meta_data_cols <- names(myReactives$seurat_object@misc$meta_data)
+  for(col in meta_data_cols) {
+    group_cols[[col]] <- col
+  }
+  return(group_cols)
+}
