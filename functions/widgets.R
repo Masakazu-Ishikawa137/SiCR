@@ -34,7 +34,7 @@ gene_textUI <- function(ns){
 }
 
 feature_columnUI <- function(ns){
-    sliderInput(ns('feature_column'), label = 'Number of columns', min = 1, max = 10, value = 1)
+    numericInput(ns('feature_column'), label = 'Number of columns', 1)
 }
 
 focus_groupUI <- function(ns){
@@ -43,4 +43,32 @@ focus_groupUI <- function(ns){
 
 highlight_sizeUI <- function(ns){
     sliderInput(ns("highlight_size"), "Size of highlight", min = 0.01, max = 10,  value = 0.1, step = 0.01)
+}
+
+stackUI <- function(ns){
+    checkboxInput(ns("stack"), "Stack", value = FALSE)
+}
+
+flipUI <- function(ns){
+    checkboxInput(ns("flip"), "Flip", value = FALSE)
+}
+
+plot_typeUI <- function(ns){
+    radioButtons(ns('plot_type'), 'type of plot', choices = c('Violin Plot' = 'violin', 'Dot Plot' = 'dotplot', "Heatmap" = 'heatmap'), selected = 'violin')
+}
+
+ident1UI <- function(ns){
+    selectInput(ns('ident1'), "Group for comparison", choices = c("All group" = "all"))
+}
+
+ident2UI <- function(ns){
+    selectInput(ns('ident2'), "Against with", choices = c("Other groups " = 'all'))
+}
+
+runbuttonUI <- function(ns){
+    actionButton(ns("run"), "Run")
+}
+
+download_csvUI <- function(ns){
+    downloadButton(ns("download"), "Download CSV")
 }

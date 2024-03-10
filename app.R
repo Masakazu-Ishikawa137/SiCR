@@ -2,7 +2,7 @@ source('setting.R')
 
 ui <- navbarPage(
 #  includeCSS("style.css"),
-  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.9.1)",
+  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.10.1)",
   tabPanel("Upload",
     uploadUI("upload")
   ),
@@ -18,6 +18,22 @@ ui <- navbarPage(
         highlightUI("highlight")
       ),
     )
+  ),
+  tabPanel('Gene Expression',
+    tabsetPanel(
+      tabPanel("Expression Distribution",
+        expression_distributionUI("expression_distribution")
+      ),
+      tabPanel("Differential Expression",
+        differential_gene_expressionUI("differential_gene_expression")
+      ),
+#      tabPanel("Heatmap",
+#        heatmapUI("heatmap")
+#      ),
+#      tabPanel("Dot plot",
+#        dotplotUI("dotplot")
+#      ),     
+    ),
   ),
   # tabPanel('Gene Expression',
   #   tabsetPanel(
@@ -35,15 +51,6 @@ ui <- navbarPage(
   #   #  ),
   #     tabPanel('Barplot',
   #       barplotUI('barplot')
-  #     ),
-  #     tabPanel("Violin plot",
-  #       ViolinPlotUI("violinplot")
-  #     ),
-  #     tabPanel("Heatmap",
-  #       heatmapUI("heatmap")
-  #     ),
-  #     tabPanel("Dot plot",
-  #       dotplotUI("dotplot")
   #     ),
   #     tabPanel('Quality control',
   #       Quality_controlUI("quality_control")
@@ -106,6 +113,14 @@ server <- function(input, output, session){
   dimensional_plotServer("dimplot", myReactives)
   featureplotServer('featureplot', myReactives)
   highlightServer("highlight", myReactives)
+
+# gene expression
+  expression_distributionServer("expression_distribution", myReactives)
+  differential_gene_expressionServer("differential_gene_expression", myReactives)
+#   heatmapServer("heatmap", myReactives)
+#   dotplotServer("dotplot", myReactives)
+#   Quality_controlServer('quality_control', myReactives)
+#   ViolinPlotServer("violinplot", myReactives)
 
 
 #   plotlyServer("plotly", myReactives)

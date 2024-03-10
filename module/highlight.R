@@ -35,14 +35,24 @@ highlightServer <- function(id, myReactives) {
     })
 
 
+    # toListen <- reactive({ list(myReactives$seurat_object, input$group_by) })
+    # observeEvent(toListen(), {
+    #   if (!is.null(myReactives$seurat_object) && !is.null(myReactives$seurat_object@misc$meta_data)) {
+    #     updateCheckboxGroupInput(session, "focus_group", selected = character(0))
+    #     myReactives$new_choices <- sort(unique(myReactives$seurat_object@meta.data[[input$group_by]]))
+    #     updateCheckboxGroupInput(session, "focus_group", choices = myReactives$new_choices, selected = character(0))
+    #   }
+    # })
+
     toListen <- reactive({ list(myReactives$seurat_object, input$group_by) })
     observeEvent(toListen(), {
-      if (!is.null(myReactives$seurat_object) && !is.null(myReactives$seurat_object@misc$meta_data)) {
-        updateCheckboxGroupInput(session, "focus_group", selected = character(0))
-        myReactives$new_choices <- sort(unique(myReactives$seurat_object@meta.data[[input$group_by]]))
-        updateCheckboxGroupInput(session, "focus_group", choices = myReactives$new_choices, selected = character(0))
-      }
-    })
+  # 新しいgroup_byに基づいてfocus_groupの選択肢を更新
+  if (!is.null(myReactives$seurat_object) && !is.null(myReactives$seurat_object@meta.data)) {
+    myReactives$new_choices <- sort(unique(myReactives$seurat_object@meta.data[[input$group_by]]))
+    updateCheckboxGroupInput(session, "focus_group", choices = myReactives$new_choices, selected = character(0))
+  }
+}, ignoreNULL = TRUE, ignoreInit = TRUE)
+
 
     observe({
       if (!is.null(myReactives$seurat_object) & !is.null(myReactives$new_choices)) {
