@@ -4,6 +4,7 @@
 Please send me any question/suggestion by using Github issues, or [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSeIGfGtbFvQKhx6lF9j29nGREMCyRxD_eEcGiqcmrNFORhIMQ/viewform?usp=sf_link)  
 なにか問い合わせ、ご提案ありましたらGithub　issuesか[Google Form](https://docs.google.com/forms/d/e/1FAIpQLSeIGfGtbFvQKhx6lF9j29nGREMCyRxD_eEcGiqcmrNFORhIMQ/viewform?usp=sf_link)でお問い合わせください。
 ## 1. Updates
+1.10.2 We modified "diffential expression" table.  
 1.10.0 We added "differential expression" tab.  
 1.9.1 merged tab "dimensional plot", "feature plot", and "highlight" to "Dimensional Plot".  
 1.9.0 We added "Subsetting" tab.  

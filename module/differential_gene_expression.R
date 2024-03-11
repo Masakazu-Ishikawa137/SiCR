@@ -9,10 +9,10 @@ differential_gene_expressionUI <- function(id){
         uiOutput(ns('marker')) # ここでUIの出力を定義
     ),
     mainPanel(
-      uiOutput(ns("thresholdui")),
+#      uiOutput(ns("thresholdui")),
       DTOutput(ns('df')),
       uiOutput(ns('download_button_ui')),
-      DTOutput(ns('marker_table'))
+#      DTOutput(ns('marker_table'))
     )
   )
 }
@@ -62,7 +62,7 @@ differential_gene_expressionServer <- function(id, myReactives) {
             myReactives$findmarker_df <- FindMarkers(myReactives$seurat_object, 
             ident.1 = input$ident1, 
             ident.2 = input$ident2,
-            logfc.threshold =0,
+            logfc.threshold = 0,
             min.pct = 0.01)
         }
        })
@@ -73,26 +73,30 @@ differential_gene_expressionServer <- function(id, myReactives) {
         tagList(
           h3("Threshold"),
           radioButtons('p_value', "P value (Default: Adjusted P value)", choices = c("P value" = "p_val", "Adjusted P value" = 'p_val_adj'), selected = 'p_val_adj'),
-          sliderInput('p_value_less', "Value (Default: 0 ~ 0.1)", min = 0, max = 1, value = c(0,0.1), step = 0.001),
-          sliderInput('pct_less', "The proportion of cells in each cell group where the gene is expressed (Default: 0.01 ~ 1)", min = 0, max = 1, value = c(0.01, 1), step = 0.001),
+          sliderInput('p_value_less', "is less than (Default: 0.1)", min = 0, max = 1, value = 0.1, step = 0.001),
+          sliderInput('pct_less', "The proportion of cells in each cell group where the gene is expressed (Default: 0.01)", min = 0, max = 1, value = 0.01, step = 0.001),
           radioButtons(session$ns('choice'), 'Choice', choices = list('positive', 'negative', 'both'), selected = 'both'),
         )
       })
     })
 
 
-    observe({
-      req(myReactives$findmarker_df, input$choice)
-      myReactives$findmarker_df_final <- if(input$choice == 'positive') {
-        myReactives$findmarker_df %>% dplyr::filter(avg_log2FC > 0)
-      } else if(input$choice == 'negative') {
-        myReactives$findmarker_df %>% dplyr::filter(avg_log2FC < 0)
-      } else {
-        myReactives$dindmarker_df_final <- myReactives$findmarker_df
-      }
-    })
+    # observe({
+    #   req(myReactives$findmarker_df, input$choice, input$p_value_less, input$p_value)
+    #   myReactives$findmarker_df_final <- if(input$choice == 'positive') {
+    #     myReactives$findmarker_df %>% dplyr::filter(avg_log2FC > 0)
+    #   } else if(input$choice == 'negative') {
+    #     myReactives$findmarker_df %>% dplyr::filter(avg_log2FC < 0)
+    #   } else {
+    #     myReactives$dindmarker_df_final <- myReactives$findmarker_df
+    #   }
 
-    output$df <- renderDT(myReactives$findmarker_df_final)
+    #   myReactives$findmarker_df_final <- myReactives$findmarker_df_final %>%
+    #     filter(.data[[input$p_value]] < input$p_value_less)
+    # })
+
+
+    output$df <- renderDT(myReactives$findmarker_df, filter = 'top')
 
 
     #   myReactives$findmarker_df <- myReactives$findmarker_df %>%
