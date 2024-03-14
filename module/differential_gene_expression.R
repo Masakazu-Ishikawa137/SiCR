@@ -9,10 +9,14 @@ differential_gene_expressionUI <- function(id){
         uiOutput(ns('marker')) # ここでUIの出力を定義
     ),
     mainPanel(
-#      uiOutput(ns("thresholdui")),
       DTOutput(ns('df')),
-      uiOutput(ns('download_button_ui')),
-#      DTOutput(ns('marker_table'))
+       uiOutput(ns('dynamic_gene_num_input')),
+#      numericInput(ns('gene_num'), label = "Number of genes", value = 10),
+#      uiOutput(ns('gene_num')),
+      DTOutput(ns('marker_table_positive')),
+      DTOutput(ns('marker_table_negative')),
+#      DTOutput(ns('marker_table')),
+#      DTOutput(ns('negative_table'))
     )
   )
 }
@@ -67,43 +71,8 @@ differential_gene_expressionServer <- function(id, myReactives) {
         }
        })
 
-    observe({
-      req(myReactives$findmarker_df)
-      output$thresholdui <- renderUI({
-        tagList(
-          h3("Threshold"),
-          radioButtons('p_value', "P value (Default: Adjusted P value)", choices = c("P value" = "p_val", "Adjusted P value" = 'p_val_adj'), selected = 'p_val_adj'),
-          sliderInput('p_value_less', "is less than (Default: 0.1)", min = 0, max = 1, value = 0.1, step = 0.001),
-          sliderInput('pct_less', "The proportion of cells in each cell group where the gene is expressed (Default: 0.01)", min = 0, max = 1, value = 0.01, step = 0.001),
-          radioButtons(session$ns('choice'), 'Choice', choices = list('positive', 'negative', 'both'), selected = 'both'),
-        )
-      })
-    })
-
-
-    # observe({
-    #   req(myReactives$findmarker_df, input$choice, input$p_value_less, input$p_value)
-    #   myReactives$findmarker_df_final <- if(input$choice == 'positive') {
-    #     myReactives$findmarker_df %>% dplyr::filter(avg_log2FC > 0)
-    #   } else if(input$choice == 'negative') {
-    #     myReactives$findmarker_df %>% dplyr::filter(avg_log2FC < 0)
-    #   } else {
-    #     myReactives$dindmarker_df_final <- myReactives$findmarker_df
-    #   }
-
-    #   myReactives$findmarker_df_final <- myReactives$findmarker_df_final %>%
-    #     filter(.data[[input$p_value]] < input$p_value_less)
-    # })
-
 
     output$df <- renderDT(myReactives$findmarker_df, filter = 'top')
-
-
-    #   myReactives$findmarker_df <- myReactives$findmarker_df %>%
-    #     filter(.data[[input$p_value]] < input$p_value_less[2] & .data[[input$p_value]] > input$p_value_less[1])
-    # })
-
-
 
     output$download_button_ui <- renderUI({
       if(!is.null(myReactives$findmarker_df) && nrow(myReactives$findmarker_df) > 0) {
@@ -120,6 +89,69 @@ differential_gene_expressionServer <- function(id, myReactives) {
         write.csv(data, file, row.names = FALSE)
       }
     )
+    
+    output$dynamic_gene_num_input <- renderUI({
+      if (!is.null(myReactives$findmarker_df) && nrow(myReactives$findmarker_df) > 0) {
+        tagList(
+          h3("Most differentially expressed genes (p_val_adj < 0.1):"),
+          numericInput(session$ns('gene_num'), label = "Number of genes", value = 10)
+        )
+      }
+    })
+
+    data_for_table_positive <- reactive({
+      req(myReactives$findmarker_df) # 必要なデータが存在することを保証
+      sorted_data <- myReactives$findmarker_df %>% 
+        dplyr::filter(p_val_adj < 0.1) %>%
+          arrange(desc(avg_log2FC))
+
+
+      if (any(grepl("cluster", colnames(sorted_data)))) {
+        sorted_data %>%
+          group_by(cluster) %>%
+          slice_head(n = input$gene_num) %>%
+          summarise(genes = paste(gene, collapse = ', '), .groups = 'drop')
+      } else {
+        sorted_data %>%
+          slice_head(n = input$gene_num) %>%
+          summarise(genes = paste(gene, collapse = ', '), .groups = 'drop')
+      }
+    })
+
+    data_for_table_negative <- reactive({
+      req(myReactives$findmarker_df) # 必要なデータが存在することを保証
+      sorted_data <- myReactives$findmarker_df %>% 
+        dplyr::filter(p_val_adj < 0.1) %>%
+          arrange(avg_log2FC)
+
+
+      if (any(grepl("cluster", colnames(sorted_data)))) {
+        sorted_data %>%
+          group_by(cluster) %>%
+          slice_head(n = input$gene_num) %>%
+          summarise(genes = paste(gene, collapse = ', '), .groups = 'drop')
+      } else {
+        sorted_data %>%
+          slice_head(n = input$gene_num) %>%
+          summarise(genes = paste(gene, collapse = ', '), .groups = 'drop')
+      }
+    })
+
+    output$marker_table_positive <- renderDT({
+      data_for_table_positive() # reactive expressionを呼び出し
+    })
+
+    output$marker_table_negative <- renderDT({
+      data_for_table_negative() # reactive expressionを呼び出し
+    })
+
+
+
+
+    # data_for_tableを使用してテーブルをレンダリング
+    output$marker_table <- renderDT({
+      data_for_table() # reactive expressionを呼び出し
+    })
 
     })
 }

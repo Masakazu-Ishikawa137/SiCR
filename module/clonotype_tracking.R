@@ -2,9 +2,12 @@ clonotype_trackingUI <- function(id){
     ns <- NS(id)
     sidebarLayout(
         sidebarPanel(
+            actionButton(ns('clear_button'), 'Clear Selection'),
+            checkboxGroupInput(ns('select_factor'), 'Select factor', choices = NULL),
         ),
         mainPanel(
-            plotOutput(ns('plot'))
+            plotOutput(ns('plot')),
+            tableOutput(ns('table'))
         )
     )
 }
@@ -12,23 +15,34 @@ clonotype_trackingUI <- function(id){
 clonotype_trackingServer <- function(id, myReactives){
     moduleServer(id, function(input, output, session){
         observeEvent(myReactives$seurat_object,{
-                if(!is.null(myReactives$seurat_object)) {
-                        myReactives$tracking_df <- myReactives$seurat_object@meta.data %>% 
-                                filter(!is.na(TCR_TRB_v_gene)) %>% 
-                                group_by(sample, TCR_TRB_v_gene) %>% 
-                                summarise(count = n()) %>% 
-                                ungroup() %>% 
-                                group_by(sample) %>% 
-                                mutate(total_count = sum(count)) %>% 
-                                ungroup() %>% 
-                                mutate(proportion = count / total_count)
-                }
+            myReactives$tracking_df <- create_tracking_df(myReactives$seurat_object)
         })
+
+        observeEvent(myReactives$tracking_df,{
+            req(myReactives$tracking_df)
+            updateCheckboxGroupInput(session, 'select_factor', 'Select factor', choices = sort(unique(myReactives$tracking_df$TCR_TRB_v_gene)), selected = sort(unique(myReactives$tracking_df$TCR_TRB_v_gene)))
+        })
+
+        observeEvent(input$clear_button, {
+            updateCheckboxGroupInput(session, 'select_factor', choices = sort(unique(myReactives$tracking_df$TCR_TRB_v_gene)))
+        })
+
+        tracking_df_filter <- reactive({
+            req(myReactives$tracking_df)
+            myReactives$tracking_df %>% 
+                dplyr::filter(TCR_TRB_v_gene %in% input$select_factor)
+        })
+
         output$plot <- renderPlot({
-                if(!is.null(myReactives$tracking_df)) {
-                    ggplot(myReactives$tracking_df) +
-                        geom_area(aes(x = sample, y = proportion, fill = TCR_TRB_v_gene, group = TCR_TRB_v_gene), position = 'stack')
-                }
+            req(tracking_df_filter())
+            tracking_df_filter() %>% 
+                ggplot() + geom_area(aes(x = sample, y = proportion, fill = TCR_TRB_v_gene, group = TCR_TRB_v_gene), position = 'stack')
         })
+
+        # output$plot <- renderPlot({
+        #     myReactives$tracking_df %>% 
+        #         dplyr::filter(TCR_TRB_v_gene %in% c('TRBV11-2', "TRBV13")) %>% 
+        #             ggplot() + geom_area(aes(x = sample, y = proportion, fill = TCR_TRB_v_gene, group = TCR_TRB_v_gene), position = 'stack')
+        # })
     })
 }

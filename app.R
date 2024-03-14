@@ -2,7 +2,7 @@ source('setting.R')
 
 ui <- navbarPage(
 #  includeCSS("style.css"),
-  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.10.2)",
+  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.11.0)",
   tabPanel("Upload",
     uploadUI("upload")
   ),
@@ -80,7 +80,10 @@ ui <- navbarPage(
       ),
       tabPanel("TCR antigen prediction",
         antigenPredictionUI("TCR_antigen_prediction")
-      )
+      ),
+      tabPanel('clonotype tracking',
+        clonotype_trackingUI('clonotype_tracking')
+      ),
     )
   ),
   tabPanel('BCR',
@@ -117,6 +120,8 @@ server <- function(input, output, session){
 # gene expression
   expression_distributionServer("expression_distribution", myReactives)
   differential_gene_expressionServer("differential_gene_expression", myReactives)
+
+  clonotype_trackingServer('clonotype_tracking', myReactives)
 #   heatmapServer("heatmap", myReactives)
 #   dotplotServer("dotplot", myReactives)
 #   Quality_controlServer('quality_control', myReactives)
