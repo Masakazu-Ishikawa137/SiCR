@@ -4,6 +4,7 @@ clonotype_trackingUI <- function(id){
         sidebarPanel(
             actionButton(ns('clear_button'), 'Clear Selection'),
             checkboxGroupInput(ns('select_factor'), 'Select factor', choices = NULL),
+
         ),
         mainPanel(
             plotOutput(ns('plot')),
