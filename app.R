@@ -2,7 +2,7 @@ source('setting.R')
 
 ui <- navbarPage(
 #  includeCSS("style.css"),
-  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.11.1)",
+  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.11.2)",
   tabPanel("Upload",
     uploadUI("upload")
   ),

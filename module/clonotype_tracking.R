@@ -4,6 +4,7 @@ clonotype_trackingUI <- function(id){
         sidebarPanel(
             actionButton(ns('clear_button'), 'Clear Selection'),
             checkboxGroupInput(ns('select_factor'), 'Select factor', choices = NULL),
+            checkboxGroupInput(ns('focus_group'), 'Focus group', choices = NULL, selected = character(0)),
 
         ),
         mainPanel(
@@ -19,6 +20,17 @@ clonotype_trackingServer <- function(id, myReactives){
             myReactives$tracking_df <- create_tracking_df(myReactives$seurat_object)
         })
 
+#    toListen <- reactive({ list(myReactives$seurat_object, input$group_by) })
+    observeEvent(myReactives$seurat_object, {
+  # 新しいgroup_byに基づいてfocus_groupの選択肢を更新
+    if (!is.null(myReactives$seurat_object) && !is.null(myReactives$seurat_object@meta.data)) {
+        myReactives$new_choices <- sort(unique(myReactives$seurat_object@meta.data[['sample']]))
+        updateCheckboxGroupInput(session, "focus_group", choices = myReactives$new_choices, selected = character(0))
+    }
+}, ignoreNULL = TRUE, ignoreInit = TRUE)
+
+
+
         observeEvent(myReactives$tracking_df,{
             req(myReactives$tracking_df)
             updateCheckboxGroupInput(session, 'select_factor', 'Select factor', choices = sort(unique(myReactives$tracking_df$TCR_TRB_v_gene)), selected = sort(unique(myReactives$tracking_df$TCR_TRB_v_gene)))
@@ -31,7 +43,8 @@ clonotype_trackingServer <- function(id, myReactives){
         tracking_df_filter <- reactive({
             req(myReactives$tracking_df)
             myReactives$tracking_df %>% 
-                dplyr::filter(TCR_TRB_v_gene %in% input$select_factor)
+                dplyr::filter(TCR_TRB_v_gene %in% input$select_factor) %>% 
+                dplyr::filter(sample %in% input$focus_group)            
         })
 
         output$plot <- renderPlot({
