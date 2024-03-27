@@ -72,3 +72,29 @@ runbuttonUI <- function(ns){
 download_csvUI <- function(ns){
     downloadButton(ns("download"), "Download CSV")
 }
+
+scientific_colorUI <- function(ns){
+    radioButtons(ns("scientific_color"), "Scientific color", choices = list(
+        "NPG" = "scale_fill_npg()",
+        "AAAS" = "scale_fill_aaas()",
+        "NEJM" = "scale_fill_nejm()",
+        "Lancet" = "scale_fill_lancet()",
+        "JAMA" = "scale_fill_jama()",
+        "JCO" = "scale_color_jco() scale_fill_jco()",
+        "UCSCGB" = "scale_fill_ucscgb()",
+        "D3" = "scale_fill_d3()",
+        "LocusZoom" = "scale_fill_locuszoom()",
+        "IGV" = "scale_fill_igv()",
+        "COSMIC" = "scale_fill_cosmic()",
+        "UChicago" = "scale_fill_uchicago()",
+        "Star Trek" = "scale_fill_startrek()",
+        "Tron Legacy" = "scale_fill_tron()",
+        "Futurama" = "scale_fill_futurama()",
+        "Rick and Morty" = "scale_fill_rickandmorty()",
+        "The Simpsons" = "scale_fill_simpsons()",
+        "Flat UI" = "scale_fill_flatui()",
+        "Frontiers" = "scale_fill_frontiers()",
+        "GSEA" = "scale_fill_gsea()",
+        "Material Design" = "scale_fill_material()"
+    ))
+}

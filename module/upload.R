@@ -40,44 +40,89 @@ uploadUI <- function(id) {
   )
 }
 
-uploadServer <- function(id, myReactives){
-  moduleServer(id, function(input, output, session){
-    observeEvent(input$run,{
-      h5_path  <- input$h5$datapath
+
+
+uploadServer <- function(id, myReactives) {
+  moduleServer(id, function(input, output, session) {
+    observeEvent(input$run, {
+      h5_path <- input$h5$datapath
       tcr_path <- input$tcr$datapath
       bcr_path <- input$bcr$datapath
-      h5_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000.h5"
-      tcr_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000_t.csv"
-      bcr_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000_b.csv"
 
-      if(is.null(h5_path)){
-#        print('Uploading RDS')
-#        myReactives <- readRDS('/user/ifrec/mishikawa/SiCR/myReactive.rds')
-#        print('Uploaded RDS')
-         output$upload5h <- renderText('Please upload .h5 file')
+      if (is.null(h5_path)) {
+        h5_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000.h5"
+        tcr_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000_t.csv"
+        bcr_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000_b.csv"
       }
-      else {
-        myReactives$seurat_object <- h5_to_seurat_object(h5_path)
-        if (!is.null(tcr_path) & !is.null(myReactives$seurat_object)){
-          tcr_table <- csv_to_tcr_dataframe(tcr_path)
-          metadata_df <- make_metadata_df(tcr_path)
-          myReactives$seurat_object@misc$meta_data <- metadata_df
-          myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, tcr_table, by=c('barcode' = 'TCR_pair_barcode'))
-          if(is.null(bcr_path)){
-            myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, metadata_df, by='sample')
-          }
 
+      myReactives$seurat_object <- h5_to_seurat_object(h5_path)
+      if (!is.null(tcr_path) & !is.null(myReactives$seurat_object)) {
+        tcr_table <- csv_to_tcr_dataframe(tcr_path)
+        metadata_df <- make_metadata_df(tcr_path)
+        myReactives$seurat_object@misc$meta_data <- metadata_df
+        myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, tcr_table, by = c('barcode' = 'TCR_pair_barcode'))
+        myReactives$seurat_object@meta.data <- myReactives$seurat_object@meta.data %>% mutate(TCR_expand = case_when(
+          is.na(TCR_expand) ~ "0",
+          TRUE ~ as.character(TCR_expand)
+        ))
+        if (is.null(bcr_path)) {
+          myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, metadata_df, by = 'sample')
         }
-        if (!is.null(bcr_path) & !is.null(myReactives$seurat_object)){
-          bcr_table <- csv_to_bcr_dataframe(bcr_path)
-          metadata_df <- make_metadata_df(bcr_path)
-          myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, bcr_table, by=c('barcode' = 'BCR_pair_barcode'))
-          myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, metadata_df, by='sample')
-        }
+      }
+      if (!is.null(bcr_path) & !is.null(myReactives$seurat_object)) {
+        bcr_table <- csv_to_bcr_dataframe(bcr_path)
+        metadata_df <- make_metadata_df(bcr_path)
+        myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, bcr_table, by = c('barcode' = 'BCR_pair_barcode'))
+        myReactives$seurat_object@meta.data <- myReactives$seurat_object@meta.data %>% mutate(BCR_expand = case_when(
+          is.na(BCR_expand) ~ "0",
+          TRUE ~ as.character(BCR_expand)
+        ))
+        myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, metadata_df, by = 'sample')
+      }
       rownames(myReactives$seurat_object@meta.data) <- myReactives$seurat_object@meta.data$'barcode'
       write.csv(myReactives$seurat_object@meta.data, 'metadata.csv')
-      }
     })
+  })
+}
+
+# uploadServer <- function(id, myReactives){
+#   moduleServer(id, function(input, output, session){
+#     observeEvent(input$run,{
+#       h5_path  <- input$h5$datapath
+#       tcr_path <- input$tcr$datapath
+#       bcr_path <- input$bcr$datapath
+#       h5_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000.h5"
+#       tcr_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000_t.csv"
+#       bcr_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000_b.csv"
+
+#       if(is.null(h5_path)){
+# #        print('Uploading RDS')
+# #        myReactives <- readRDS('/user/ifrec/mishikawa/SiCR/myReactive.rds')
+# #        print('Uploaded RDS')
+#          output$upload5h <- renderText('Please upload .h5 file')
+#       }
+#       else {
+#         myReactives$seurat_object <- h5_to_seurat_object(h5_path)
+#         if (!is.null(tcr_path) & !is.null(myReactives$seurat_object)){
+#           tcr_table <- csv_to_tcr_dataframe(tcr_path)
+#           metadata_df <- make_metadata_df(tcr_path)
+#           myReactives$seurat_object@misc$meta_data <- metadata_df
+#           myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, tcr_table, by=c('barcode' = 'TCR_pair_barcode'))
+#           if(is.null(bcr_path)){
+#             myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, metadata_df, by='sample')
+#           }
+
+#         }
+#         if (!is.null(bcr_path) & !is.null(myReactives$seurat_object)){
+#           bcr_table <- csv_to_bcr_dataframe(bcr_path)
+#           metadata_df <- make_metadata_df(bcr_path)
+#           myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, bcr_table, by=c('barcode' = 'BCR_pair_barcode'))
+#           myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, metadata_df, by='sample')
+#         }
+#       rownames(myReactives$seurat_object@meta.data) <- myReactives$seurat_object@meta.data$'barcode'
+#       write.csv(myReactives$seurat_object@meta.data, 'metadata.csv')
+#       }
+#     })
 #    observeEvent(input$prepare_download, {
       # モーダルダイアログを表示する
 #      showModal(modalDialog(
@@ -98,7 +143,7 @@ uploadServer <- function(id, myReactives){
 #        easyClose = TRUE,
 #        size = "m"
 #      ))
-    })
+#    })
 #    output$downloadrds <- downloadHandler(
 #    filename = function() {
 #      paste(format(Sys.time(), format = "%Y-%m-%d-%H-%M-%S"), ".rds", sep = "")
@@ -108,7 +153,7 @@ uploadServer <- function(id, myReactives){
 #    }
 #  )
 #  })
-}
+#}
 
 # uploadCellranger_mainServer <- function(id) {
 #   moduleServer(id, function(input, output, session) {

@@ -26,5 +26,17 @@ csv_to_tcr_dataframe <- function(tcr_path){
         is.na(TCR_TRA_is_cell) & TCR_TRB_is_cell == "TRUE" ~ "Only_TRB",
         TRUE ~ "No"
     ))
+
+    # expand
+    tcr_all <- tcr_all %>%
+        mutate(sample = str_remove(TCR_pair_barcode, "^.+-")) %>%
+        group_by(sample, TCR_TRB_raw_clonotype_id) %>%
+        mutate(TCR_count_per_sample = ifelse(is.na(TCR_TRB_raw_clonotype_id), 0, n())) %>%
+        ungroup() %>% # グループ化を解除
+        mutate(TCR_expand = case_when(
+            TCR_count_per_sample > 2 ~ ">2",
+            TRUE ~ as.character(TCR_count_per_sample)
+        ))
+    tcr_all %>% dplyr::select(-sample)
     return(tcr_all)
 }

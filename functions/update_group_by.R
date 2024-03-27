@@ -39,10 +39,15 @@ update_group_by2 <- function(myReactives){
 
   if("TCR" %in% names(myReactives$seurat_object@meta.data)){
     group_cols[["TCR"]] <- "TCR"
+    group_cols[['TCR_count_per_sample']] <- 'TCR_count_per_sample'
+    group_cols[['TCR_expand']] <- 'TCR_expand'
+    
   }
 
   if("BCR" %in% names(myReactives$seurat_object@meta.data)){
     group_cols[["BCR"]] <- "BCR"
+    group_cols[['BCR_count_per_sample']] <- 'BCR_count_per_sample'
+    group_cols[['BCR_expand']] <- 'BCR_expand'
   }
   return(group_cols)
 }

@@ -29,5 +29,16 @@ csv_to_bcr_dataframe <- function(bcr_path){
         TRUE ~ "No"
     ))
 
+
+    bcr_all <- bcr_all %>%
+        mutate(sample = str_remove(BCR_pair_barcode, "^.+-")) %>%
+        group_by(sample, BCR_IGH_raw_clonotype_id) %>%
+        mutate(BCR_count_per_sample = ifelse(is.na(BCR_IGH_raw_clonotype_id), 0, n())) %>%
+        ungroup() %>% # グループ化を解除
+        mutate(BCR_expand = case_when(
+            BCR_count_per_sample > 2 ~ ">2",
+            TRUE ~ as.character(BCR_count_per_sample)
+        ))
+    bcr_all %>% dplyr::select(-sample)
     return(bcr_all)
 }

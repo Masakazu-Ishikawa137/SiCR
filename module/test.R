@@ -1,18 +1,36 @@
-testUI <- function(id){
-  ns <- NS(id)
+library(shiny)
+
+# Define UI
+ui <- fluidPage(
+  titlePanel("Rank List Example"),
   sidebarLayout(
     sidebarPanel(
-        checkboxGroupInput(ns('group_by'), 'Group by', choices = c('condition1', 'condition2')),
+      textInput("input_text", "Enter items (comma-separated):"),
+      actionButton("submit_button", "Submit")
     ),
     mainPanel(
-        textOutput(ns('text'))
+      verbatimTextOutput("output_text")
     )
   )
+)
+
+# Define server
+server <- function(input, output) {
+  # Store the items entered by the user
+  items <- reactiveValues(list = NULL)
+  
+  # Update the list of items when the submit button is clicked
+  observeEvent(input$submit_button, {
+    items$list <- strsplit(input$input_text, ",")[[1]]
+  })
+  
+  # Render the rank list
+  output$output_text <- renderPrint({
+    if (!is.null(items$list)) {
+      rank_list(items$list)
+    }
+  })
 }
 
-testServer <- function(id, myReactives){
-    moduleServer(id, function(input, output, session){
-        output$text <- renderText(input$group_by)
-    })
-}
-
+# Run the app
+shinyApp(ui = ui, server = server)

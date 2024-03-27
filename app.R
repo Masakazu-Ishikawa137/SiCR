@@ -2,7 +2,7 @@ source('setting.R')
 
 ui <- navbarPage(
 #  includeCSS("style.css"),
-  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.11.2)",
+  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.12.1)",
   tabPanel("Upload",
     uploadUI("upload")
   ),
@@ -19,6 +19,12 @@ ui <- navbarPage(
       ),
     )
   ),
+  tabPanel("Compositional Analysis",
+    compositional_analysisUI("compositional_analysis")
+  ),
+  # tabPanel("Compositional Analysis2",
+  #   compositional_analysis_TCRUI("compositional_analysis2")
+  # ),
   tabPanel('Gene Expression',
     tabsetPanel(
       tabPanel("Expression Distribution",
@@ -81,9 +87,9 @@ ui <- navbarPage(
       tabPanel("TCR antigen prediction",
         antigenPredictionUI("TCR_antigen_prediction")
       ),
-      tabPanel('clonotype tracking',
-        clonotype_trackingUI('clonotype_tracking')
-      ),
+      # tabPanel('clonotype tracking',
+      #   clonotype_trackingUI('clonotype_tracking')
+      # ),
     )
   ),
   tabPanel('BCR',
@@ -117,11 +123,15 @@ server <- function(input, output, session){
   featureplotServer('featureplot', myReactives)
   highlightServer("highlight", myReactives)
 
+# compositional analysis
+  compositional_analysisServer("compositional_analysis", myReactives)
+  # compositional_analysis_TCRServer("compositional_analysis2", myReactives)
+
 # gene expression
   expression_distributionServer("expression_distribution", myReactives)
   differential_gene_expressionServer("differential_gene_expression", myReactives)
 
-  clonotype_trackingServer('clonotype_tracking', myReactives)
+#  clonotype_trackingServer('clonotype_tracking', myReactives)
 #   heatmapServer("heatmap", myReactives)
 #   dotplotServer("dotplot", myReactives)
 #   Quality_controlServer('quality_control', myReactives)
