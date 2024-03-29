@@ -4,6 +4,7 @@
 Please send me any question/suggestion by using Github issues, or [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSeIGfGtbFvQKhx6lF9j29nGREMCyRxD_eEcGiqcmrNFORhIMQ/viewform?usp=sf_link)  
 なにか問い合わせ、ご提案ありましたらGithub　issuesか[Google Form](https://docs.google.com/forms/d/e/1FAIpQLSeIGfGtbFvQKhx6lF9j29nGREMCyRxD_eEcGiqcmrNFORhIMQ/viewform?usp=sf_link)でお問い合わせください。
 ## 1. Updates
+1.13.0 We added "Volcano Plot" tab.  
 1.12.1 We added "TCR/BCR_expand" group in dimentional plot.  
 1.12.0 We added "Compositional Analysis" section.  
 1.11.3 bug fix.  

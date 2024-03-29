@@ -2,7 +2,7 @@ source('setting.R')
 
 ui <- navbarPage(
 #  includeCSS("style.css"),
-  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.12.1)",
+  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.13.0)",
   tabPanel("Upload",
     uploadUI("upload")
   ),
@@ -32,6 +32,9 @@ ui <- navbarPage(
       ),
       tabPanel("Differential Expression",
         differential_gene_expressionUI("differential_gene_expression")
+      ),
+      tabPanel("Volcano Plot",
+        volcano_plotUI("volcanoplot")
       ),
 #      tabPanel("Heatmap",
 #        heatmapUI("heatmap")
@@ -130,6 +133,7 @@ server <- function(input, output, session){
 # gene expression
   expression_distributionServer("expression_distribution", myReactives)
   differential_gene_expressionServer("differential_gene_expression", myReactives)
+  volcano_plotServer("volcanoplot", myReactives)
 
 #  clonotype_trackingServer('clonotype_tracking', myReactives)
 #   heatmapServer("heatmap", myReactives)

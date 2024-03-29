@@ -14,6 +14,19 @@ point_sizeUI <- function(ns){
     sliderInput(ns("point_size"), "Size of points", min = 0.01, max = 10, value = 0.1, step = 0.01)
 }
 
+visibilityUI <- function(ns){
+    sliderInput(ns("visibility"), "Visibility", min = 0, max = 1, value = 1, step = 0.01)
+}
+
+xinterceptUI <- function(ns){
+    sliderInput(ns("xintercept"), "X intercept", min = -5, max = 5, value = c(-1,1), step = 0.1)
+}
+
+yinterceptUI <- function(ns){
+    sliderInput(ns("yintercept"), "Y intercept", min = 0, max = 100, value = 1, step = 0.01)
+}
+
+
 label_sizeUI <- function(ns){
     sliderInput(ns("label_size"), "Size of labels", min = 0, max = 20, value = 5, step = 1)
 }
@@ -43,6 +56,10 @@ focus_groupUI <- function(ns){
 
 highlight_sizeUI <- function(ns){
     sliderInput(ns("highlight_size"), "Size of highlight", min = 0.01, max = 10,  value = 0.1, step = 0.01)
+}
+
+number_gene_labelUI <- function(ns){
+    numericInput(ns("number_gene_label"), "Number of gene labels", value = 10)
 }
 
 stackUI <- function(ns){
