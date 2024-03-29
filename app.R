@@ -2,7 +2,7 @@ source('setting.R')
 
 ui <- navbarPage(
 #  includeCSS("style.css"),
-  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.13.0)",
+  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.13.1)",
   tabPanel("Upload",
     uploadUI("upload")
   ),
@@ -90,9 +90,9 @@ ui <- navbarPage(
       tabPanel("TCR antigen prediction",
         antigenPredictionUI("TCR_antigen_prediction")
       ),
-      # tabPanel('clonotype tracking',
-      #   clonotype_trackingUI('clonotype_tracking')
-      # ),
+      tabPanel('clonotype tracking',
+        clonotype_trackingUI('clonotype_tracking')
+      ),
     )
   ),
   tabPanel('BCR',
@@ -153,7 +153,7 @@ server <- function(input, output, session){
 #   findmarkerServer("findmarker", myReactives)
 #   marker_showServer("marker", myReactives)
 #   louperServer('louper', myReactives)
-#   clonotype_trackingServer('clonotype_tracking', myReactives)
+  clonotype_trackingServer('clonotype_tracking', myReactives)
   alphaDiversityServer("TCR_alpha_diversity", myReactives, "TCR_TRB_raw_clonotype_id")
   alphaDiversityServer("BCR_alpha_diversity", myReactives, "BCR_IGH_raw_clonotype_id")
   clonalAbundanceServer("TCR_clonal_abundance", myReactives, "TCR_TRB_raw_clonotype_id")
