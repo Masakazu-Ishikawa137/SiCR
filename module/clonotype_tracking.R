@@ -167,7 +167,11 @@ clonotype_trackingServer <- function(id, myReactives){
         })
        output$plot <- renderPlot({
            filtered_data() %>% 
-               ggplot() + geom_area(aes(x = sample, y = proportion, fill = TCR_TRB_v_gene, group = TCR_TRB_v_gene), position = 'stack')
+               ggplot() + 
+               geom_area(aes(x = sample, y = proportion, fill = TCR_TRB_v_gene, group = TCR_TRB_v_gene), position = 'stack') +
+               theme_classic() +
+               scale_y_continuous(expand = c(0, 0)) 
+               
        })
     })
 }
