@@ -1,4 +1,4 @@
-dimensional_plotUI <- function(id){
+dimensional_plotUI <- function(id) {
   ns <- NS(id)
   sidebarLayout(
     sidebarPanel(
@@ -7,51 +7,71 @@ dimensional_plotUI <- function(id){
       split_byUI(ns),
       point_sizeUI(ns),
       label_sizeUI(ns),
-      uiOutput(ns('ncol_ui')),
+      uiOutput(ns("ncol_ui")),
       legend_placeUI(ns),
       plot_sizeUI(ns),
-      downloadButton(ns("downloadPlot"), "Download Plot as PDF") 
+      downloadButton(ns("downloadPlot"), "Download Plot as PDF")
     ),
     mainPanel(
-      plotOutput(ns('plot'))
+      plotOutput(ns("plot"))
     )
   )
 }
 
-dimensional_plotServer <- function(id, myReactives){
-  moduleServer(id, function(input, output, session){
+dimensional_plotServer <- function(id, myReactives) {
+  moduleServer(id, function(input, output, session) {
     plot_width <- reactive(input$plot_width)
     plot_height <- reactive(input$plot_height)
     legend <- reactive(input$legend)
-    
-    observeEvent(myReactives$seurat_object,{
-      if(!is.null(myReactives$seurat_object) && !is.null(myReactives$seurat_object@misc$meta_data)) {
-        group_cols <- update_group_by2(myReactives)
+
+
+    # update group by
+    observeEvent(myReactives$seurat_object, {
+      if (!is.null(myReactives$seurat_object) && !is.null(myReactives$seurat_object@misc$meta_data)) {
+        group_cols <- group_col(myReactives)
+        if ("TCR" %in% names(myReactives$seurat_object@meta.data)) {
+          group_cols[["TCR"]] <- "TCR"
+          group_cols[["TCR_count_per_sample"]] <- "TCR_count_per_sample"
+          group_cols[["TCR_expand"]] <- "TCR_expand"
+        }
+
+        if ("BCR" %in% names(myReactives$seurat_object@meta.data)) {
+          group_cols[["BCR"]] <- "BCR"
+          group_cols[["BCR_count_per_sample"]] <- "BCR_count_per_sample"
+          group_cols[["BCR_expand"]] <- "BCR_expand"
+        }
+
         updateRadioButtons(session, "group_by", choices = group_cols)
       }
     })
 
-    observeEvent(myReactives$seurat_object,{
-      if(!is.null(myReactives$seurat_object) && !is.null(myReactives$seurat_object@misc$meta_data)) {
-        group_cols_split <- update_split_by_new(myReactives)
-        group_cols_split[["None"]] <- "none"
-        updateRadioButtons(session, "split_by", choices = group_cols_split, selected = "none")
+
+    # update split by
+    observeEvent(myReactives$seurat_object, {
+      if (!is.null(myReactives$seurat_object) && !is.null(myReactives$seurat_object@misc$meta_data)) {
+        group_cols <- group_col(myReactives)
+        group_cols[["None"]] <- "none"
+        updateRadioButtons(session, "split_by", choices = group_cols, selected = "none")
       }
     })
 
-  output$ncol_ui <- renderUI({
-          if (input$split_by != 'none') {
-            numericInput(session$ns('feature_column'), label = 'Number of columns', min = 1, value = 1)
-          }
-        })
+    output$ncol_ui <- renderUI({
+      if (input$split_by != "none") {
+        numericInput(session$ns("feature_column"), label = "Number of columns", min = 1, value = 1)
+      }
+    })
 
     observe({
-      if(!is.null(myReactives$seurat_object)){
+      if (!is.null(myReactives$seurat_object)) {
         myReactives$dimplot <- dimplot(myReactives, input, output, session)
       }
     })
 
-    render_plot(output, 'plot', reactive({ myReactives$dimplot }), plot_width, plot_height)
-    setupDownloadPlotHandler(output, input, reactive({ myReactives$dimplot }))
+    render_plot(output, "plot", reactive({
+      myReactives$dimplot
+    }), plot_width, plot_height)
+    setupDownloadPlotHandler(output, input, reactive({
+      myReactives$dimplot
+    }))
   })
 }
