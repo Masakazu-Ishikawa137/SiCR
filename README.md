@@ -50,8 +50,25 @@ https://posit.co/download/rstudio-desktop/
 ### 3.2 Install R library packages.
 SiCR uses following libraries, so please install using this command
 ```R
-install.packages(c('ggsci', 'RColorBrewer', 'tidyverse', 'Seurat', 'shiny', 'HGNChelper', 'alakazam', 'dowser', 'hdf5r',  'BiocManager', 'openxlsx', 'hrbrhemes'))
-BiocManager::install(c("Biostrings", "GenomicAlignments", "ggtree"), force=TRUE)
+# ライブラリのインストール
+install.packages("ggsci")
+install.packages("RColorBrewer")
+install.packages("tidyverse")
+install.packages("Seurat")
+install.packages("shiny")
+install.packages("scRepertoire")
+install.packages("ggpointdensity")
+install.packages("viridis")
+install.packages("GGally")
+install.packages("ggpubr")
+install.packages("ggplot2")
+install.packages("ggExtra")
+install.packages("loupeR")
+install.packages("DT")
+install.packages("plotly")
+install.packages("sortable")
+#install.packages(c('ggsci', 'RColorBrewer', 'tidyverse', 'Seurat', 'shiny', 'HGNChelper', 'alakazam', 'dowser', 'hdf5r',  'BiocManager', 'openxlsx', 'hrbrhemes'))
+#BiocManager::install(c("Biostrings", "GenomicAlignments", "ggtree"), force=TRUE)
 ```
 ### 3.3 Download SiCR scripts, and unzip it.
 Click here https://github.com/Masakazu-Ishikawa137/SiCR/archive/refs/heads/main.zip
