@@ -1,47 +1,57 @@
-source('setting.R')
+source("setting.R")
 
 ui <- navbarPage(
-#  includeCSS("style.css"),
-  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.13.2)",
-  tabPanel("Upload",
+  #  includeCSS("style.css"),
+  title = "SiCR: Web Application for Single Cell Repertoire Analysis (Ver. 1.14.0)",
+  tabPanel(
+    "Upload",
     uploadUI("upload")
   ),
-  tabPanel('Dimensional Plot',
+  tabPanel(
+    "Dimensional Plot",
     tabsetPanel(
-      tabPanel("Clusters",
+      tabPanel(
+        "Clusters",
         dimensional_plotUI("dimplot")
       ),
-      tabPanel("Features",
+      tabPanel(
+        "Features",
         featureplotUI("featureplot")
       ),
-      tabPanel("Highlight",
+      tabPanel(
+        "Highlight",
         highlightUI("highlight")
       ),
     )
   ),
-  tabPanel("Compositional Analysis",
+  tabPanel(
+    "Compositional Analysis",
     compositional_analysisUI("compositional_analysis")
   ),
   # tabPanel("Compositional Analysis2",
   #   compositional_analysis_TCRUI("compositional_analysis2")
   # ),
-  tabPanel('Gene Expression',
+  tabPanel(
+    "Gene Expression",
     tabsetPanel(
-      tabPanel("Expression Distribution",
+      tabPanel(
+        "Expression Distribution",
         expression_distributionUI("expression_distribution")
       ),
-      tabPanel("Differential Expression",
+      tabPanel(
+        "Differential Expression",
         differential_gene_expressionUI("differential_gene_expression")
       ),
-      tabPanel("Volcano Plot",
+      tabPanel(
+        "Volcano Plot",
         volcano_plotUI("volcanoplot")
       ),
-#      tabPanel("Heatmap",
-#        heatmapUI("heatmap")
-#      ),
-#      tabPanel("Dot plot",
-#        dotplotUI("dotplot")
-#      ),     
+      #      tabPanel("Heatmap",
+      #        heatmapUI("heatmap")
+      #      ),
+      #      tabPanel("Dot plot",
+      #        dotplotUI("dotplot")
+      #      ),
     ),
   ),
   # tabPanel('Gene Expression',
@@ -76,84 +86,107 @@ ui <- navbarPage(
   #     )
   #   )
   # ),
-  tabPanel('TCR',
+  tabPanel(
+    "TCR",
     tabsetPanel(
-      tabPanel("TCR alpha diversity",
+      tabPanel(
+        "TCR alpha diversity",
         alphaDiversityUI("TCR_alpha_diversity")
       ),
-      tabPanel("TCR clonal abundance",
+      tabPanel(
+        "TCR clonal abundance",
         clonalAbundanceUI("TCR_clonal_abundance")
       ),
-      tabPanel("TCR clonotype expand",
+      tabPanel(
+        "TCR clonotype expand",
         clonotypeExpandUI("TCR_clonotype_expand")
       ),
-      tabPanel("TCR antigen prediction",
+      tabPanel(
+        "TCR antigen prediction",
         antigenPredictionUI("TCR_antigen_prediction")
       ),
-      tabPanel('clonotype tracking',
-        clonotype_trackingUI('clonotype_tracking')
+      tabPanel(
+        "clonotype tracking",
+        clonotype_trackingUI("clonotype_tracking")
       ),
+      tabPanel(
+    "clonotype overlap",
+    clonotype_overlapUI("TCR_clonotype_overlap")
+  ),
+
     )
   ),
-  tabPanel('BCR',
+  tabPanel(
+    "BCR",
     tabsetPanel(
-      tabPanel("BCR alpha diversity",
+      tabPanel(
+        "BCR alpha diversity",
         alphaDiversityUI("BCR_alpha_diversity")
       ),
-      tabPanel("BCR clonal abundance",
+      tabPanel(
+        "BCR clonal abundance",
         clonalAbundanceUI("BCR_clonal_abundance")
       ),
-      tabPanel("BCR clonotype expand",
+      tabPanel(
+        "BCR clonotype expand",
         clonotypeExpandUI("BCR_clonotype_expand")
       ),
-      tabPanel("BCR antigen prediction",
+            tabPanel(
+    "clonotype overlap",
+    clonotype_overlapUI("BCR_clonotype_overlap")
+  ),
+
+      tabPanel(
+        "BCR antigen prediction",
         antigenPredictionUI("BCR_antigen_prediction")
       ),
-      tabPanel("BCR phylogenetic tree",
+      tabPanel(
+        "BCR phylogenetic tree",
         phylogeneticTreeUI("BCR_phylogentic_tree")
       )
     )
   )
 )
 
-server <- function(input, output, session){
+server <- function(input, output, session) {
   myReactives <- reactiveValues()
   uploadServer("upload", myReactives)
 
 
-# dimensional plot
+  # dimensional plot
   dimensional_plotServer("dimplot", myReactives)
-  featureplotServer('featureplot', myReactives)
+  featureplotServer("featureplot", myReactives)
   highlightServer("highlight", myReactives)
 
-# compositional analysis
+  # compositional analysis
   compositional_analysisServer("compositional_analysis", myReactives)
   # compositional_analysis_TCRServer("compositional_analysis2", myReactives)
 
-# gene expression
+  # gene expression
   expression_distributionServer("expression_distribution", myReactives)
   differential_gene_expressionServer("differential_gene_expression", myReactives)
   volcano_plotServer("volcanoplot", myReactives)
+  clonotype_overlapServer("TCR_clonotype_overlap", myReactives, tcr_col = 'TCR_pair_CTaa')
+  clonotype_overlapServer("BCR_clonotype_overlap", myReactives, tcr_col = 'BCR_pair_CTaa')
+  #  clonotype_trackingServer('clonotype_tracking', myReactives)
+  #   heatmapServer("heatmap", myReactives)
+  #   dotplotServer("dotplot", myReactives)
+  #   Quality_controlServer('quality_control', myReactives)
+  #   ViolinPlotServer("violinplot", myReactives)
 
-#  clonotype_trackingServer('clonotype_tracking', myReactives)
-#   heatmapServer("heatmap", myReactives)
-#   dotplotServer("dotplot", myReactives)
-#   Quality_controlServer('quality_control', myReactives)
-#   ViolinPlotServer("violinplot", myReactives)
 
-
-#   plotlyServer("plotly", myReactives)
-# #  subsettingServer('subsetting', myReactives)
-# #  annotationServer('annotation', myReactives)
-#   barplotServer("barplot", myReactives)
-#   heatmapServer("heatmap", myReactives)
-#   dotplotServer("dotplot", myReactives)
-#   Quality_controlServer('quality_control', myReactives)
-#   ViolinPlotServer("violinplot", myReactives)
-#   findmarkerServer("findmarker", myReactives)
-#   marker_showServer("marker", myReactives)
-#   louperServer('louper', myReactives)
-  clonotype_trackingServer('clonotype_tracking', myReactives)
+  #   plotlyServer("plotly", myReactives)
+  # #  subsettingServer('subsetting', myReactives)
+  # #  annotationServer('annotation', myReactives)
+  #   barplotServer("barplot", myReactives)
+  #   heatmapServer("heatmap", myReactives)
+  #   dotplotServer("dotplot", myReactives)
+  #   Quality_controlServer('quality_control', myReactives)
+  #   ViolinPlotServer("violinplot", myReactives)
+  #   findmarkerServer("findmarker", myReactives)
+  #   marker_showServer("marker", myReactives)
+  #   louperServer('louper', myReactives)
+  clonotype_trackingServer("clonotype_tracking", myReactives)
   alphaDiversityServer("TCR_alpha_diversity", myReactives, "TCR_TRB_raw_clonotype_id")
   alphaDiversityServer("BCR_alpha_diversity", myReactives, "BCR_IGH_raw_clonotype_id")
   clonalAbundanceServer("TCR_clonal_abundance", myReactives, "TCR_TRB_raw_clonotype_id")
@@ -163,7 +196,6 @@ server <- function(input, output, session){
   antigenPredictionServer("TCR_antigen_prediction", myReactives, db_path = "data/230323_ruft_TCR_antigen_database.tsv")
   antigenPredictionServer("BCR_antigen_prediction", myReactives, chain = "BCR_IGH_raw_clonotype_id", db_path = "data/230323_ruft_BCR_antigen_database.tsv")
   phylogeneticTreeServer("BCR_phylogentic_tree", myReactives)
-
 }
 
 shinyApp(ui, server)

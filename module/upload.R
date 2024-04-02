@@ -16,25 +16,25 @@ uploadUI <- function(id) {
     ),
     mainPanel(
       fluidRow(
-        column(6,
-          fileInput(ns("h5"),  "1. Choose .h5  file"),
+        column(
+          6,
+          fileInput(ns("h5"), "1. Choose .h5  file"),
           fileInput(ns("tcr"), "2. Choose .tcr file (optional)"),
           fileInput(ns("bcr"), "3. Choose .bcr file (optional)"),
           actionButton(ns("run"), "Run"),
-#          actionButton(ns("prepare_download"), "ファイルを準備する"),
-#          modalDialog(
-#            id = ns("modal_download_ready"),
-#            title = "ダウンロード準備完了",
-#            "ファイルの準備が完了しました。以下のリンクからダウンロードしてください。",
-#            downloadButton(ns("downloadrds"), "Download analyzed file"),
-#            easyClose = TRUE,
-#            size = "m"
-#          ),
-#          downloadButton(ns("downloadrds"), "Download analyzed file"),
-          textOutput(ns('uploadh5'))
+          #          actionButton(ns("prepare_download"), "ファイルを準備する"),
+          #          modalDialog(
+          #            id = ns("modal_download_ready"),
+          #            title = "ダウンロード準備完了",
+          #            "ファイルの準備が完了しました。以下のリンクからダウンロードしてください。",
+          #            downloadButton(ns("downloadrds"), "Download analyzed file"),
+          #            easyClose = TRUE,
+          #            size = "m"
+          #          ),
+          #          downloadButton(ns("downloadrds"), "Download analyzed file"),
+          textOutput(ns("uploadh5"))
         ),
-        column(6,
-        ),
+        column(6, ),
       ),
     )
   )
@@ -60,27 +60,32 @@ uploadServer <- function(id, myReactives) {
         tcr_table <- csv_to_tcr_dataframe(tcr_path)
         metadata_df <- make_metadata_df(tcr_path)
         myReactives$seurat_object@misc$meta_data <- metadata_df
-        myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, tcr_table, by = c('barcode' = 'TCR_pair_barcode'))
+        myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, tcr_table, by = c("barcode" = "TCR_pair_barcode"))
         myReactives$seurat_object@meta.data <- myReactives$seurat_object@meta.data %>% mutate(TCR_expand = case_when(
           is.na(TCR_expand) ~ "0",
           TRUE ~ as.character(TCR_expand)
         ))
-        if (is.null(bcr_path)) {
-          myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, metadata_df, by = 'sample')
-        }
+        #        if (is.null(bcr_path)) {
+        #          myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, metadata_df, by = 'sample')
+        #        }
       }
       if (!is.null(bcr_path) & !is.null(myReactives$seurat_object)) {
         bcr_table <- csv_to_bcr_dataframe(bcr_path)
         metadata_df <- make_metadata_df(bcr_path)
-        myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, bcr_table, by = c('barcode' = 'BCR_pair_barcode'))
+        myReactives$seurat_object@misc$meta_data <- metadata_df
+        myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, bcr_table, by = c("barcode" = "BCR_pair_barcode"))
         myReactives$seurat_object@meta.data <- myReactives$seurat_object@meta.data %>% mutate(BCR_expand = case_when(
           is.na(BCR_expand) ~ "0",
           TRUE ~ as.character(BCR_expand)
         ))
-        myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, metadata_df, by = 'sample')
+        #        myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, metadata_df, by = 'sample')
       }
-      rownames(myReactives$seurat_object@meta.data) <- myReactives$seurat_object@meta.data$'barcode'
-      write.csv(myReactives$seurat_object@meta.data, 'metadata.csv')
+
+      if (!is.null(myReactives$seurat_object@misc$meta_data)) {
+        myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, myReactives$seurat_object@misc$meta_data, by = "sample")
+      }
+      rownames(myReactives$seurat_object@meta.data) <- myReactives$seurat_object@meta.data$"barcode"
+      write.csv(myReactives$seurat_object@meta.data, "metadata.csv")
     })
   })
 }
@@ -124,17 +129,17 @@ uploadServer <- function(id, myReactives) {
 #       }
 #     })
 #    observeEvent(input$prepare_download, {
-      # モーダルダイアログを表示する
+# モーダルダイアログを表示する
 #      showModal(modalDialog(
 #        title = "処理中",
 #        "ボタンが押されました。ファイルの準備中です。しばらくお待ちください。",
 #        footer = NULL
 #      ))
-      # ここでファイルの準備処理を行う
-      # 例: データのロードや加工など
-      # この処理が終わったら、ダウンロード準備完了のモーダルを表示
+# ここでファイルの準備処理を行う
+# 例: データのロードや加工など
+# この処理が終わったら、ダウンロード準備完了のモーダルを表示
 #      Sys.sleep(5) # 仮の処理時間
-      # ダウンロード準備完了のモーダルを表示
+# ダウンロード準備完了のモーダルを表示
 #      removeModal()
 #      showModal(modalDialog(
 #        title = "ダウンロード準備完了",
@@ -153,7 +158,7 @@ uploadServer <- function(id, myReactives) {
 #    }
 #  )
 #  })
-#}
+# }
 
 # uploadCellranger_mainServer <- function(id) {
 #   moduleServer(id, function(input, output, session) {
@@ -179,7 +184,7 @@ uploadServer <- function(id, myReactives) {
 # #          group_by(sample) %>%
 # #          summarise("number of cell"=n())
 # #      )
-      
+
 #       # output$download_rds <- downloadHandler(
 #       #   filename = function() {"SCiR_data.rds"},
 #       #   content = function(file) {
@@ -188,37 +193,37 @@ uploadServer <- function(id, myReactives) {
 #       #     })
 #       #   }
 #       # )
-#       # 
+#       #
 #       # # To show download RData button
 #       # output$status <- renderText({ "end" })
 #       # outputOptions(output, "status", suspendWhenHidden = FALSE)
-      
+
 #     }) # close observeEvent
-    
-      
+
+
 #    dataList <- eventReactive(input$run, {
-      
+
 #      h5_path  <- input$h5$datapath
 #      tcr_path <- input$tcr$datapath
 #      bcr_path <- input$bcr$datapath
 
-      # h5
+# h5
 #       h5 <- Read10X_h5(h5_path)
 
 #       if (!is.null(names(h5)) & ("Gene Expression" %in% names(h5))) {
 #         # names(h5) are NULL OR c('Gene Expression','Antibody Capture')
 #         h5 <- h5[["Gene Expression"]]
 #       }
-      
+
 #       seurat_object <- CreateSeuratObject(h5)
 #       seurat_object@meta.data <- seurat_object@meta.data %>%
 #         mutate(barcode = rownames(.)) %>%
 #           mutate(sample = str_remove(barcode, "^.+-"))
 
 #       seurat_object <- NormalizeData(seurat_object)
-      
+
 #       seurat_object <- FindVariableFeatures(seurat_object, selection.method = "vst", nfeatures = 2000)
-      
+
 #       all.genes <- rownames(seurat_object)
 #       seurat_object <- ScaleData(seurat_object, features = all.genes)
 #       seurat_object <- RunPCA(seurat_object, features = VariableFeatures(object = seurat_object), npcs = 50)
@@ -255,7 +260,7 @@ uploadServer <- function(id, myReactives) {
 # # #        seurat_object <- add_celltype(seurat_object)
 # #         incProgress(1/9)
 # #       }) # close withProgress
-      
+
 #       # tcr
 #       # tcr_list: Extract rows of chain=='TRA/TRB' => remove duplicated barcode rows => join celltype in the seurat_object meta.data
 #       user_metadata <- NULL
@@ -272,7 +277,7 @@ uploadServer <- function(id, myReactives) {
 #           incProgress(3/4)
 #         }) # close withProgress
 #       }
-      
+
 #       # bcr
 #       bcr_list <- NULL
 #       if (!is.null(bcr_path)) {
@@ -287,7 +292,7 @@ uploadServer <- function(id, myReactives) {
 #           incProgress(3/4)
 #         }) # close withProgress
 #       }
-      
+
 #       # get colnames for group, and join user_metadata in TCR/BCR (by sample) to seurat_object@meta.data
 #       group_cols <- c("sample", "celltype")
 #       if (!is.null(user_metadata)) {
@@ -296,7 +301,7 @@ uploadServer <- function(id, myReactives) {
 #           left_join(user_metadata, by="sample")
 #         rownames(seurat_object@meta.data) <- seurat_object@meta.data$barcode
 #       }
-      
+
 #       # return -> dataList
 #       return(list(
 #         seurat_object = seurat_object,
@@ -304,10 +309,10 @@ uploadServer <- function(id, myReactives) {
 #         bcr_list = bcr_list,
 #         group_cols = group_cols
 #       ))
-    
+
 #     }) # close eventReactive
-    
+
 #     return(dataList)
-      
+
 #   }) # close moduleServer
 # }

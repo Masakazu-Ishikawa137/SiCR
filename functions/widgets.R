@@ -115,3 +115,11 @@ scientific_colorUI <- function(ns){
         "Material Design" = "scale_fill_material()"
     ))
 }
+
+methodUI <- function(ns){
+    radioButtons(ns("method"), "Calculate method", choices = c(
+        "Public" = "public",
+        "Jaccard" = "jaccard",
+        "Tversky" = "tversky"
+    ))
+}

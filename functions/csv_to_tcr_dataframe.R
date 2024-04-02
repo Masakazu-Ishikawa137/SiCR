@@ -37,6 +37,6 @@ csv_to_tcr_dataframe <- function(tcr_path){
             TCR_count_per_sample > 2 ~ ">2",
             TRUE ~ as.character(TCR_count_per_sample)
         ))
-    tcr_all %>% dplyr::select(-sample)
+    tcr_all <- tcr_all %>% dplyr::select(-sample)
     return(tcr_all)
 }

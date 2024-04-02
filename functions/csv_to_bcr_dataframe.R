@@ -39,6 +39,6 @@ csv_to_bcr_dataframe <- function(bcr_path){
             BCR_count_per_sample > 2 ~ ">2",
             TRUE ~ as.character(BCR_count_per_sample)
         ))
-    bcr_all %>% dplyr::select(-sample)
+    bcr_all <- bcr_all %>% dplyr::select(-sample)
     return(bcr_all)
 }
