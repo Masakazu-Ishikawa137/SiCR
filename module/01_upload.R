@@ -44,51 +44,122 @@ uploadUI <- function(id) {
 
 uploadServer <- function(id, myReactives) {
   moduleServer(id, function(input, output, session) {
+    # observeEvent(input$run, {
+    #   h5_path <- input$h5$datapath
+    #   tcr_path <- input$tcr$datapath
+    #   bcr_path <- input$bcr$datapath
+
+    #   if (is.null(h5_path)) {
+    #     h5_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000.h5"
+    #     tcr_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000_t.csv"
+    #     bcr_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000_b.csv"
+    #   }
+
+    #    fileのアップロード
     observeEvent(input$run, {
-      h5_path <- input$h5$datapath
-      tcr_path <- input$tcr$datapath
-      bcr_path <- input$bcr$datapath
+      myReactives <- fileUpload(input, myReactives)
 
-      if (is.null(h5_path)) {
-        h5_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000.h5"
-        tcr_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000_t.csv"
-        bcr_path <- "/user/ifrec/mishikawa/SiCR/example/230405_ruft_hcw_vaccine_merge_3000_b.csv"
-      }
-
-      myReactives$seurat_object <- h5_to_seurat_object(h5_path)
-      if (!is.null(tcr_path) & !is.null(myReactives$seurat_object)) {
-        tcr_table <- csv_to_tcr_dataframe(tcr_path)
-        metadata_df <- make_metadata_df(tcr_path)
+      myReactives$seurat_object <- h5_to_seurat_object(myReactives$h5_path)
+      if (!is.null(myReactives$tcr_path) & !is.null(myReactives$seurat_object)) {
+        tcr_table <- csv_to_tcr_dataframe(myReactives$tcr_path)
+        metadata_df <- make_metadata_df(myReactives$tcr_path)
         myReactives$seurat_object@misc$meta_data <- metadata_df
         myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, tcr_table, by = c("barcode" = "TCR_pair_barcode"))
         myReactives$seurat_object@meta.data <- myReactives$seurat_object@meta.data %>% mutate(TCR_expand = case_when(
           is.na(TCR_expand) ~ "0",
           TRUE ~ as.character(TCR_expand)
         ))
-        #        if (is.null(bcr_path)) {
-        #          myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, metadata_df, by = 'sample')
-        #        }
       }
-      if (!is.null(bcr_path) & !is.null(myReactives$seurat_object)) {
-        bcr_table <- csv_to_bcr_dataframe(bcr_path)
-        metadata_df <- make_metadata_df(bcr_path)
+      if (!is.null(myReactives$bcr_path) & !is.null(myReactives$seurat_object)) {
+        bcr_table <- csv_to_bcr_dataframe(myReactives$bcr_path)
+        metadata_df <- make_metadata_df(myReactives$bcr_path)
         myReactives$seurat_object@misc$meta_data <- metadata_df
         myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, bcr_table, by = c("barcode" = "BCR_pair_barcode"))
         myReactives$seurat_object@meta.data <- myReactives$seurat_object@meta.data %>% mutate(BCR_expand = case_when(
           is.na(BCR_expand) ~ "0",
           TRUE ~ as.character(BCR_expand)
         ))
-        #        myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, metadata_df, by = 'sample')
       }
-
       if (!is.null(myReactives$seurat_object@misc$meta_data)) {
         myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, myReactives$seurat_object@misc$meta_data, by = "sample")
       }
       rownames(myReactives$seurat_object@meta.data) <- myReactives$seurat_object@meta.data$"barcode"
-      write.csv(myReactives$seurat_object@meta.data, "metadata.csv")
     })
   })
 }
+
+#     observeEvent(myReactives$h5_path, {
+#       req(myReactives$h5_path)
+#       myReactives$seurat_object <- h5_to_seurat_object(myReactives$h5_path)
+#     })
+
+#     observeEvent(myReactives$tcr_path,{
+#       req(myReactives$tcr_path)
+#       req(myReactives$seurat_object)
+#       tcr_table <- csv_to_tcr_dataframe(myReactives$tcr_path)
+#       metadata_df <- make_metadata_df(myReactives$tcr_path)
+#       myReactives$seurat_object@misc$meta_data <- metadata_df
+#       myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, tcr_table, by = c("barcode" = "TCR_pair_barcode"))
+#       myReactives$seurat_object@meta.data <- myReactives$seurat_object@meta.data %>% mutate(TCR_expand = case_when(
+#         is.na(TCR_expand) ~ "0",
+#           TRUE ~ as.character(TCR_expand)
+#         ))
+#       myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, myReactives$seurat_object@misc$meta_data, by = "sample")
+#       rownames(myReactives$seurat_object@meta.data) <- myReactives$seurat_object@meta.data$"barcode"
+#     })
+
+#     observeEvent(myReactives$bcr_path,{
+#       req(myReactives$bcr_path)
+#       req(myReactives$seurat_object)
+#         bcr_table <- csv_to_bcr_dataframe(myReactives$bcr_path)
+#         metadata_df <- make_metadata_df(myReactives$bcr_path)
+#         myReactives$seurat_object@misc$meta_data <- metadata_df
+#         myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, bcr_table, by = c("barcode" = "BCR_pair_barcode"))
+#         myReactives$seurat_object@meta.data <- myReactives$seurat_object@meta.data %>% mutate(BCR_expand = case_when(
+#           is.na(BCR_expand) ~ "0",
+#           TRUE ~ as.character(BCR_expand)
+#         ))
+#     })
+#   })
+# }
+
+# observeEvent(myReactives)
+#       if (!is.null(myReactives$seurat_object@misc$meta_data)) {
+#     myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, myReactives$seurat_object@misc$meta_data, by = "sample")
+#   }
+#   rownames(myReactives$seurat_object@meta.data) <- myReactives$seurat_object@meta.data$"barcode"
+
+
+
+#       myReactives$seurat_object <- h5_to_seurat_object(myReactives$h5_path)
+#       if (!is.null(tcr_path) & !is.null(myReactives$seurat_object)) {
+#         tcr_table <- csv_to_tcr_dataframe(tcr_path)
+#         metadata_df <- make_metadata_df(tcr_path)
+#         myReactives$seurat_object@misc$meta_data <- metadata_df
+#         myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, tcr_table, by = c("barcode" = "TCR_pair_barcode"))
+#         myReactives$seurat_object@meta.data <- myReactives$seurat_object@meta.data %>% mutate(TCR_expand = case_when(
+#           is.na(TCR_expand) ~ "0",
+#           TRUE ~ as.character(TCR_expand)
+#         ))
+#         #        if (is.null(bcr_path)) {
+#         #          myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, metadata_df, by = 'sample')
+#         #        }
+#       }
+#       if (!is.null(bcr_path) & !is.null(myReactives$seurat_object)) {
+#         bcr_table <- csv_to_bcr_dataframe(bcr_path)
+#         metadata_df <- make_metadata_df(bcr_path)
+#         myReactives$seurat_object@misc$meta_data <- metadata_df
+#         myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, bcr_table, by = c("barcode" = "BCR_pair_barcode"))
+#         myReactives$seurat_object@meta.data <- myReactives$seurat_object@meta.data %>% mutate(BCR_expand = case_when(
+#           is.na(BCR_expand) ~ "0",
+#           TRUE ~ as.character(BCR_expand)
+#         ))
+#         #        myReactives$seurat_object@meta.data <- dplyr::left_join(myReactives$seurat_object@meta.data, metadata_df, by = 'sample')
+#       # }
+
+# #     })
+#   })
+# }
 
 # uploadServer <- function(id, myReactives){
 #   moduleServer(id, function(input, output, session){
