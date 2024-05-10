@@ -47,8 +47,63 @@ repertoire_overlap_tversky <- function(lst){
         }
     }
     return(df)
-
 }
+
+repertoire_overlap_morisita <- function(lst){
+    df <- data.frame()
+    for (i in names(lst)){
+        for (j in names(lst)){
+            if(i == j){
+                df[i, j] <- NA
+            }
+            else{
+                same <- length(intersect(lst[[i]], lst[[j]]))
+                factor_one_unique <- length(lst[[i]])
+                factor_two_unique <- length(lst[[j]])
+                df[i,j] <- 2 * same / (factor_one_unique + factor_two_unique)
+#                df[i,j] <- same/(same + (factor_one_unique - same + factor_two_unique - same)/2)
+            }
+        }
+    }
+    return(df)
+}
+
+#df[i,j] <- same/(same + (factor_one_unique - same + factor_two_unique - same)/2)
+
+# repertoire_overlap_morisita <- function(lst){
+#   df <- data.frame()
+#   for (i in names(lst)){
+#     for (j in names(lst)){
+#       if(i == j){
+#         df[i, j] <- NA
+#       }
+#       else{
+#         intersect_elements <- intersect(lst[[i]], lst[[j]])
+#         morisita_index <- 2 * sum(intersect_elements) / (sum(lst[[i]]) + sum(lst[[j]]))
+#         df[i,j] <- morisita_index
+#       }
+#     }
+#   }
+#   return(df)
+# }
+
+
+# repertoire_overlap_morisita <- function(lst){
+#   df <- data.frame()
+#   for (i in names(lst)){
+#     for (j in names(lst)){
+#       if(i == j){
+#         df[i, j] <- NA
+#       }
+#       else{
+#         same <- length(intersect(lst[[i]], lst[[j]]))
+#         total_elements <- sum(sapply(lst, length))
+#         df[i,j] <- same / (sum(lst[[i]]) / total_elements + sum(lst[[j]]) / total_elements)
+#       }
+#     }
+#   }
+#   return(df)
+# }
 
 calculate_clonotype_overlap <- function(myReactives, sample_col = "sample", tcr_col = "TCR_pair_CTaa", method = "public") {
     df <- myReactives$seurat_object@meta.data
@@ -75,5 +130,36 @@ calculate_clonotype_overlap <- function(myReactives, sample_col = "sample", tcr_
     }
     if (method == "tversky") {
         return(repertoire_overlap_tversky(unique_CDR3))
+    }
+}
+
+
+calculate_clonotype_overlap2 <- function(df, sample_col = "sample", tcr_col = "TCR_pair_CTaa", method = "public") {
+    # サンプル名のリストを取得
+    samples <- unique(df[[sample_col]])
+
+    # サンプルごとのユニークなTCR_pair_CTaaのリストを作成
+    unique_CDR3 <- list()
+    for (i in samples) {
+        # サンプルでフィルタリング
+        j <- df %>% dplyr::filter((!!sym(sample_col)) == i)
+
+        # ユニークなTCR_pair_CTaaを取得
+        unique_CDR3[[i]] <- unique(j[[tcr_col]][!is.na(j[[tcr_col]])])
+        #    unique_CDR3[[i]] <- unique(j[[tcr_col]])
+    }
+
+    names(unique_CDR3) <- samples
+    if (method == "public") {
+        return(repertoire_overlap_public(unique_CDR3))
+    }
+    if (method == "jaccard") {
+        return(repertoire_overlap_jaccard(unique_CDR3))
+    }
+    if (method == "tversky") {
+        return(repertoire_overlap_tversky(unique_CDR3))
+    }
+    if (method == "morisita") {
+        return(repertoire_overlap_morisita(unique_CDR3))
     }
 }

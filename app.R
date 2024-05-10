@@ -136,7 +136,7 @@ ui <- navbarPage(
       #     ),
       tabPanel(
         "Repertoire Overlap",
-        clonotype_overlapUI("TCR_clonotype_overlap")
+        clonotype_overlapUI("TCR_clonotype_overlap", chain = 'TCR')
       ),
       tabPanel(
         "Gene Usage",
@@ -205,7 +205,7 @@ server <- function(input, output, session) {
   # differential_gene_expressionServer("differential_gene_expression", myReactives)
   # volcano_plotServer("volcanoplot", myReactives)
   geneUsageServer("TCR_gene_usage", myReactives, chain = "TCR")
-  clonotype_overlapServer("TCR_clonotype_overlap", myReactives, tcr_col = "TCR_pair_CTaa")
+  clonotype_overlapServer("TCR_clonotype_overlap", myReactives, tcr_col = "TCR_pair_CTaa", chain = 'TCR')
   #  clonotype_overlapServer("BCR_clonotype_overlap", myReactives, tcr_col = 'BCR_pair_CTaa')
   #  clonotype_trackingServer('clonotype_tracking', myReactives)
   #   heatmapServer("heatmap", myReactives)

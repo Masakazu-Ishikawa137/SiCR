@@ -163,6 +163,12 @@ methodUI <- function(ns) {
     radioButtons(ns("method"), "Calculate method", choices = c(
         "Public" = "public",
         "Jaccard" = "jaccard",
-        "Tversky" = "tversky"
+        "Tversky" = "tversky",
+        "Morisita" = 'morisita'
     ))
+}
+
+
+clonotype_overlap_label <- function(ns){
+    checkboxInput(ns("clonotype_overlap_label"), "Show label", value = TRUE)
 }
