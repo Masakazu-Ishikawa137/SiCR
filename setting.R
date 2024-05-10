@@ -14,6 +14,7 @@ library(loupeR)
 library(DT)
 library(plotly)
 library(sortable)
+library(circlize)
 
 options(shiny.maxRequestSize=50*1024^2*1000)
 options(shiny.port = 8100)

@@ -11,8 +11,7 @@ featureplot <- function(myReactives, input, output, session){
                 myReactives$seurat_object, 
                 features = valid_genes, 
                 reduction = input$reduction,
-                pt.size = input$point_size,
-                ncol = input$ncol,
+                pt.size = input$point_size
             ) + theme(legend.position = input$legend)
         } else {
             # Notify the user if no valid genes exist
