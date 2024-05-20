@@ -6,6 +6,8 @@ RelativeAbundanceUI <- function(id, chain = "TCR") {
             clonotype_selectionUI(ns),
             group_byUI(ns),
             focus_groupUI(ns),
+            abundance_methodUI(ns),
+            uiOutput(ns("index")),
             legend_placeUI(ns),
             plot_size_and_download_pdfUI(ns),
             downloadButton(ns("downloadTable"), "Download table as CSV"),
@@ -20,7 +22,20 @@ RelativeAbundanceUI <- function(id, chain = "TCR") {
 
 RelativeAbundanceServer <- function(id, myReactives, chain = "TCR") {
     moduleServer(id, function(input, output, session) {
-        # update group_by
+        gene_column <- reactive({
+            paste0(chain, "_", input$chain, "_", input$clonotype)
+        })
+
+        output$index <- renderUI({
+            if (input$abundance_method == "Group") {
+                relative_abundance_group(session$ns)
+            } else if (input$abundance_method == "Indices") {
+                relative_abundance_indices(session$ns)
+            } else if (input$abundance_method == "Count") {
+                relative_abundance_count(session$ns)
+            }
+        })
+
         observeEvent(myReactives$seurat_object, {
             req(myReactives$seurat_object)
             update_group_by(session, myReactives)
@@ -36,40 +51,63 @@ RelativeAbundanceServer <- function(id, myReactives, chain = "TCR") {
             updateCheckboxGroupInput(session, "focus_group", choices = myReactives$new_choices, selected = myReactives$new_choices)
         })
 
-        gene_column <- reactive({
-            paste0(chain, "_", input$chain, "_", input$clonotype)
-        })
-
-
-        input_lists <- reactive({
-            list(input$chain, input$clonotype, input$group_by, input$focus_group)
-        })
-
-
-        observeEvent(input_lists(), {
+        df <- reactive({
             req(myReactives$seurat_object)
-
-            gene_column <- paste0(chain, "_", input$chain, "_", input$clonotype)
-
-            df <- myReactives$seurat_object@meta.data %>%
+            df <- myReactives$seurat_object@meta.data
+            df <- df %>%
                 dplyr::filter(.data[[input$group_by]] %in% input$focus_group) %>%
-                select(input$group_by, gene_column) %>%
+                select(input$group_by, !!gene_column()) %>%
                 na.omit()
 
-            table <- as.data.frame(t(table(df[[input$group_by]], df[[gene_column]]) %>% prop.table(., 1)))
-            names(table) <- c(gene_column, input$group_by, "Freq")
-            table <- table %>% mutate(Relative_abundance = case_when(
-                Freq <= 1e-03 ~ "Small",
-                Freq > 1e-03 & Freq <= 0.01 ~ "Medium",
-                Freq > 0.01 & Freq <= 0.1 ~ "Large",
-                Freq > 0.1 ~ "Hyperexpanded",
-            ))
-            # df[[input$group_by]] <- as.character(df[[input$group_by]])
-            # df[[gene_column]] <- as.character(df[[gene_column]])
-            # table[[input$group_by]] <- as.character(table[[input$group_by]])
-            # table[[gene_column]] <- as.character(table[[gene_column]])
-            myReactives$relative_abundance_df <- dplyr::left_join(df, table, by = c(input$group_by, gene_column))
-            myReactives$relative_abundance_plot <- myReactives$relative_abundance_df %>% ggplot(aes(x = !!sym(input$group_by), fill = Relative_abundance)) +
+            df <- df %>%
+                group_by(.data[[input$group_by]], .data[[!!gene_column()]]) %>%
+                summarize(count = n()) %>%
+                mutate(proportion = count / sum(count))
+
+            df <- df %>% ungroup()
+
+            df <- df %>%
+                group_by(.data[[input$group_by]]) %>%
+                mutate(rank = rank(-count, ties.method = "min"))
+
+            if (input$abundance_method == "Group") {
+                df <- df %>%
+                    mutate(Relative_abundance = case_when(
+                        proportion <= input$relative_abundance_group_rare ~ "Rare",
+                        proportion > input$relative_abundance_group_rare & proportion <= input$relative_abundance_group_small ~ "Small",
+                        proportion > input$relative_abundance_group_small & proportion <= input$relative_abundance_group_medium ~ "Medium",
+                        proportion > input$relative_abundance_group_medium & proportion <= input$relative_abundance_group_large ~ "Large",
+                        proportion > input$relative_abundance_group_large & proportion <= input$relative_abundance_group_hyper ~ "Hyper expanded"
+                    ))
+            } else if (input$abundance_method == "Count") {
+                df <- df %>%
+                    mutate(Relative_abundance = case_when(
+                        count <= input$relative_abundance_count_rare ~ "Rare",
+                        count > input$relative_abundance_count_rare & count <= input$relative_abundance_count_small ~ "Small",
+                        count > input$relative_abundance_count_small & count <= input$relative_abundance_count_medium ~ "Medium",
+                        count > input$relative_abundance_count_medium & count <= input$relative_abundance_count_large ~ "Large",
+                        count > input$relative_abundance_count_large & count <= input$relative_abundance_count_hyper ~ "Hyper expanded"
+                    ))
+            } else if (input$abundance_method == "Indices") {
+                df <- df %>%
+                    mutate(Relative_abundance = case_when(
+                        rank <= input$relative_abundance_indices_hyper ~ "Hyper expanded",
+                        rank > input$relative_abundance_indices_hyper & rank <= input$relative_abundance_indices_large ~ "Large",
+                        rank > input$relative_abundance_indices_large & rank <= input$relative_abundance_indices_medium ~ "Medium",
+                        rank > input$relative_abundance_indices_medium & rank <= input$relative_abundance_indices_small ~ "Small",
+                        rank > input$relative_abundance_indices_small & rank <= input$relative_abundance_indices_rare ~ "Rare"
+                    ))
+            }
+            return(df)
+        })
+
+        plot <- reactive({
+            levels_order <- c("Hyper expanded", "Large", "Medium", "Small", "Rare")
+            df3 <- df()
+
+            # 順序を指定したfactorとして変換します
+            df3$Relative_abundance <- factor(df3$Relative_abundance, levels = levels_order)
+            df3 %>% ggplot(aes(x = !!sym(input$group_by), fill = Relative_abundance)) +
                 geom_bar(stat = "count", position = "fill") +
                 theme_classic() +
                 scale_y_continuous(expand = c(0, 0))
@@ -79,7 +117,8 @@ RelativeAbundanceServer <- function(id, myReactives, chain = "TCR") {
             output,
             "plot",
             reactive({
-                myReactives$relative_abundance_plot
+                plot()
+                #                myReactives$relative_abundance_plot
             }),
             reactive({
                 input$plot_width
@@ -89,45 +128,26 @@ RelativeAbundanceServer <- function(id, myReactives, chain = "TCR") {
             })
         )
 
+
+
         output$table <- renderDT({
-            myReactives$relative_abundance_df
+            df()
         })
+
+
 
         output$downloadTable <- downloadHandler(
             filename = function() {
                 paste(Sys.Date(), ".csv", sep = "")
             },
             content = function(file) {
-                write.csv(myReactives$relative_abundance_df, file, row.names = FALSE)
+                write.csv(df(), file, row.names = FALSE)
             }
         )
-
-        setupDownloadPlotHandler(output, input, reactive({
-            myReactives$relative_abundance_plot
-        }))
     })
 }
 
 
-# data <- read.csv('SiCR/metadata.csv')
-# data <- data %>% select(sample, TCR_TRB_raw_clonotype_id) %>% na.omit()
-# sample <- 'sample'
-# clonotype <- 'TCR_TRB_raw_clonotype_id'
-# table <- as.data.frame(t(table(data[[sample]], data[[clonotype]]) %>% prop.table(., 1)))
-# names(table) <- c(clonotype, sample, 'Freq')
-# table <- table %>% mutate(Relative_abundance = case_when(
-#     Freq <= 1e-03 ~ 'Small',
-#     Freq > 1e-03 & Freq <= 0.01 ~ 'Medium',
-#     Freq > 0.01 & Freq <= 0.1 ~ 'Large',
-#     Freq > 0.1 ~ 'Hyperexpanded',
-# ))
-# data[[sample]] <- as.character(data[[sample]])
-# data[[clonotype]] <- as.character(data[[clonotype]])
-# table[[sample]] <- as.character(table[[sample]])
-# table[[clonotype]] <- as.character(table[[clonotype]])
-# df <- dplyr::left_join(data, table, by = c(sample, clonotype))
 
-# df %>% ggplot(aes(x = sample, fill = Relative_abundance)) +
-# geom_bar(stat = "count", position = "fill") +
-# theme_classic() +
-# scale_y_continuous(expand = c(0, 0))
+# plot <- reactive({
+#     levels_order <- c("Hyper expanded", "Large", "Medium", "Small", "Rare")
