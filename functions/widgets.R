@@ -172,3 +172,38 @@ methodUI <- function(ns) {
 clonotype_overlap_label <- function(ns){
     checkboxInput(ns("clonotype_overlap_label"), "Show label", value = TRUE)
 }
+
+relative_abundance_group <- function(ns){
+    tagList(
+        numericInput(ns("relative_abundance_group_rare"), "Rare (default: 0.0001)", value = 0.0001, min = 0, max = 1, step = 0.0001),
+        numericInput(ns("relative_abundance_group_small"), "Small (default: 0.001)", value = 0.001, min = 0, max = 1, step = 0.0001),
+        numericInput(ns("relative_abundance_group_medium"), "Medium (default: 0.01)", value = 0.01, min = 0, max = 1, step = 0.0001),
+        numericInput(ns("relative_abundance_group_large"), "Large (default: 0.1)", value = 0.1, min = 0, max = 1, step = 0.0001),
+        numericInput(ns("relative_abundance_group_hyper"), "Hyper expanded (default: 1)", value = 1, min = 0, max = 1, step = 0.0001),
+    )
+}
+
+relative_abundance_indices <- function(ns){
+    tagList(
+        numericInput(ns("relative_abundance_indices_rare"), "Rare (default: 0.0001)", value = 10000, min = 0, max = 100000, step = 1),
+        numericInput(ns("relative_abundance_indices_small"), "Small (default: 0.001)", value = 1000, min = 0, max = 100000, step = 1),
+        numericInput(ns("relative_abundance_indices_medium"), "Medium (default: 0.01)", value = 100, min = 0, max = 100000, step = 1),
+        numericInput(ns("relative_abundance_indices_large"), "Large (default: 0.1)", value = 10, min = 0, max = 100000, step = 1),
+        numericInput(ns("relative_abundance_indices_hyper"), "Hyper expanded (default: 1)", value = 1, min = 0, max = 100000, step = 1),
+    )
+}
+
+relative_abundance_count <- function(ns){
+    tagList(    
+        numericInput(ns("relative_abundance_count_rare"), "Rare (default: 1)", value = 1, min = 0, max = 100000, step = 1),
+        numericInput(ns("relative_abundance_count_small"), "Small (default: 5)", value = 5, min = 0, max = 100000, step = 1),
+        numericInput(ns("relative_abundance_count_medium"), "Medium (default: 20)", value = 20, min = 0, max = 100000, step = 1),
+        numericInput(ns("relative_abundance_count_large"), "Large (default: 100)", value = 100, min = 0, max = 100000, step = 1),
+        numericInput(ns("relative_abundance_count_hyper"), "Hyper expanded (default: 500)", value = 500, min = 0, max = 100000, step = 1),
+    )
+}
+
+abundance_methodUI <- function(ns){
+    radioButtons(ns("abundance_method"), "Method", choices = c("Group", "Indices", "Count"), selected = "Group")
+}
+
